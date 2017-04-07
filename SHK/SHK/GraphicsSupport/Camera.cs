@@ -88,10 +88,5 @@ namespace SHK
                 return CameraWindowCollisionStatus.CollideBottom;
             return CameraWindowCollisionStatus.InsideWindow;
         }
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
     }
 }

@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
-using Windoes_Size_Project;
 
 namespace SHK
 {
@@ -13,15 +12,11 @@ namespace SHK
     /// </summary>
     public class Game1 : Game
     {
-<<<<<<< Updated upstream
-        static public GraphicsDeviceManager mGraphics;
-        static public SpriteBatch sSpriteBatch;
-        static public ContentManager sContent;
-=======
+
         #region Variaveis Globais
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
->>>>>>> Stashed changes
+        static public GraphicsDeviceManager mGraphics;
         public Song song;
         protected Random rnd = new Random();
         static public SpriteBatch sSpriteBatch;  // Drawing support
