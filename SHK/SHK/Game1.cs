@@ -77,6 +77,7 @@ namespace SHK
             {
                 case 1:
                     this.song = Content.Load<Song>("Songs//Metallica - Master Of Puppets");
+                    MediaPlayer.Volume = 0.1f;
                     MediaPlayer.Play(song);
                     break;
 
