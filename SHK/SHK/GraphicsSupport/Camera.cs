@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SHK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,7 +88,10 @@ namespace SHK
                 return CameraWindowCollisionStatus.CollideBottom;
             return CameraWindowCollisionStatus.InsideWindow;
         }
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
     }
 }
