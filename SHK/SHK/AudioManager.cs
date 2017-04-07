@@ -10,9 +10,9 @@ namespace SHK
 {
     public class AudioManager
     {
-        public Song song;
+        /*public Song song;
         protected Random rnd = new Random();
-        /*public Song PlayRandomSong()
+        public Song PlayRandomSong()
         {
             int randomSong = rnd.Next(1, 2); //min <= rnd < max
 

@@ -52,7 +52,8 @@ namespace SHK
             switch (randomSong)
             {
                 case 1:
-                    song = Content.Load<Song>("Songs//Metallica - Master Of Puppets");
+                    this.song = Content.Load<Song>("Songs//Metallica - Master Of Puppets");
+                    MediaPlayer.Play(song);
                     break;
 
                 case 2:
