@@ -30,10 +30,10 @@ namespace SHK
             Content.RootDirectory = "Content";
 
             // Create graphics device to access window size
-            Game1.mGraphics = new GraphicsDeviceManager(this);
+            //Game1.mGraphics = new GraphicsDeviceManager(this);
             // set prefer window size
-            Game1.mGraphics.PreferredBackBufferWidth = kWindowWidth;
-            Game1.mGraphics.PreferredBackBufferHeight = kWindowHeight;
+            //Game1.mGraphics.PreferredBackBufferWidth = kWindowWidth;
+            //Game1.mGraphics.PreferredBackBufferHeight = kWindowHeight;
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace SHK
             switch (randomSong)
             {
                 case 1:
-                    this.song = Content.Load<Song>("Songs//Metallica - Master Of Puppets");
+                    this.song = Content.Load<Song>("Metallica - Master Of Puppets");
                     MediaPlayer.Volume = 0.1f;
                     MediaPlayer.Play(song);
                     break;
