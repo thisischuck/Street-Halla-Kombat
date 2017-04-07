@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
-using Windoes_Size_Project;
 
 namespace SHK
 {
@@ -13,22 +12,11 @@ namespace SHK
     /// </summary>
     public class Game1 : Game
     {
-<<<<<<< Updated upstream
         static public GraphicsDeviceManager mGraphics;
         static public SpriteBatch sSpriteBatch;
         static public ContentManager sContent;
-=======
-        #region Variaveis Globais
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
->>>>>>> Stashed changes
         public Song song;
         protected Random rnd = new Random();
-        static public SpriteBatch sSpriteBatch;  // Drawing support
-        static public ContentManager sContent;   // Loading textures
-        static public GraphicsDeviceManager sGraphics; // Current display size
-        #endregion
-
         #region Tamanho da janela
         // Prefer window size
         // Convention: "k" to begin constant variable names
@@ -42,10 +30,10 @@ namespace SHK
             Content.RootDirectory = "Content";
 
             // Create graphics device to access window size
-            Game1.sGraphics = new GraphicsDeviceManager(this);
+            Game1.mGraphics = new GraphicsDeviceManager(this);
             // set prefer window size
-            Game1.sGraphics.PreferredBackBufferWidth = kWindowWidth;
-            Game1.sGraphics.PreferredBackBufferHeight = kWindowHeight;
+            Game1.mGraphics.PreferredBackBufferWidth = kWindowWidth;
+            Game1.mGraphics.PreferredBackBufferHeight = kWindowHeight;
         }
 
         /// <summary>
