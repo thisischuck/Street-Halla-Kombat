@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using System;
 
 namespace SHK
 {
@@ -11,6 +13,8 @@ namespace SHK
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public Song song;
+        protected Random rnd = new Random();
 
         public Game1()
         {
@@ -41,6 +45,18 @@ namespace SHK
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            int randomSong = rnd.Next(1, 2); //min <= rnd < max
+
+            switch (randomSong)
+            {
+                case 1:
+                    song = Content.Load<Song>("Songs//Metallica - Master Of Puppets");
+                    break;
+
+                case 2:
+                    break;
+            }
+
         }
 
         /// <summary>
