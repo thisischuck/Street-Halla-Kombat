@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Windoes_Size_Project
+namespace SHK
 {
     public class Camera
     {
@@ -33,7 +33,7 @@ namespace Windoes_Size_Project
         static private float cameraWindowToPixelRatio()
         {
             if (sRatio < 0f)
-                sRatio = (float)Game1.sGraphics.PreferredBackBufferWidth / sWidth;
+                sRatio = (float)Game1.mGraphics.PreferredBackBufferWidth / sWidth;
             return sRatio;
         }
 
@@ -51,7 +51,7 @@ namespace Windoes_Size_Project
             x = (int)(((cameraPosition.X - sOrigin.X) * ratio) + 0.5f);
             y = (int)(((cameraPosition.Y - sOrigin.Y) * ratio) + 0.5f);
 
-            y = Game1.sGraphics.PreferredBackBufferHeight - y;
+            y = Game1.mGraphics.PreferredBackBufferHeight - y;
         }
 
         static public Rectangle ComputePixelRectangle(Vector2 position, Vector2 size)
@@ -86,18 +86,6 @@ namespace Windoes_Size_Project
             if (prim.MinBound.Y < min.Y)
                 return CameraWindowCollisionStatus.CollideBottom;
             return CameraWindowCollisionStatus.InsideWindow;
-        }
-
-
-        static public Vector2 RandomPosition()
-        {
-            Vector2 position;
-            float posX = (float)Game1.sRan.NextDouble() * Camera.sWidth * 0.80f
-            + Camera.sWidth * 0.10f;
-            float posY = (float)Game1.sRan.NextDouble() * Camera.sHeight * 0.80f
-            + Camera.sHeight * 0.10f;
-            position = new Vector2(posX, posY);
-            return position;
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -11,14 +12,15 @@ namespace SHK
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        static public GraphicsDeviceManager mGraphics;
+        static public SpriteBatch sSpriteBatch;
+        static public ContentManager sContent;
         public Song song;
         protected Random rnd = new Random();
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            mGraphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -42,7 +44,7 @@ namespace SHK
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            sSpriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
             int randomSong = rnd.Next(1, 2); //min <= rnd < max
