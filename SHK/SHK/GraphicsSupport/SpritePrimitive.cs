@@ -139,7 +139,7 @@ namespace SHK
                             org,                // Image reference position
                             SpriteEffects.None, 0f);*/
 
-            Game1.sSpriteBatch.Draw(mImage, destRect, srcRect,Color.White, mRotateAngle,org,SpriteEffects.None, -1f);
+            Game1.sSpriteBatch.Draw(mImage, destRect, Color.White);
 
 
             if (null != mLabelString)

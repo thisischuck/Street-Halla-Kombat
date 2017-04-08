@@ -95,8 +95,8 @@ namespace SHK
             #endregion
 
 
-            //sAudio.PlaySoundEffectRandomPitch(PunchHit, 1f);  //teste
-            //sAudio.PlayRandomSong(listaMusicas);  //teste
+            sAudio.PlaySoundEffectRandomPitch(PunchHit, 1f);  //teste
+            sAudio.PlayRandomSong(listaMusicas);  //teste
 
             player1 = new Char("ryu", charP, charS,1,1,0);
             // Define camera window bounds
