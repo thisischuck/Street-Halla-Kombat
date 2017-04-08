@@ -18,11 +18,11 @@ namespace SHK
         static public GraphicsDeviceManager mGraphics;
         static public SpriteBatch sSpriteBatch;
         static public ContentManager sContent;
+        static public AudioManager sAudio;
         public Song song;
         public float songVolume = 0.2f;
         protected Random rnd = new Random();
         public List<Song> listaMusicas = new List<Song>();
-        public List<SoundEffect> soundEffects = new List<SoundEffect>();
 
 
 
@@ -32,16 +32,14 @@ namespace SHK
         const int kWindowHeight = 720;
         #endregion
 
-        public Song song;
-        protected Random rnd = new Random();
         Char player1;
         Vector2 charP = new Vector2(720, 360);
         Vector2 charS = new Vector2(100, 100);
 
         public Game1()
         {
-            
 
+            sAudio = new AudioManager();
             mGraphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Game1.sContent = Content;
@@ -76,7 +74,6 @@ namespace SHK
             sSpriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            MediaPlayer.Volume = songVolume;
 
             #region Carregar sons e efeitos
 
@@ -91,8 +88,14 @@ namespace SHK
             /*
             Carrega os efeitos sonoros  
             */
-
+            SoundEffect PunchHit = Content.Load<SoundEffect>("PunchHit");
+            SoundEffect PunchMiss = Content.Load<SoundEffect>("PunchMiss");
             #endregion
+
+
+            //sAudio.PlaySoundEffectRandomPitch(PunchHit, 1f);  //teste
+            //sAudio.PlayRandomSong(listaMusicas);  //teste
+
             player1 = new Char("ryu", charP, charS,1,1,0);
             // Define camera window bounds
             Camera.SetCameraWindow(new Vector2(10f, 20f), 100f);

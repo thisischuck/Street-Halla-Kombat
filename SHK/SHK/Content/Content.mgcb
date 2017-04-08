@@ -25,3 +25,15 @@
 /processorParam:Quality=Best
 /build:Motörhead - King of Kings (Triple H).mp3
 
+#begin PunchHit.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:PunchHit.mp3
+
+#begin PunchMiss.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:PunchMiss.mp3
+
