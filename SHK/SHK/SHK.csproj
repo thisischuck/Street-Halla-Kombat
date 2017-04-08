@@ -45,6 +45,7 @@
     <Compile Include="GraphicsSupport\Camera.cs" />
     <Compile Include="GraphicsSupport\FontSupport.cs" />
     <Compile Include="GraphicsSupport\GameObject.cs" />
+    <Compile Include="GraphicsSupport\ShowVector.cs" />
     <Compile Include="GraphicsSupport\SpritePrimitive.cs" />
     <Compile Include="GraphicsSupport\TexturedPrimitive.cs" />
     <Compile Include="InputWrapper.cs" />

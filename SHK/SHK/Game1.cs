@@ -14,6 +14,7 @@ namespace SHK
     /// </summary>
     public class Game1 : Game
     {
+        #region cenas que e preciso
         static public GraphicsDeviceManager mGraphics;
         static public SpriteBatch sSpriteBatch;
         static public ContentManager sContent;
@@ -25,15 +26,22 @@ namespace SHK
 
 
 
-        #region Tamanho da janela
         // Prefer window size
         // Convention: "k" to begin constant variable names
         const int kWindowWidth = 1280;
         const int kWindowHeight = 720;
-        #endregion 
+        #endregion
+
+        public Song song;
+        protected Random rnd = new Random();
+        Char player1;
+        Vector2 charP = new Vector2(720, 360);
+        Vector2 charS = new Vector2(100, 100);
 
         public Game1()
         {
+            
+
             mGraphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Game1.sContent = Content;
@@ -41,6 +49,8 @@ namespace SHK
             // set prefer window size
             Game1.mGraphics.PreferredBackBufferWidth = kWindowWidth;
             Game1.mGraphics.PreferredBackBufferHeight = kWindowHeight;
+
+            
         }
 
         /// <summary>
@@ -83,15 +93,9 @@ namespace SHK
             */
 
             #endregion
+            player1 = new Char("ryu", charP, charS,1,1,0);
             // Define camera window bounds
             Camera.SetCameraWindow(new Vector2(10f, 20f), 100f);
-
-            // Create the primitives
-            /*mGraphicsObjects = new TexturedPrimitive[kNumObjects];
-            mGraphicsObjects[0] = new TexturedPrimitive(
-                     "UWB-JPG", // Image file name
-                     new Vector2(15f, 25f), // Position to draw
-                     new Vector2(10f, 10f));*/
 
         }
 
@@ -114,6 +118,8 @@ namespace SHK
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            player1.Update();
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -126,8 +132,12 @@ namespace SHK
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            Game1.sSpriteBatch.Begin();
 
             // TODO: Add your drawing code here
+            player1.Draw();
+
+            Game1.sSpriteBatch.End();
 
             base.Draw(gameTime);
         }

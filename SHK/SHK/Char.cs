@@ -11,13 +11,10 @@ namespace SHK
 {
     class Char : SpritePrimitive
     {
-        Vector2 position;
-        Vector2 size;
 
-        public Char(string imageName,Vector2 cposition, Vector2 csize) : base(imageName,cposition,csize,0,0,0)
-        {  
-            this.position = cposition;
-            this.size = csize;
+        public Char(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding) : base(imageName,cposition,csize,row,col,padding)
+        {
+            //whoops
         }
 
         private enum CharState
@@ -35,6 +32,10 @@ namespace SHK
         }
         private CharState mCurrentCharState;
 
+        public override void Update()
+        {
+            base.Update();
+        }
 
         public override void Draw()
         {
@@ -83,18 +84,5 @@ namespace SHK
             }
 
         }//falta por as animaçoes
-
-        public struct Textures
-        {
-            public struct Nomal_Stance
-            {
-                public static List<Texture2D> Textures_array = new List<Texture2D>();
-            }
-        }
-
-        public static void LoadTextureFrame(ref List<Texture2D> list, Texture2D frame)
-        {
-
-        }
     }
 }

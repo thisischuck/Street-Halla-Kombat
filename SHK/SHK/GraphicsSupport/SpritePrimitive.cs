@@ -134,14 +134,15 @@ namespace SHK
             Game1.sSpriteBatch.Draw(mImage,
                             destRect,           // Area to be drawn in pixel space
                             srcRect,            // <<-- rect on the spriteSheet
-                            mTintColor,        // 
+                            mLabelColor,        // 
                             mRotateAngle,       // Angle to roate (clockwise)
                             org,                // Image reference position
                             SpriteEffects.None, 0f);
 
 
-            if (null != Label)
-                FontSupport.PrintStatusAt(mPosition, Label, LabelColor);
+
+            if (null != mLabelString)
+                FontSupport.PrintStatusAt(mPosition, mLabelString, mLabelColor);
         }
 
         #region override to support per-pixel collision
