@@ -9,11 +9,19 @@ namespace SHK
 {
     class Duel
     {
-        Char player1;
+        Character player1;
+        static Vector2 charP = new Vector2(100, 100);
+        static Vector2 charS = new Vector2(128f, 128f);
+        
 
         public Duel()
         {
+            player1 = new Character("ryu", charP, charS, 1, 1, 0);
+        }   
 
+        public void Draw()
+        {
+            player1.Draw();
         }
 
 

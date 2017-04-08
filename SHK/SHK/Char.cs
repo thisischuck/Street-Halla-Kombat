@@ -9,10 +9,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SHK
 {
-    class Char : SpritePrimitive
+    class Character : SpritePrimitive
     {
 
-        public Char(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding) : base(imageName,cposition,csize,row,col,padding)
+        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding) : base(imageName,cposition,csize,row,col,padding)
         {
             mCurrentCharState = CharState.idle;
         }
@@ -39,7 +39,7 @@ namespace SHK
 
         public override void Draw()
         {
-            base.Draw();
+            
 
             switch (mCurrentCharState)
             {
@@ -83,6 +83,8 @@ namespace SHK
 
                     break;
             }
+
+            base.Draw();
 
         }//falta por as animaçoes
     }

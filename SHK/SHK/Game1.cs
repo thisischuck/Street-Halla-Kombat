@@ -33,12 +33,11 @@ namespace SHK
         const int kWindowHeight = 720;
         #endregion
 
-        Char player1;
-        Vector2 charP = new Vector2(0f, 0f);
-        Vector2 charS = new Vector2(128f, 128f);
 
         SoundEffect PunchMiss;
         SoundEffect PunchHit;
+
+        Duel a = new Duel();
 
         public Game1()
         {
@@ -77,8 +76,10 @@ namespace SHK
             // Create a new SpriteBatch, which can be used to draw textures.
             sSpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
 
+
+            // TODO: use this.Content to load your game content here
+            this.Content.Load<Texture2D>("ryu");
             //
 
             #region Carregar sons e efeitos
@@ -86,23 +87,22 @@ namespace SHK
             /*
             Carrega as músicas para uma lista
             */
-            listaMusicas.Add(Content.Load<Song>("Metallica - Master Of Puppets"));
-            listaMusicas.Add(Content.Load<Song>("Motörhead - King of Kings (Triple H)"));
+            listaMusicas.Add(sContent.Load<Song>("Metallica - Master Of Puppets"));
+            listaMusicas.Add(sContent.Load<Song>("Motörhead - King of Kings (Triple H)"));
 
 
 
             /*
             Carrega os efeitos sonoros  
             */
-            PunchHit = Content.Load<SoundEffect>("PunchHit");
-            PunchMiss = Content.Load<SoundEffect>("PunchMiss");
+            PunchHit = sContent.Load<SoundEffect>("PunchHit");
+            PunchMiss = sContent.Load<SoundEffect>("PunchMiss");
             #endregion
 
 
-            sAudio.PlaySoundEffectRandomPitch(PunchHit, 1f);  //teste
+            /*sAudio.PlaySoundEffectRandomPitch(PunchHit, 1f);  //teste
             sAudio.PlayRandomSong(listaMusicas);  //teste
-
-            player1 = new Char("ryu", charP, charS,1,1,0);
+            */
             // Define camera window bounds
             Camera.SetCameraWindow(new Vector2(10f, 20f), 100f);
 
@@ -128,9 +128,6 @@ namespace SHK
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player1.Update();
-            
-
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -144,9 +141,9 @@ namespace SHK
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Game1.sSpriteBatch.Begin();
-                
+
+            a.Draw();
             // TODO: Add your drawing code here
-            player1.Draw();
 
             Game1.sSpriteBatch.End();
 

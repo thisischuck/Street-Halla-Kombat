@@ -116,7 +116,7 @@ namespace SHK
         public override void Draw()
         {
             // Defines where and size of the texture to show
-            Rectangle destRect = Camera.ComputePixelRectangle(mPosition, mSize);
+            Rectangle destRect = Camera.ComputePixelRectangle(mPosition , mSize);
 
             int imageTop = mCurrentRow * mSpriteImageWidth;
             int imageLeft = mCurrentColumn * mSpriteImageHeight;
@@ -139,7 +139,7 @@ namespace SHK
                             org,                // Image reference position
                             SpriteEffects.None, 0f);*/
 
-            Game1.sSpriteBatch.Draw(mImage, destRect, Color.White);
+            Game1.sSpriteBatch.Draw(mImage, destRect,srcRect, Color.White);
 
 
             if (null != mLabelString)
