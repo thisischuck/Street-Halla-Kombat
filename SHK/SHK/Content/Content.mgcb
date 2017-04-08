@@ -19,3 +19,9 @@
 /processorParam:Quality=Best
 /build:Metallica - Master Of Puppets.mp3
 
+#begin Motörhead - King of Kings (Triple H).mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Motörhead - King of Kings (Triple H).mp3
+

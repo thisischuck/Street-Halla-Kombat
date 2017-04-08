@@ -3,7 +3,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 using System;
+using System.Collections.Generic;
 
 namespace SHK
 {
@@ -16,7 +18,13 @@ namespace SHK
         static public SpriteBatch sSpriteBatch;
         static public ContentManager sContent;
         public Song song;
+        public float songVolume = 0.2f;
         protected Random rnd = new Random();
+        public List<Song> listaMusicas = new List<Song>();
+        public List<SoundEffect> soundEffects = new List<SoundEffect>();
+
+
+
         #region Tamanho da janela
         // Prefer window size
         // Convention: "k" to begin constant variable names
@@ -59,19 +67,21 @@ namespace SHK
             sSpriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            int randomSong = rnd.Next(1, 2); //min <= rnd < max
+            MediaPlayer.Volume = songVolume;
 
-            switch (randomSong)
-            {
-                case 1:
-                    this.song = Content.Load<Song>("Metallica - Master Of Puppets");
-                    MediaPlayer.Volume = 0.1f;
-                    MediaPlayer.Play(song);
-                    break;
+            /*
+            Carrega as músicas para uma lista
+            */
+            listaMusicas.Add(Content.Load<Song>("Metallica - Master Of Puppets"));
+            listaMusicas.Add(Content.Load<Song>("Motörhead - King of Kings (Triple H)"));
 
-                case 2:
-                    break;
-            }
+
+
+            /*
+            Carregas os efeitos sonoros  
+            */
+
+
             // Define camera window bounds
             Camera.SetCameraWindow(new Vector2(10f, 20f), 100f);
 

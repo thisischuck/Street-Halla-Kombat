@@ -10,18 +10,16 @@ namespace SHK
 {
     public class AudioManager
     {
-        /*public Song song;
+        public Song song;
         protected Random rnd = new Random();
-        public Song PlayRandomSong()
-        {
-            int randomSong = rnd.Next(1, 2); //min <= rnd < max
+        public float songVolume = 0.2f;
 
-            switch(randomSong)
-            {
-                case 1:
-                    song = 
-                    
-            }
-        }*/
+        public Song PlayRandomSong(List<Song> lista)
+        {
+            int randomSong = rnd.Next(1, 3); //min <= rnd < max
+            MediaPlayer.Volume = songVolume;
+            song = lista[randomSong];
+            return song;
+        }
     }
 }
