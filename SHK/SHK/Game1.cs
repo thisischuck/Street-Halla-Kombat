@@ -33,8 +33,8 @@ namespace SHK
         #endregion
 
         Char player1;
-        Vector2 charP = new Vector2(720, 360);
-        Vector2 charS = new Vector2(100, 100);
+        Vector2 charP = new Vector2(0f, 0f);
+        Vector2 charS = new Vector2(128f, 128f);
 
         public Game1()
         {
@@ -75,6 +75,8 @@ namespace SHK
 
             // TODO: use this.Content to load your game content here
 
+            //
+
             #region Carregar sons e efeitos
 
             /*
@@ -99,6 +101,7 @@ namespace SHK
             player1 = new Char("ryu", charP, charS,1,1,0);
             // Define camera window bounds
             Camera.SetCameraWindow(new Vector2(10f, 20f), 100f);
+
 
         }
 
@@ -136,7 +139,7 @@ namespace SHK
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Game1.sSpriteBatch.Begin();
-
+                
             // TODO: Add your drawing code here
             player1.Draw();
 

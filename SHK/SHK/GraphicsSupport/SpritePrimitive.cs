@@ -131,18 +131,20 @@ namespace SHK
                         mSpriteImageWidth, mSpriteImageHeight);
 
             // Draw the texture
-            Game1.sSpriteBatch.Draw(mImage,
+            /*Game1.sSpriteBatch.Draw(mImage,
                             destRect,           // Area to be drawn in pixel space
                             srcRect,            // <<-- rect on the spriteSheet
-                            mLabelColor,        // 
+                            Color.White,        // 
                             mRotateAngle,       // Angle to roate (clockwise)
                             org,                // Image reference position
-                            SpriteEffects.None, 0f);
+                            SpriteEffects.None, 0f);*/
 
+            Game1.sSpriteBatch.Draw(mImage, destRect, srcRect,Color.White, mRotateAngle,org,SpriteEffects.None, -1f);
 
 
             if (null != mLabelString)
                 FontSupport.PrintStatusAt(mPosition, mLabelString, mLabelColor);
+
         }
 
         #region override to support per-pixel collision

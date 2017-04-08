@@ -68,6 +68,10 @@ namespace SHK
 
         virtual public void Draw()
         {
+
+            Console.WriteLine("KILL ME");
+
+
             // Defines where and size of the texture to show
             Rectangle destRect = Camera.ComputePixelRectangle(mPosition, mSize);
             Game1.sSpriteBatch.Draw(mImage, destRect, Color.White);

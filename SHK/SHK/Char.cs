@@ -14,7 +14,7 @@ namespace SHK
 
         public Char(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding) : base(imageName,cposition,csize,row,col,padding)
         {
-            //whoops
+            mCurrentCharState = CharState.idle;
         }
 
         private enum CharState
@@ -40,6 +40,7 @@ namespace SHK
         public override void Draw()
         {
             base.Draw();
+
             switch (mCurrentCharState)
             {
                 case CharState.idle:
