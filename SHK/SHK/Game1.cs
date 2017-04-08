@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace SHK
 {
@@ -35,6 +36,9 @@ namespace SHK
         Char player1;
         Vector2 charP = new Vector2(0f, 0f);
         Vector2 charS = new Vector2(128f, 128f);
+
+        SoundEffect PunchMiss;
+        SoundEffect PunchHit;
 
         public Game1()
         {
@@ -90,8 +94,8 @@ namespace SHK
             /*
             Carrega os efeitos sonoros  
             */
-            SoundEffect PunchHit = Content.Load<SoundEffect>("PunchHit");
-            SoundEffect PunchMiss = Content.Load<SoundEffect>("PunchMiss");
+            PunchHit = Content.Load<SoundEffect>("PunchHit");
+            PunchMiss = Content.Load<SoundEffect>("PunchMiss");
             #endregion
 
 
@@ -125,6 +129,7 @@ namespace SHK
                 Exit();
 
             player1.Update();
+            
 
             // TODO: Add your update logic here
 
