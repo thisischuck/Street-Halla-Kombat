@@ -28,6 +28,7 @@ namespace SHK
         {
             mGraphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Game1.sContent = Content;
 
             // Create graphics device to access window size
             //Game1.mGraphics = new GraphicsDeviceManager(this);
@@ -64,14 +65,15 @@ namespace SHK
             switch (randomSong)
             {
                 case 1:
-                    this.song = Content.Load<Song>("Metallica - Master Of Puppets");
+                    this.song = sContent.Load<Song>("Metallica - Master Of Puppets");
                     MediaPlayer.Volume = 0.1f;
-                    MediaPlayer.Play(song);
+                    //MediaPlayer.Play(song);
                     break;
 
                 case 2:
                     break;
             }
+
             // Define camera window bounds
             Camera.SetCameraWindow(new Vector2(10f, 20f), 100f);
 

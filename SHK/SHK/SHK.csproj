@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Char.cs" />
     <Compile Include="AudioManager.cs" />
+    <Compile Include="Duel.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GraphicsSupport\Camera.cs" />
     <Compile Include="GraphicsSupport\FontSupport\FontSupport.cs" />
@@ -56,6 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ryu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
