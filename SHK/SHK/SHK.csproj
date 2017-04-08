@@ -43,8 +43,10 @@
     <Compile Include="Duel.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GraphicsSupport\Camera.cs" />
-    <Compile Include="GraphicsSupport\FontSupport\FontSupport.cs" />
-    <Compile Include="GraphicsSupport\TexturedPrimitive\TexturedPrimitive.cs" />
+    <Compile Include="GraphicsSupport\FontSupport.cs" />
+    <Compile Include="GraphicsSupport\GameObject.cs" />
+    <Compile Include="GraphicsSupport\SpritePrimitive.cs" />
+    <Compile Include="GraphicsSupport\TexturedPrimitive.cs" />
     <Compile Include="InputWrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

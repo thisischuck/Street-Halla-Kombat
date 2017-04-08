@@ -30,11 +30,9 @@ namespace SHK
             Content.RootDirectory = "Content";
             Game1.sContent = Content;
 
-            // Create graphics device to access window size
-            //Game1.mGraphics = new GraphicsDeviceManager(this);
             // set prefer window size
-            //Game1.mGraphics.PreferredBackBufferWidth = kWindowWidth;
-            //Game1.mGraphics.PreferredBackBufferHeight = kWindowHeight;
+            Game1.mGraphics.PreferredBackBufferWidth = kWindowWidth;
+            Game1.mGraphics.PreferredBackBufferHeight = kWindowHeight;
         }
 
         /// <summary>
