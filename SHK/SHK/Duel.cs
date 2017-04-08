@@ -16,7 +16,7 @@ namespace SHK
 
         public Duel()
         {
-            player1 = new Character("ryu", charP, charS, 1, 1, 0);
+            player1 = new Character(new Vector2(50,50),"ryu", charP, charS, 1, 1, 0);
         }   
 
         public void Draw()
