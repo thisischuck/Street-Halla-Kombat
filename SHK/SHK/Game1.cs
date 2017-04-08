@@ -68,6 +68,8 @@ namespace SHK
             // TODO: use this.Content to load your game content here
             MediaPlayer.Volume = songVolume;
 
+            #region Carregar sons e efeitos
+
             /*
             Carrega as músicas para uma lista
             */
@@ -77,10 +79,10 @@ namespace SHK
 
 
             /*
-            Carregas os efeitos sonoros  
+            Carrega os efeitos sonoros  
             */
 
-
+            #endregion
             // Define camera window bounds
             Camera.SetCameraWindow(new Vector2(10f, 20f), 100f);
 
