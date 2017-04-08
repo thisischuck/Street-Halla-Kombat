@@ -40,10 +40,14 @@
   <ItemGroup>
     <Compile Include="Char.cs" />
     <Compile Include="AudioManager.cs" />
+    <Compile Include="Duel.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GraphicsSupport\Camera.cs" />
-    <Compile Include="GraphicsSupport\FontSupport\FontSupport.cs" />
-    <Compile Include="GraphicsSupport\TexturedPrimitive\TexturedPrimitive.cs" />
+    <Compile Include="GraphicsSupport\FontSupport.cs" />
+    <Compile Include="GraphicsSupport\GameObject.cs" />
+    <Compile Include="GraphicsSupport\ShowVector.cs" />
+    <Compile Include="GraphicsSupport\SpritePrimitive.cs" />
+    <Compile Include="GraphicsSupport\TexturedPrimitive.cs" />
     <Compile Include="InputWrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,11 +60,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Songs\Metallica - Master Of Puppets.mp3" />
+    <Content Include="Content\ryu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\ryu2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Content.mgcb" />
+    <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\SFX\" />

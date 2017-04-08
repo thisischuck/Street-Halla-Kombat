@@ -34,10 +34,11 @@ namespace SHK
             mLabelString = label;
         }
 
-    public TexturedPrimitive(String imageName, Vector2 position, Vector2 size, String label = null)
+        public TexturedPrimitive(String imageName, Vector2 position, Vector2 size, String label = null)
         {
             InitPrimitive(imageName, position, size, label);
         }
+
         public TexturedPrimitive(String imageName, Vector2 position, Vector2 size)
         {
             mImage = Game1.sContent.Load<Texture2D>(imageName);
@@ -65,7 +66,7 @@ namespace SHK
             mRotateAngle += deltaAngleInRadian;
         }
 
-        public void Draw()
+        virtual public void Draw()
         {
             // Defines where and size of the texture to show
             Rectangle destRect = Camera.ComputePixelRectangle(mPosition, mSize);
@@ -79,5 +80,11 @@ namespace SHK
             float dist = v.Length();
             return (dist < ((mSize.X / 2f) + (otherPrim.mSize.X / 2f)));
         }
+
+
+        protected virtual int SpriteTopPixel { get { return 0; } }
+        protected virtual int SpriteLeftPixel { get { return 0; } }
+        protected virtual int SpriteImageWidth { get { return mImage.Width; } }
+        protected virtual int SpriteImageHeight { get { return mImage.Height; } }
     }
 }

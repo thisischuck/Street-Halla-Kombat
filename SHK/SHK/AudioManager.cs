@@ -5,23 +5,45 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace SHK
 {
     public class AudioManager
     {
-        /*public Song song;
+        public Song song;
         protected Random rnd = new Random();
-        public Song PlayRandomSong()
-        {
-            int randomSong = rnd.Next(1, 2); //min <= rnd < max
+        public float songVolume = 0.2f;
 
-            switch(randomSong)
-            {
-                case 1:
-                    song = 
-                    
-            }
-        }*/
+        public void PlayRandomSong(List<Song> lista)
+        {
+            int randomSong = rnd.Next(0, 2); //min <= rnd < max
+            MediaPlayer.Volume = songVolume;
+            song = lista[randomSong];
+            MediaPlayer.Play(song);
+        }
+
+        private float GiveSoundEffectRandomPitch()
+        {
+            float randomPitch = (float)(rnd.NextDouble() * (0.5 - (-0.5)) + ( -0.5)); //random.NextDouble() * (maximum - minimum) + minimum;
+            return randomPitch;
+        }
+
+        public void PlaySoundEffectRandomPitch(SoundEffect effect, float volume)
+        {
+            float pitch = GiveSoundEffectRandomPitch();
+            effect.Play(volume, pitch, 0f);
+        }
+
+        public void PlaySoundEffect(SoundEffect effect, float volume)
+        {
+            float pitch = 0.0f;
+            effect.Play(volume, pitch, 0f);
+        }
+
+        public AudioManager()
+        {
+
+        }
     }
 }

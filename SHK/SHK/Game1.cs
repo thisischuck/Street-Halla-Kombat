@@ -3,7 +3,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace SHK
 {
@@ -12,35 +15,43 @@ namespace SHK
     /// </summary>
     public class Game1 : Game
     {
-
-        #region Variaveis Globais
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        #region cenas que e preciso
         static public GraphicsDeviceManager mGraphics;
+        static public SpriteBatch sSpriteBatch;
+        static public ContentManager sContent;
+        static public AudioManager sAudio;
         public Song song;
+        public float songVolume = 0.2f;
         protected Random rnd = new Random();
-        static public SpriteBatch sSpriteBatch;  // Drawing support
-        static public ContentManager sContent;   // Loading textures
-        static public GraphicsDeviceManager sGraphics; // Current display size
-        #endregion
+        public List<Song> listaMusicas = new List<Song>();
 
-        #region Tamanho da janela
+
+
         // Prefer window size
         // Convention: "k" to begin constant variable names
         const int kWindowWidth = 1280;
         const int kWindowHeight = 720;
-        #endregion 
+        #endregion
+
+
+        SoundEffect PunchMiss;
+        SoundEffect PunchHit;
+
+        Duel a = new Duel();
 
         public Game1()
         {
+
+            sAudio = new AudioManager();
             mGraphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Game1.sContent = Content;
 
-            // Create graphics device to access window size
-            Game1.sGraphics = new GraphicsDeviceManager(this);
             // set prefer window size
-            Game1.sGraphics.PreferredBackBufferWidth = kWindowWidth;
-            Game1.sGraphics.PreferredBackBufferHeight = kWindowHeight;
+            Game1.mGraphics.PreferredBackBufferWidth = kWindowWidth;
+            Game1.mGraphics.PreferredBackBufferHeight = kWindowHeight;
+
+            
         }
 
         /// <summary>
@@ -65,29 +76,36 @@ namespace SHK
             // Create a new SpriteBatch, which can be used to draw textures.
             sSpriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+
             // TODO: use this.Content to load your game content here
-            int randomSong = rnd.Next(1, 2); //min <= rnd < max
+            this.Content.Load<Texture2D>("ryu");
+            //
 
-            switch (randomSong)
-            {
-                case 1:
-                    this.song = Content.Load<Song>("Songs//Metallica - Master Of Puppets");
-                    MediaPlayer.Volume = 0.1f;
-                    MediaPlayer.Play(song);
-                    break;
+            #region Carregar sons e efeitos
 
-                case 2:
-                    break;
-            }
+            /*
+            Carrega as músicas para uma lista
+            */
+            listaMusicas.Add(sContent.Load<Song>("Metallica - Master Of Puppets"));
+            listaMusicas.Add(sContent.Load<Song>("Motörhead - King of Kings (Triple H)"));
+
+
+
+            /*
+            Carrega os efeitos sonoros  
+            */
+            PunchHit = sContent.Load<SoundEffect>("PunchHit");
+            PunchMiss = sContent.Load<SoundEffect>("PunchMiss");
+            #endregion
+
+
+            /*sAudio.PlaySoundEffectRandomPitch(PunchHit, 1f);  //teste
+            sAudio.PlayRandomSong(listaMusicas);  //teste
+            */
             // Define camera window bounds
             Camera.SetCameraWindow(new Vector2(10f, 20f), 100f);
 
-            // Create the primitives
-            /*mGraphicsObjects = new TexturedPrimitive[kNumObjects];
-            mGraphicsObjects[0] = new TexturedPrimitive(
-                     "UWB-JPG", // Image file name
-                     new Vector2(15f, 25f), // Position to draw
-                     new Vector2(10f, 10f));*/
 
         }
 
@@ -122,8 +140,12 @@ namespace SHK
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            Game1.sSpriteBatch.Begin();
 
+            a.Draw();
             // TODO: Add your drawing code here
+
+            Game1.sSpriteBatch.End();
 
             base.Draw(gameTime);
         }
