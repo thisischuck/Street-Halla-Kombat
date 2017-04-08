@@ -65,7 +65,7 @@ namespace SHK
             mRotateAngle += deltaAngleInRadian;
         }
 
-        public void Draw()
+        virtual public void Draw()
         {
             // Defines where and size of the texture to show
             Rectangle destRect = Camera.ComputePixelRectangle(mPosition, mSize);

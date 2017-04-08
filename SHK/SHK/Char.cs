@@ -9,19 +9,80 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SHK
 {
-    class Char : TexturedPrimitive
+    class Char : SpritePrimitive
     {
-        //animation bools Not sure yet
-        bool attack = false;
-        bool jumping = false;
-        bool idle = false;
+        Vector2 position;
+        Vector2 size;
 
-        public Char() : base("ryu")
-        {
-            //ouch
+        public Char(string imageName,Vector2 cposition, Vector2 csize) : base(imageName,cposition,csize,0,0,0)
+        {  
+            this.position = cposition;
+            this.size = csize;
         }
 
-        /*public enum CharacterStance { Normal_Stance }
+        private enum CharState
+        {
+            idle,
+            dead,
+            air,
+            stunned,    
+            mKick,
+            mPunch,
+            lPunch,
+            lKick,
+            hPunch,
+            hKick
+        }
+        private CharState mCurrentCharState;
+
+
+        public override void Draw()
+        {
+            base.Draw();
+            switch (mCurrentCharState)
+            {
+                case CharState.idle:
+
+                    break;
+
+                case CharState.dead:
+
+                    break;
+
+                case CharState.air:
+
+                    break;
+
+                case CharState.stunned:
+
+                    break;
+
+                case CharState.mKick:
+
+                    break;
+
+                case CharState.lKick:
+
+                    break;
+
+                case CharState.hKick:
+
+                    break;
+
+                case CharState.mPunch:
+
+                    break;
+
+                case CharState.lPunch:
+
+                    break;
+
+                case CharState.hPunch:
+
+                    break;
+            }
+
+        }//falta por as animaçoes
 
         public struct Textures
         {
@@ -35,6 +96,5 @@ namespace SHK
         {
 
         }
-        */
     }
 }
