@@ -37,7 +37,7 @@ namespace SHK
         SoundEffect PunchMiss;
         SoundEffect PunchHit;
 
-        Duel a = new Duel();
+        Duel a;
 
         public Game1()
         {
@@ -76,11 +76,10 @@ namespace SHK
             // Create a new SpriteBatch, which can be used to draw textures.
             sSpriteBatch = new SpriteBatch(GraphicsDevice);
 
-
-
             // TODO: use this.Content to load your game content here
-            this.Content.Load<Texture2D>("ryu");
-            //
+
+            a = new Duel();
+            
 
             #region Carregar sons e efeitos
 

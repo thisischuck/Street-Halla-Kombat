@@ -38,7 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Char.cs" />
+    <Compile Include="Character.cs" />
     <Compile Include="AudioManager.cs" />
     <Compile Include="Duel.cs" />
     <Compile Include="Game1.cs" />

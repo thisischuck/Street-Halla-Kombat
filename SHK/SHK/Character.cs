@@ -16,10 +16,11 @@ namespace SHK
         Vector2 speed;
         bool hasJumped;
 
-        public Character(Vector2 newPosition, string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding) : base(imageName,cposition,csize,row,col,padding)
+        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding) : base(imageName,cposition,csize,row,col,padding)
         {
             mCurrentCharState = CharState.idle;
-            position = newPosition;
+            position = cposition;
+            hasJumped = false;
         }
 
         private enum CharState
@@ -35,6 +36,8 @@ namespace SHK
             hPunch,
             hKick
         }
+
+        private CharState mCurrentCharState;
 
         public void Update(GameTime gameTime)
         {
@@ -137,17 +140,18 @@ namespace SHK
                 velocity.Y = Speed;
         }
 
-        private CharState mCurrentCharState;
+     
 
         public override void Update()
         {
             base.Update();
         }
+
+
         public override void Draw()
         {
             
-
-            switch (mCurrentCharState)
+            /*switch (mCurrentCharState)
             {
                 case CharState.idle:
 
@@ -188,7 +192,7 @@ namespace SHK
                 case CharState.hPunch:
 
                     break;
-            }
+            }*/
 
             base.Draw();
 
