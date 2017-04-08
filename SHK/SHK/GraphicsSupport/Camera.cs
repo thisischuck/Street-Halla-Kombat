@@ -89,4 +89,4 @@ namespace SHK
             return CameraWindowCollisionStatus.InsideWindow;
         }
     }
-}
+}   

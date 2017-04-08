@@ -36,6 +36,7 @@ namespace SHK
         {
             mGraphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Game1.sContent = Content;
 
             // Create graphics device to access window size
             //Game1.mGraphics = new GraphicsDeviceManager(this);
