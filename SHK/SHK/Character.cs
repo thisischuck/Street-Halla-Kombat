@@ -16,7 +16,7 @@ namespace SHK
         Vector2 speed;
         bool hasJumped;
 
-        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding) : base(imageName,cposition,csize,row,col,padding)
+        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, SpriteEffects effect) : base(imageName,cposition,csize,row,col,padding, effect)
         {
             mCurrentCharState = CharState.idle;
             position = cposition;
@@ -41,7 +41,7 @@ namespace SHK
 
         public void Update(GameTime gameTime)
         {
-            position += velocity;
+            this.position += velocity;
 
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
@@ -55,9 +55,11 @@ namespace SHK
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && hasJumped == false)
             {
+                
                 position.Y -= 10f;
                 velocity.Y = -5f;
                 hasJumped = true;
+                mCurrentCharState = CharState.air;
             }
 
             if (hasJumped == true)

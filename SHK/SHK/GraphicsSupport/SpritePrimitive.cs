@@ -20,6 +20,8 @@ namespace SHK
         //     NumRow x NumColumn 
         // number of images: mPaddings between images
         private int mSpriteImageWidth, mSpriteImageHeight;
+
+        private SpriteEffects effect;
         // dimension of each image
 
         #region Per Animation setting
@@ -47,13 +49,13 @@ namespace SHK
         /// <param name="rowCounts">numRows in the sprite page</param>
         /// <param name="columnCount">numColumns in the sprite page</param>
         /// <param name="padding">num pixel paddings (if any) between images</param>
-        public SpritePrimitive(String image, Vector2 position, Vector2 size, int rowCounts, int columnCount, int padding) :
+        public SpritePrimitive(String image, Vector2 position, Vector2 size, int rowCounts, int columnCount, int padding, SpriteEffects a) :
             base(image, position, size)
         {
             mNumRow = rowCounts;
             mNumColumn = columnCount;
             mPaddings = padding;
-
+            effect = a;
             mSpriteImageWidth = mImage.Width / mNumRow;
             mSpriteImageHeight = mImage.Height / mNumColumn;
 
@@ -131,15 +133,15 @@ namespace SHK
                         mSpriteImageWidth, mSpriteImageHeight);
 
             // Draw the texture
-            /*Game1.sSpriteBatch.Draw(mImage,
+            Game1.sSpriteBatch.Draw(mImage,
                             destRect,           // Area to be drawn in pixel space
                             srcRect,            // <<-- rect on the spriteSheet
                             Color.White,        // 
                             mRotateAngle,       // Angle to roate (clockwise)
-                            org,                // Image reference position
-                            SpriteEffects.None, 0f);*/
+                            org,                // Image reference position,
+                            effect, 0f);            
 
-            Game1.sSpriteBatch.Draw(mImage, destRect,srcRect, Color.White);
+            //Game1.sSpriteBatch.Draw(mImage, destRect,srcRect, Color.White);
 
 
             if (null != mLabelString)

@@ -103,7 +103,7 @@ namespace SHK
             sAudio.PlayRandomSong(listaMusicas);  //teste
             */
             // Define camera window bounds
-            Camera.SetCameraWindow(new Vector2(10f, 20f), 100f);
+            Camera.SetCameraWindow(new Vector2(0, 0), kWindowWidth);
 
 
         }
@@ -128,7 +128,7 @@ namespace SHK
                 Exit();
 
             // TODO: Add your update logic here
-
+            a.Update();
             base.Update(gameTime);
         }
 
