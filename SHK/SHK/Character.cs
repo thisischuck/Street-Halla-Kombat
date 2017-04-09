@@ -85,7 +85,7 @@ namespace SHK
                 }
 
                 Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
-                //mVelocityDir = (Vector2.UnitX * valorX);              isto é inutil existir neste código
+                //mVelocityDir = (Vector2.UnitX * valorX);              esta variável é inutil existir neste código
 
                 if (mPosition.Y < 100)
                 {
@@ -94,7 +94,7 @@ namespace SHK
                 }
 
 
-                if (isGrounded) //para parar a caída mesmo se estiver a movimentar-se
+                if (isGrounded) //para parar a queda mesmo se estiver a movimentar-se
                 {
                     valorY = 0f;
                 }
