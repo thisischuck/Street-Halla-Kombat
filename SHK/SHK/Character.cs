@@ -14,6 +14,7 @@ namespace SHK
         Vector2 position;
         Vector2 velocity;
         float jumpSpeed;
+        float gravity;
         bool isGrounded;
         bool isAI;
 
@@ -26,7 +27,8 @@ namespace SHK
             isAI = ai;
 
             Speed = 10f;
-            jumpSpeed = 100f;
+            jumpSpeed = 50f;
+            gravity = 3f;
         }
 
         private enum CharState
@@ -58,7 +60,7 @@ namespace SHK
                 {
                     VelocityDirection = Vector2.UnitX * -1;
                 }
-                else
+                else if (isGrounded)
                 {
                     VelocityDirection = Vector2.Zero;
                     mCurrentCharState = CharState.idle;
@@ -73,8 +75,7 @@ namespace SHK
                 }
                 if(!isGrounded)
                 {
-                    float i = 0.05f;
-                    Velocity -= Vector2.UnitY * (jumpSpeed * i);
+                    Velocity -= Vector2.UnitY * gravity;
                 }
 
                 if (mPosition.Y < 100)
@@ -152,9 +153,9 @@ namespace SHK
                 velocity.X = Speed;
 
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                velocity.Y = -Speed;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
                 velocity.Y = Speed;
+            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                velocity.Y = -Speed;
         }
 
         public override void Draw()
