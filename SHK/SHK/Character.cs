@@ -13,6 +13,9 @@ namespace SHK
     {
         Vector2 position;
         Vector2 velocity;
+        float valorY;
+        float valorX;
+        float xSpeed;
         float jumpSpeed;
         float gravity;
         bool isGrounded;
@@ -26,6 +29,9 @@ namespace SHK
             isGrounded = true;
             isAI = ai;
 
+            valorX = 0f;
+            valorY = 0f;
+            xSpeed = 10f;
             Speed = 10f;
             jumpSpeed = 50f;
             gravity = 3f;
@@ -54,34 +60,43 @@ namespace SHK
                 Console.WriteLine(Velocity);
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                 {
-                    VelocityDirection = Vector2.UnitX;
+                    valorX = xSpeed;
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 {
-                    VelocityDirection = Vector2.UnitX * -1;
+                    valorX = -xSpeed;
                 }
                 else if (isGrounded)
                 {
-                    VelocityDirection = Vector2.Zero;
+                    valorX = 0f;
                     mCurrentCharState = CharState.idle;
                 }
                 
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Space) && isGrounded)
                 {
-                    Velocity += Vector2.UnitY * jumpSpeed;
+                    valorY = jumpSpeed;
                     isGrounded = false;
                     mCurrentCharState = CharState.air;
                 }
                 if(!isGrounded)
                 {
-                    Velocity -= Vector2.UnitY * gravity;
+                    valorY -= gravity;
                 }
+
+                Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
+                //mVelocityDir = (Vector2.UnitX * valorX);              isto é inutil existir neste código
 
                 if (mPosition.Y < 100)
                 {
                     mPosition.Y = 100;
                     isGrounded = true;
+                }
+
+
+                if (isGrounded) //para parar a caída mesmo se estiver a movimentar-se
+                {
+                    valorY = 0f;
                 }
             }
             base.Update();
