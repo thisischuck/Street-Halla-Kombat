@@ -13,14 +13,20 @@ namespace SHK
     {
         Vector2 position;
         Vector2 velocity;
-        Vector2 speed;
-        bool hasJumped;
+        float jumpSpeed;
+        bool isGrounded;
+        bool isAI;
 
-        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, SpriteEffects effect) : base(imageName,cposition,csize,row,col,padding, effect)
+
+        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, SpriteEffects effect, bool ai) : base(imageName,cposition,csize,row,col,padding, effect)
         {
             mCurrentCharState = CharState.idle;
             position = cposition;
-            hasJumped = false;
+            isGrounded = true;
+            isAI = ai;
+
+            Speed = 10f;
+            jumpSpeed = 100f;
         }
 
         private enum CharState
@@ -39,60 +45,69 @@ namespace SHK
 
         private CharState mCurrentCharState;
 
-        public void Update(GameTime gameTime)
+        public override void Update()
         {
-            this.position += velocity;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (!isAI)
             {
-                velocity.X = 3f;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                velocity.X = -3f;
-            }
-            else velocity.X = 0f;
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Space) && hasJumped == false)
-            {
+                Console.WriteLine(Velocity);
+                if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                {
+                    VelocityDirection = Vector2.UnitX;
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                {
+                    VelocityDirection = Vector2.UnitX * -1;
+                }
+                else
+                {
+                    VelocityDirection = Vector2.Zero;
+                    mCurrentCharState = CharState.idle;
+                }
                 
-                position.Y -= 10f;
-                velocity.Y = -5f;
-                hasJumped = true;
-                mCurrentCharState = CharState.air;
-            }
 
-            if (hasJumped == true)
+                if (Keyboard.GetState().IsKeyDown(Keys.Space) && isGrounded)
+                {
+                    Velocity += Vector2.UnitY * jumpSpeed;
+                    isGrounded = false;
+                    mCurrentCharState = CharState.air;
+                }
+                if(!isGrounded)
+                {
+                    float i = 0.05f;
+                    Velocity -= Vector2.UnitY * (jumpSpeed * i);
+                }
+
+                if (mPosition.Y < 100)
+                {
+                    mPosition.Y = 100;
+                    isGrounded = true;
+                }
+            }
+            base.Update();
+           
+            /*
+            if (!isAI)
             {
-                float i = 1;
-                velocity.Y += 0.15f * i; // aumenta o valor do float para cair mais rapido
+                Velocity = InputWrapper.ThumbSticks.Right;
+                mSpeed = 10f;
+                base.Update();
             }
 
-            if (position.Y + mImage.Height >= 450)
-            {
-                hasJumped = false;
-            }
+                        Move();
 
-            if (hasJumped == false)
-            {
-                velocity.Y = 0f;
-            }
-/*
-            Move();
+                        foreach(var sprite in char)
+                        {
+                            if (sprite == this)
+                                continue;
 
-            foreach(var sprite in char)
-            {
-                if (sprite == this)
-                    continue;
+                            if (this.velocity.X > 0 && this.IsTouchingLeft(sprite) || this.velocity.X < 0 && this.IsTouchingRight(sprite))
+                                this.velocity.X = 0;
+                            if (this.velocity.Y > 0 && this.IsTouchingTop(sprite) || this.velocity.Y < 0 && this.IsTouchingBottom(sprite))
+                                this.velocity.Y = 0;
+                        }
+                        position += velocity;
 
-                if (this.velocity.X > 0 && this.IsTouchingLeft(sprite) || this.velocity.X < 0 && this.IsTouchingRight(sprite))
-                    this.velocity.X = 0;
-                if (this.velocity.Y > 0 && this.IsTouchingTop(sprite) || this.velocity.Y < 0 && this.IsTouchingBottom(sprite))
-                    this.velocity.Y = 0;
-            }
-            position += velocity;
-
-            velocity = Vector2.Zero;*/
+                        velocity = Vector2.Zero;*/
         }
         
         #region Colisoes
@@ -141,14 +156,6 @@ namespace SHK
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
                 velocity.Y = Speed;
         }
-
-     
-
-        public override void Update()
-        {
-            base.Update();
-        }
-
 
         public override void Draw()
         {

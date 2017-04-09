@@ -26,9 +26,9 @@ namespace SHK
 
         public Duel()
         {
-            player1 = new Character("ryu", charP, charS, 1, 1, 0, SpriteEffects.None);
+            player1 = new Character("ryu", charP, charS, 1, 1, 0, SpriteEffects.None, false);
 
-            player2 = new Character("ryu", char2P, char2S, 1, 1, 0, SpriteEffects.FlipHorizontally);
+            player2 = new Character("ryu", char2P, char2S, 1, 1, 0, SpriteEffects.FlipHorizontally, true);
         }   
 
         public void Draw()
@@ -40,7 +40,8 @@ namespace SHK
 
         public void Update()
         {
-            Console.WriteLine(player2.RotateAngleInRadian);
+            player1.Update();
+            player2.Update();
         }
 
     }
