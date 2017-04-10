@@ -27,7 +27,6 @@ namespace SHK
         public void LoadContent(ContentManager content)
         {
             a = new Duel();
-
             foreach ( GUIElement element in main)
             {
                 element.LoadContent(content);

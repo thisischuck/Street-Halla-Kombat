@@ -38,6 +38,7 @@ namespace SHK
         SoundEffect PunchHit;
 
         MainMenu main = new MainMenu();
+        Duel a;
 
         public Game1()
         {
@@ -78,13 +79,12 @@ namespace SHK
 
             // TODO: use this.Content to load your game content here
 
+            /*
             #region Carregar menu
-            main.LoadContent(Content);
-
-            /*menu = new GUIElement("menu");
-             menu.CenterElement(kWindowHeight, kWindowWidth);*/
+            main.LoadContent(sContent);
             #endregion
-            
+            */
+            a = new Duel();
             #region Carregar sons e efeitos
 
             /*
@@ -120,7 +120,7 @@ namespace SHK
         {
             // TODO: Unload any non ContentManager content here
         }
-
+            
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -132,7 +132,9 @@ namespace SHK
                 Exit();
 
             // TODO: Add your update logic here
-            main.Update();
+            //main.Update();
+
+            a.Update();
             base.Update(gameTime);
         }
 
@@ -145,7 +147,8 @@ namespace SHK
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Game1.sSpriteBatch.Begin();
 
-            main.Draw(sSpriteBatch);
+            a.Draw();
+            //main.Draw(sSpriteBatch);
 
             Game1.sSpriteBatch.End();
             base.Draw(gameTime);

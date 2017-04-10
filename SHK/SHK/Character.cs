@@ -56,29 +56,14 @@ namespace SHK
 
         private CharState mCurrentCharState;
 
-       
+
 
         public override void Update()
         {
+            minuUpdate();
             if (!isAI)
             {
-                Console.WriteLine(mCurrentCharState) ;
-                if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                {
-                    valorX = xSpeed;
-                    mCurrentCharState = CharState.walkingFoward;
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                {
-                    valorX = -xSpeed;
-                    mCurrentCharState = CharState.walkingBackwards;
-                }
-                else
-                {
-                    valorX = 0f;
-                    mCurrentCharState = CharState.idle;
-                }
-                
+                Console.WriteLine(SpriteCurrentColumn);
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Space) && isGrounded)
                 {
@@ -86,7 +71,21 @@ namespace SHK
                     isGrounded = false;
                     mCurrentCharState = CharState.air;
                 }
-                if(!isGrounded)
+                else if (Keyboard.GetState().IsKeyDown(Keys.Right) )
+                {
+                    valorX = xSpeed;
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.Left) )
+                {
+                    valorX = -xSpeed;
+                }
+                else
+                {
+                    valorX = 0f;
+
+                }
+
+                if (!isGrounded)
                 {
                     valorY -= gravity;
                 }
@@ -96,7 +95,22 @@ namespace SHK
                     valorY = 0;
                     mPosition.Y = 100;
                     isGrounded = true;
-                    
+
+                }
+
+                if (valorY == 0 && valorX == 0 && isGrounded)
+                {
+                    mCurrentCharState = CharState.idle;
+                }
+
+
+                if(isGrounded && valorX > 0)
+                {
+                    mCurrentCharState = CharState.walkingFoward;
+                }
+                else if (isGrounded && valorX < 0)
+                {
+                    mCurrentCharState = CharState.walkingBackwards;
                 }
                 /* if (isGrounded) //para parar a queda mesmo se estiver a movimentar-se
                 {
@@ -105,26 +119,26 @@ namespace SHK
                 */
                 Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
                 //mVelocityDir = (Vector2.UnitX * valorX);              esta variável é inutil existir neste código
+
+                base.Update();
             }
-            base.Update();
-           
-            /*
-                        Move();
 
-                        foreach(var sprite in char)
-                        {
-                            if (sprite == this)
-                                continue;
-
-                            if (this.velocity.X > 0 && this.IsTouchingLeft(sprite) || this.velocity.X < 0 && this.IsTouchingRight(sprite))
-                                this.velocity.X = 0;
-                            if (this.velocity.Y > 0 && this.IsTouchingTop(sprite) || this.velocity.Y < 0 && this.IsTouchingBottom(sprite))
-                                this.velocity.Y = 0;
-                        }
-                        position += velocity;
-
-                        velocity = Vector2.Zero;*/
         }
+
+        public void minuUpdate()
+        {
+             if(mCurrentCharState == CharState.air)
+            {
+                SetSpriteAnimation(0, 3, 0, 3, 0);
+            }
+            else if(mCurrentCharState == CharState.walkingFoward)
+                    SetSpriteAnimation(0, 1, 0, 1, 0);
+            else if (mCurrentCharState == CharState.walkingBackwards)
+                SetSpriteAnimation(0, 2, 0, 2, 0);
+            else if (mCurrentCharState == CharState.idle)
+                SetSpriteAnimation(0, 0, 0, 0, 0);
+        }
+                       
         
         #region Colisoes
         /*protected bool IsTouchingLeft(Char character)
@@ -160,74 +174,27 @@ namespace SHK
         }*/
         #endregion
         
-        private void Move()
+        /*private void Move()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                velocity.X = -Speed;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                velocity.X = Speed;
+            foreach (var sprite in char)
+            {
+                if (sprite == this)
+                    continue;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                velocity.Y = Speed;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                velocity.Y = -Speed;
-        }
+                if (this.velocity.X > 0 && this.IsTouchingLeft(sprite) || this.velocity.X < 0 && this.IsTouchingRight(sprite))
+                    this.velocity.X = 0;
+                if (this.velocity.Y > 0 && this.IsTouchingTop(sprite) || this.velocity.Y < 0 && this.IsTouchingBottom(sprite))
+                    this.velocity.Y = 0;
+            }
+            position += velocity;
+
+            velocity = Vector2.Zero; }
+            */
 
         public override void Draw()
         {
-            switch (mCurrentCharState)
-            {
-                case CharState.idle:
-                    break;
-                    
-                case CharState.walkingFoward:
-                    this.SetSpriteAnimation(0, 0, 0, 1, 1);
-                    break;
-
-                case CharState.walkingBackwards:
-                    this.SetSpriteAnimation(0, 2, 0, 3, 1);
-                    break;
-
-                case CharState.dead:
-
-                    break;
-
-                case CharState.air:
-                    this.SetSpriteAnimation(0, 0, 0, 3, 1);
-
-                    break;
-
-                case CharState.stunned:
-
-                    break;
-
-                case CharState.mKick:
-
-                    break;
-
-                case CharState.lKick:
-
-                    break;
-
-                case CharState.hKick:
-
-                    break;
-
-                case CharState.mPunch:
-
-                    break;
-
-                case CharState.lPunch:
-
-                    break;
-
-                case CharState.hPunch:
-
-                    break;             
-            }
-
             base.Draw();
-        }//falta por as animaçoes
+        }
         
     }
 }
