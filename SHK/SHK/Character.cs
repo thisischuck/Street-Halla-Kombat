@@ -40,6 +40,8 @@ namespace SHK
         private enum CharState
         {
             idle,
+            walkingFoward,
+            walkingBackwards,
             dead,
             air,
             stunned,    
@@ -48,25 +50,30 @@ namespace SHK
             lPunch,
             lKick,
             hPunch,
-            hKick
+            hKick,
+            
         }
 
         private CharState mCurrentCharState;
+
+       
 
         public override void Update()
         {
             if (!isAI)
             {
-                Console.WriteLine(Velocity);
+                Console.WriteLine(mCurrentCharState) ;
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                 {
                     valorX = xSpeed;
+                    mCurrentCharState = CharState.walkingFoward;
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 {
                     valorX = -xSpeed;
+                    mCurrentCharState = CharState.walkingBackwards;
                 }
-                else if (isGrounded)
+                else
                 {
                     valorX = 0f;
                     mCurrentCharState = CharState.idle;
@@ -84,31 +91,24 @@ namespace SHK
                     valorY -= gravity;
                 }
 
-                Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
-                //mVelocityDir = (Vector2.UnitX * valorX);              esta variável é inutil existir neste código
-
                 if (mPosition.Y < 100)
                 {
+                    valorY = 0;
                     mPosition.Y = 100;
                     isGrounded = true;
+                    
                 }
-
-
-                if (isGrounded) //para parar a queda mesmo se estiver a movimentar-se
+                /* if (isGrounded) //para parar a queda mesmo se estiver a movimentar-se
                 {
                     valorY = 0f;
                 }
+                */
+                Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
+                //mVelocityDir = (Vector2.UnitX * valorX);              esta variável é inutil existir neste código
             }
             base.Update();
            
             /*
-            if (!isAI)
-            {
-                Velocity = InputWrapper.ThumbSticks.Right;
-                mSpeed = 10f;
-                base.Update();
-            }
-
                         Move();
 
                         foreach(var sprite in char)
@@ -175,11 +175,17 @@ namespace SHK
 
         public override void Draw()
         {
-            
-            /*switch (mCurrentCharState)
+            switch (mCurrentCharState)
             {
                 case CharState.idle:
+                    break;
+                    
+                case CharState.walkingFoward:
+                    this.SetSpriteAnimation(0, 0, 0, 1, 1);
+                    break;
 
+                case CharState.walkingBackwards:
+                    this.SetSpriteAnimation(0, 2, 0, 3, 1);
                     break;
 
                 case CharState.dead:
@@ -187,6 +193,7 @@ namespace SHK
                     break;
 
                 case CharState.air:
+                    this.SetSpriteAnimation(0, 0, 0, 3, 1);
 
                     break;
 
@@ -216,11 +223,11 @@ namespace SHK
 
                 case CharState.hPunch:
 
-                    break;
-            }*/
+                    break;             
+            }
 
             base.Draw();
-
         }//falta por as animaçoes
+        
     }
 }
