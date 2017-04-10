@@ -13,7 +13,7 @@ namespace SHK
         enum GameState { Menu, inGame, Paused }
         GameState gameState;
 
-        Duel a = new Duel();
+        Duel a;
 
         List<GUIElement> main = new List<GUIElement>();
 
@@ -26,7 +26,9 @@ namespace SHK
 
         public void LoadContent(ContentManager content)
         {
-            foreach( GUIElement element in main)
+            a = new Duel();
+
+            foreach ( GUIElement element in main)
             {
                 element.LoadContent(content);
                 element.CenterElement(Game1.mGraphics.PreferredBackBufferHeight, Game1.mGraphics.PreferredBackBufferWidth);
