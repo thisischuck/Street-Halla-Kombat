@@ -37,7 +37,7 @@ namespace SHK
         SoundEffect PunchMiss;
         SoundEffect PunchHit;
 
-        Duel a;
+        MainMenu main = new MainMenu();
 
         public Game1()
         {
@@ -78,9 +78,13 @@ namespace SHK
 
             // TODO: use this.Content to load your game content here
 
-            a = new Duel();
-            
+            #region Carregar menu
+            main.LoadContent(Content);
 
+            /*menu = new GUIElement("menu");
+             menu.CenterElement(kWindowHeight, kWindowWidth);*/
+            #endregion
+            
             #region Carregar sons e efeitos
 
             /*
@@ -128,7 +132,7 @@ namespace SHK
                 Exit();
 
             // TODO: Add your update logic here
-            a.Update();
+            main.Update();
             base.Update(gameTime);
         }
 
@@ -141,11 +145,9 @@ namespace SHK
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Game1.sSpriteBatch.Begin();
 
-            a.Draw();
-            // TODO: Add your drawing code here
+            main.Draw(sSpriteBatch);
 
             Game1.sSpriteBatch.End();
-
             base.Draw(gameTime);
         }
     }
