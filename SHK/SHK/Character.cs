@@ -60,10 +60,11 @@ namespace SHK
 
         public override void Update()
         {
-            minuUpdate();
+
             if (!isAI)
             {
-                Console.WriteLine(SpriteCurrentColumn);
+                minuUpdate();
+                Console.WriteLine(SpriteCurrentRow + " " + SpriteCurrentColumn + " " + McurrentTick);
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Space) && isGrounded)
                 {
@@ -120,23 +121,21 @@ namespace SHK
                 Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
                 //mVelocityDir = (Vector2.UnitX * valorX);              esta variável é inutil existir neste código
 
-                base.Update();
+                
             }
-
+            base.Update();
         }
 
         public void minuUpdate()
         {
-             if(mCurrentCharState == CharState.air)
-            {
-                SetSpriteAnimation(0, 3, 0, 3, 0);
-            }
+            if(mCurrentCharState == CharState.air)
+                SetSpriteAnimation(3, 0, 3, 1, 2);
             else if(mCurrentCharState == CharState.walkingFoward)
-                    SetSpriteAnimation(0, 1, 0, 1, 0);
+                SetSpriteAnimation(1, 0, 1, 1, 2);
             else if (mCurrentCharState == CharState.walkingBackwards)
-                SetSpriteAnimation(0, 2, 0, 2, 0);
+                SetSpriteAnimation(2, 0, 2, 1, 2);
             else if (mCurrentCharState == CharState.idle)
-                SetSpriteAnimation(0, 0, 0, 0, 0);
+                SetSpriteAnimation(0, 0, 0, 1, 2);
         }
                        
         

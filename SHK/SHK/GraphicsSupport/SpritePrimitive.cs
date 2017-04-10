@@ -38,7 +38,7 @@ namespace SHK
         private int mBeginCol, mEndCol;
         // does not check for Begin > End!!
         #endregion
-
+       
 
         /// <summary>
         /// Constructor:
@@ -77,6 +77,9 @@ namespace SHK
         public int SpriteEndColumn { get { return mEndCol; } set { mEndCol = value; } }
         public int SpriteAnimationTicks { get { return mUserSpecifedTicks; } set { mUserSpecifedTicks = value; } }
 
+        public int McurrentTick{ get { return mCurrentTick; }}
+
+
         public void SetSpriteAnimation(int beginRow, int beginCol, int endRow, int endCol, int tickInterval)
         {
             mUserSpecifedTicks = tickInterval;
@@ -91,7 +94,7 @@ namespace SHK
             mCurrentTick = 0;
         }
 
-        public override void Update()
+       public override void Update()
         {
             base.Update();
 
