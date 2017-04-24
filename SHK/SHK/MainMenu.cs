@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,10 @@ namespace SHK
 {
     class MainMenu
     {
-        enum GameState { Menu, inGame, Paused }
-        GameState gameState;
 
+        enum GameState { Menu, inGame, Paused }
+        GameState gameState;// ainda por verificar se ta direito
+        Game game = new Game();
         Duel a;
 
         List<GUIElement> main = new List<GUIElement>();
@@ -26,6 +28,7 @@ namespace SHK
 
         public void LoadContent(ContentManager content)
         {
+
             a = new Duel();
             foreach ( GUIElement element in main)
             {
@@ -84,7 +87,7 @@ namespace SHK
             }
             if( element == "exit")
             {
-                // exit the game
+               game.Exit();//verificar se ta direito
             }
         }
     }

@@ -39,6 +39,7 @@ namespace SHK
 
         MainMenu main = new MainMenu();
         Duel a;
+        HealthBar hp;
 
         public Game1()
         {
@@ -76,7 +77,6 @@ namespace SHK
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             sSpriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
 
             /*
@@ -85,6 +85,7 @@ namespace SHK
             #endregion
             */
             a = new Duel();
+            hp = new HealthBar(Content);
             #region Carregar sons e efeitos
 
             /*
@@ -133,7 +134,7 @@ namespace SHK
 
             // TODO: Add your update logic here
             //main.Update();
-
+            hp.Update();
             a.Update();
             base.Update(gameTime);
         }
@@ -147,6 +148,7 @@ namespace SHK
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Game1.sSpriteBatch.Begin();
 
+            hp.Draw(sSpriteBatch);
             a.Draw();
             //main.Draw(sSpriteBatch);
 
