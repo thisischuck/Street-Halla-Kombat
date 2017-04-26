@@ -142,7 +142,7 @@ namespace SHK
                             Color.White,        // 
                             mRotateAngle,       // Angle to roate (clockwise)
                             org,                // Image reference position,
-                            effect, 0f);            
+                            effect, 0f);          
 
             //Game1.sSpriteBatch.Draw(mImage, destRect,srcRect, Color.White);
 

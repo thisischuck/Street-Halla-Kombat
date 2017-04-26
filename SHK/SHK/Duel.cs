@@ -29,7 +29,7 @@ namespace SHK
             player1 = new Character("test1", charP, charS, 2, 4, 0, SpriteEffects.None, false);
 
 
-            player2 = new Character("ryu", char2P, char2S, 1, 1, 0, SpriteEffects.FlipHorizontally, true);
+            player2 = new Character("test1", char2P, charS, 2, 4, 0, SpriteEffects.None, true);
         }   
 
         public void Draw()

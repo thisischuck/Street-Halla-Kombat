@@ -1,0 +1,15 @@
+Med-Light-Heavy Punch
+Med-Light-Heavy Kick
+
+No Block
+
+6 - animaçoes;
+1 - salto;
+1 - Hit;
+1 - KO;
+
+
+
+
+6 Teclas - Keyboard + Comando
+
