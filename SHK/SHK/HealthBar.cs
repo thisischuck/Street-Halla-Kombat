@@ -35,8 +35,7 @@ namespace SHK
 
         public void Update()// mudar condiçao para quando o player é atacado
         {
-            rectangle.Width = lifebar.Width * (player.playerHealth / 100);
-            Console.WriteLine(rectangle.Width);
+            rectangle.Width = (int)((float)(lifebar.Width) * ((float)(player.playerHealth) / 100f));
         }
 
         public void Draw(SpriteBatch spriteBatch)
