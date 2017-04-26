@@ -20,15 +20,16 @@ namespace SHK
         private bool isGrounded;
         private bool isAI;
         private bool animationPlay;
+        private int playerNumber;
 
 
-        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, SpriteEffects effect, bool ai) : base(imageName,cposition,csize,row,col,padding, effect)
+        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, int player, SpriteEffects effect, bool ai) : base(imageName,cposition,csize,row,col,padding, effect)
         {
             mCurrentCharState = CharState.Idle;
             position = cposition;
             isGrounded = true;
             isAI = ai;
-
+            playerNumber = player;
             valorX = 0f;
             valorY = 0f;
             xSpeed = 10f;
@@ -65,70 +66,141 @@ namespace SHK
 
             if (!isAI)
             {
-                Console.WriteLine(animationPlay);
+                if (playerNumber == 1)
+                {
+                    Console.WriteLine(animationPlay);
 
 
-                #region Movement + Animation
+                    #region Movement + Animation
 
-                mPreviousCharState = mCurrentCharState;
+                    mPreviousCharState = mCurrentCharState;
 
-                if (Keyboard.GetState().IsKeyDown(Keys.Space) && isGrounded)
-                {
-                    valorY = jumpSpeed;
-                    isGrounded = false;
-                    mCurrentCharState = CharState.Air;
-                    animationPlay = false;
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                {
-                    valorX = xSpeed;
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                {
-                    valorX = -xSpeed;
-                }
-                else
-                {
-                    valorX = 0f;
-                }
-
-                if (!isGrounded)
-                {
-                    valorY -= gravity;
-                }
-
-                if (valorY == 0 && valorX == 0)
-                {
-                    mCurrentCharState = CharState.Idle;
-                    animationPlay = false;
-                }
-
-                if (isGrounded)
-                {
-                    if (valorX < 0)
+                    if (Keyboard.GetState().IsKeyDown(Keys.W) && isGrounded)
                     {
-                        mCurrentCharState = CharState.WalkingBackwards;
+                        valorY = jumpSpeed;
+                        isGrounded = false;
+                        mCurrentCharState = CharState.Air;
                         animationPlay = false;
                     }
-                    else if (valorX > 0)
+                    else if (Keyboard.GetState().IsKeyDown(Keys.D))
                     {
-                        mCurrentCharState = CharState.WalkingFoward;
+                        valorX = xSpeed;
+                    }
+                    else if (Keyboard.GetState().IsKeyDown(Keys.A))
+                    {
+                        valorX = -xSpeed;
+                    }
+                    else
+                    {
+                        valorX = 0f;
+                    }
+
+                    if (!isGrounded)
+                    {
+                        valorY -= gravity;
+                    }
+
+                    if (valorY == 0 && valorX == 0)
+                    {
+                        mCurrentCharState = CharState.Idle;
                         animationPlay = false;
                     }
+
+                    if (isGrounded)
+                    {
+                        if (valorX < 0)
+                        {
+                            mCurrentCharState = CharState.WalkingBackwards;
+                            animationPlay = false;
+                        }
+                        else if (valorX > 0)
+                        {
+                            mCurrentCharState = CharState.WalkingFoward;
+                            animationPlay = false;
+                        }
+                    }
+
+                    #endregion
+
+
+                    if (mPosition.Y < 100)
+                    {
+                        valorY = 0;
+                        mPosition.Y = 100;
+                        isGrounded = true;
+
+                    }
+
+                    Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
                 }
 
-                #endregion
-
-
-                if (mPosition.Y < 100)
+                if(playerNumber == 2)
                 {
-                    valorY = 0;
-                    mPosition.Y = 100;
-                    isGrounded = true;
+                    Console.WriteLine(animationPlay);
 
+
+                    #region Movement + Animation
+
+                    mPreviousCharState = mCurrentCharState;
+
+                    if (Keyboard.GetState().IsKeyDown(Keys.Up) && isGrounded)
+                    {
+                        valorY = jumpSpeed;
+                        isGrounded = false;
+                        mCurrentCharState = CharState.Air;
+                        animationPlay = false;
+                    }
+                    else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                    {
+                        valorX = xSpeed;
+                    }
+                    else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                    {
+                        valorX = -xSpeed;
+                    }
+                    else
+                    {
+                        valorX = 0f;
+                    }
+
+                    if (!isGrounded)
+                    {
+                        valorY -= gravity;
+                    }
+
+                    if (valorY == 0 && valorX == 0)
+                    {
+                        mCurrentCharState = CharState.Idle;
+                        animationPlay = false;
+                    }
+
+                    if (isGrounded)
+                    {
+                        if (valorX < 0)
+                        {
+                            mCurrentCharState = CharState.WalkingBackwards;
+                            animationPlay = false;
+                        }
+                        else if (valorX > 0)
+                        {
+                            mCurrentCharState = CharState.WalkingFoward;
+                            animationPlay = false;
+                        }
+                    }
+
+                    #endregion
+
+
+                    if (mPosition.Y < 100)
+                    {
+                        valorY = 0;
+                        mPosition.Y = 100;
+                        isGrounded = true;
+
+                    }
+
+                    Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
                 }
-
-                Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
 
 
             }
