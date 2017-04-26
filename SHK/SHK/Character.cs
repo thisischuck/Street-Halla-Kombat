@@ -67,8 +67,6 @@ namespace SHK
         public override void Update()
         {
 
-            Console.WriteLine(mPosition);
-
             if (!isAI)
             {
                 if (playerNumber == 1)

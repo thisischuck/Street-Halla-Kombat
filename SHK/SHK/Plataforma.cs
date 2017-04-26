@@ -42,9 +42,7 @@ namespace SHK
                 if (charPixelCollision)
                 {
                     player.mPosition.Y = pixelCollisionPosition.Y;
-                    player.isGrounded = true;
-
-                    
+                    player.isGrounded = true;               
                 }
             }
 

@@ -16,15 +16,19 @@ namespace SHK
 
         public Character player1;
         public HealthBar hpPlayer1;
-        static Vector2 hpPosition1 = new Vector2(10, 100);
+
+        static Vector2 hpSize = new Vector2(700, 50);
+
+        static Vector2 hpPosition1 = new Vector2(500, 500);
+    
         static Vector2 charP = new Vector2(200, 100);
         static Vector2 charS = new Vector2(128f, 128f);
 
         public Character player2;
         public HealthBar hpPlayer2;
-        static Vector2 hpPosition2 = new Vector2(200, 100);
         static Vector2 char2P = new Vector2(1208, 100);
         static Vector2 char2S = new Vector2(128f, 128f);
+        static Vector2 hpPosition2 = new Vector2(0, 0);
 
         public Plataforma ChaoPlataforma;
         static Vector2 platPosition = new Vector2(640,50);
@@ -34,25 +38,31 @@ namespace SHK
         public Duel()
         {
             player1 = new Character("test1", charP, charS, 2, 4, 0, 1, SpriteEffects.None, false);
-            hpPlayer1 = new HealthBar(Game1.sContent, player1, hpPosition1, SpriteEffects.None);
+            hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
 
             player2 = new Character("test1", char2P, charS, 2, 4, 0, 2, SpriteEffects.None, false);
-            ChaoPlataforma = new Plataforma(false, platSize, platPosition, player1,player2);
-            hpPlayer2 = new HealthBar(Game1.sContent, player2, hpPosition2, SpriteEffects.FlipHorizontally);
+            hpPlayer2 = new HealthBar(player2, hpPosition2,hpSize, SpriteEffects.FlipHorizontally);
+
+
+            ChaoPlataforma = new Plataforma(false, platSize, platPosition, player1, player2);
         }   
 
         public void Draw()
         {
-            player1.Draw();
-            hpPlayer1.Draw(Game1.sSpriteBatch);
+            hpPlayer1.Draw();
+            hpPlayer2.Draw();
+            //player1.Draw();
+            
 
-            player2.Draw();
-            ChaoPlataforma.Draw();
-            hpPlayer2.Draw(Game1.sSpriteBatch);
+            //player2.Draw();
+           // ChaoPlataforma.Draw();
+            
         }
 
         public void Update()
         {
+
+            Console.WriteLine(hpPosition1);
             player1.Update();
             hpPlayer1.Update();
 
