@@ -29,7 +29,7 @@ namespace SHK
         }
 
 
-        private void CollisionUpdate()
+        /*private void CollisionUpdate()
         {
             Vector2 pixelCollisionPosition = Vector2.Zero;
 
@@ -40,6 +40,6 @@ namespace SHK
                 if (mHeroPixelCollision)
                     mHeroTarget.Position = pixelCollisionPosition;
             }
-        }
+        }*/
     }
 }

@@ -71,7 +71,6 @@ namespace SHK
             {
                 if (playerNumber == 1)
                 {
-                    Console.WriteLine(animationPlay);
 
 
                     #region Movement + Animation
@@ -129,7 +128,6 @@ namespace SHK
 
                 if(playerNumber == 2)
                 {
-                    Console.WriteLine(animationPlay);
 
 
                     #region Movement + Animation
@@ -194,8 +192,11 @@ namespace SHK
                     isGrounded = true;
 
                 }
+
+                Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
             }
 
+            Console.WriteLine(playerHealth);
             if (Keyboard.GetState().IsKeyDown(Keys.G))
             {
                 playerHealth -= 1;
