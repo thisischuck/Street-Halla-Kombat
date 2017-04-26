@@ -11,7 +11,7 @@ namespace SHK
     /// <summary>
     /// TexturedPrimitive class
     /// </summary>
-    public class TexturedPrimitive
+    public partial class TexturedPrimitive
     {
         protected float mRotateAngle; // In radians, clockwise rotation
         // Support for drawing the image
@@ -22,12 +22,14 @@ namespace SHK
         public Vector2 MaxBound { get { return mPosition + (0.5f * mSize); } } /// Accessors to the camera window bounds
         protected String mLabelString;  // String to draw
         protected Color mLabelColor = Color.Black;
+        protected string ImageName;
         public float RotateAngleInRadian { get { return mRotateAngle; } set { mRotateAngle = value; } }
         public float Speed { get; internal set; }
 
         protected void InitPrimitive(String imageName, Vector2 position, Vector2 size, String label = null)
         {
             mImage = Game1.sContent.Load<Texture2D>(imageName);
+            ImageName = imageName;
             mPosition = position;
             mSize = size;
             mRotateAngle = 0f;
@@ -36,11 +38,13 @@ namespace SHK
 
         public TexturedPrimitive(String imageName, Vector2 position, Vector2 size, String label = null)
         {
+            ImageName = imageName;
             InitPrimitive(imageName, position, size, label);
         }
 
         public TexturedPrimitive(String imageName, Vector2 position, Vector2 size)
         {
+            ImageName = imageName;
             mImage = Game1.sContent.Load<Texture2D>(imageName);
             mPosition = position;
             mSize = size;
@@ -49,6 +53,7 @@ namespace SHK
 
         public TexturedPrimitive(String imageName)  
         {
+            ImageName = imageName;
             mImage = Game1.sContent.Load<Texture2D>(imageName);
             mRotateAngle = 0f;
         }

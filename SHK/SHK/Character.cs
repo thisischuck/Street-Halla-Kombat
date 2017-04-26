@@ -23,10 +23,13 @@ namespace SHK
         private int playerNumber;
         public int playerHealth;
 
+        private bool charPixelCollision;
+
 
         public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, int player, SpriteEffects effect, bool ai) : base(imageName,cposition,csize,row,col,padding, effect)
         {
             mCurrentCharState = CharState.Idle;
+            SetSpriteAnimation(0,0,0,1,2);
             position = cposition;
             isGrounded = true;
             isAI = ai;
@@ -60,8 +63,6 @@ namespace SHK
 
         private CharState mCurrentCharState;
         private CharState mPreviousCharState;
-
-
 
         public override void Update()
         {
@@ -124,16 +125,6 @@ namespace SHK
 
                     #endregion
 
-
-                    if (mPosition.Y < 100)
-                    {
-                        valorY = 0;
-                        mPosition.Y = 100;
-                        isGrounded = true;
-
-                    }
-
-                    Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
                 }
 
                 if(playerNumber == 2)
@@ -193,15 +184,15 @@ namespace SHK
                     #endregion
 
 
-                    if (mPosition.Y < 100)
-                    {
-                        valorY = 0;
-                        mPosition.Y = 100;
-                        isGrounded = true;
+                    
+                }
 
-                    }
+                if (mPosition.Y < 100)
+                {
+                    valorY = 0;
+                    mPosition.Y = 100;
+                    isGrounded = true;
 
-                    Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
                 }
             }
 
@@ -213,7 +204,7 @@ namespace SHK
             base.Update();
         }
 
-        public void minuUpdate()
+        public void AnimationUpdate()
         {
                 if (!animationPlay && mPreviousCharState != mCurrentCharState)
                 {
@@ -244,7 +235,7 @@ namespace SHK
 
         public override void Draw()
         {
-            minuUpdate();
+            AnimationUpdate();
             base.Draw();
         }
 
@@ -281,23 +272,5 @@ namespace SHK
                 this.Rectangule.Left < character.Rectangule.Right;
         }*/
         #endregion
-        
-        /*private void Move()
-        {
-            foreach (var sprite in char)
-            {
-                if (sprite == this)
-                    continue;
-
-                if (this.velocity.X > 0 && this.IsTouchingLeft(sprite) || this.velocity.X < 0 && this.IsTouchingRight(sprite))
-                    this.velocity.X = 0;
-                if (this.velocity.Y > 0 && this.IsTouchingTop(sprite) || this.velocity.Y < 0 && this.IsTouchingBottom(sprite))
-                    this.velocity.Y = 0;
-            }
-            position += velocity;
-
-            velocity = Vector2.Zero; }
-            */
-        
     }
 }
