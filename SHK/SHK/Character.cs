@@ -21,6 +21,7 @@ namespace SHK
         private bool isAI;
         private bool animationPlay;
         private int playerNumber;
+        public int playerHealth;
 
 
         public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, int player, SpriteEffects effect, bool ai) : base(imageName,cposition,csize,row,col,padding, effect)
@@ -37,6 +38,7 @@ namespace SHK
             jumpSpeed = 50f;
             gravity = 3f;
             animationPlay = false;
+            playerHealth = 100;
         }
 
         private enum CharState
@@ -201,9 +203,13 @@ namespace SHK
 
                     Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
                 }
-
-
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                playerHealth -= 1;
+            }
+
             base.Update();
         }
 

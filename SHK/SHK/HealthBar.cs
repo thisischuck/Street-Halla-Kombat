@@ -15,13 +15,14 @@ namespace SHK
         private Texture2D lifebar, container;
         private Vector2 position, containerPosition;
         Rectangle rectangle;
-        int playerHealth= 100;
+        Character player;
 
-        public HealthBar(ContentManager content)
+        public HealthBar(ContentManager content, Character player, Vector2 hpPosition, SpriteEffects effect)
         {
-            position = new Vector2(50, 30);
+            position = hpPosition;
             //containerPosition = new Vector2(70, 30);
             LoadContent(content);
+            this.player = player;
         }
 
 
@@ -34,11 +35,8 @@ namespace SHK
 
         public void Update()// mudar condiçao para quando o player é atacado
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.G))
-            {
-                rectangle.Width -= 1;
-                playerHealth -= 1;
-            }
+            rectangle.Width = lifebar.Width * (player.playerHealth / 100);
+            Console.WriteLine(rectangle.Width);
         }
 
         public void Draw(SpriteBatch spriteBatch)

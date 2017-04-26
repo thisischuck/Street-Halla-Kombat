@@ -15,34 +15,43 @@ namespace SHK
         string player2Choice;
 
         public Character player1;
+        public HealthBar hpPlayer1;
+        static Vector2 hpPosition1 = new Vector2(10, 100);
         static Vector2 charP = new Vector2(200, 100);
         static Vector2 charS = new Vector2(128f, 128f);
 
         public Character player2;
+        public HealthBar hpPlayer2;
+        static Vector2 hpPosition2 = new Vector2(200, 100);
         static Vector2 char2P = new Vector2(1208, 100);
         static Vector2 char2S = new Vector2(128f, 128f);
-
 
 
         public Duel()
         {
             player1 = new Character("test1", charP, charS, 2, 4, 0, 1, SpriteEffects.None, false);
-
+            hpPlayer1 = new HealthBar(Game1.sContent, player1, hpPosition1, SpriteEffects.None);
 
             player2 = new Character("test1", char2P, charS, 2, 4, 0, 2, SpriteEffects.None, false);
+            hpPlayer2 = new HealthBar(Game1.sContent, player2, hpPosition2, SpriteEffects.FlipHorizontally);
         }   
 
         public void Draw()
         {
             player1.Draw();
+            hpPlayer1.Draw(Game1.sSpriteBatch);
 
             player2.Draw();
+            hpPlayer2.Draw(Game1.sSpriteBatch);
         }
 
         public void Update()
         {
             player1.Update();
+            hpPlayer1.Update();
+
             player2.Update();
+            hpPlayer2.Update();
         }
 
     }

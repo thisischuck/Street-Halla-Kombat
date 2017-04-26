@@ -39,7 +39,6 @@ namespace SHK
 
         MainMenu main = new MainMenu();
         Duel a;
-        HealthBar hp;
 
         public Game1()
         {
@@ -85,7 +84,6 @@ namespace SHK
             #endregion
             */
             a = new Duel();
-            hp = new HealthBar(Content);
             #region Carregar sons e efeitos
 
             /*
@@ -104,9 +102,9 @@ namespace SHK
             #endregion
 
 
-            /*sAudio.PlaySoundEffectRandomPitch(PunchHit, 1f);  //teste
-            sAudio.PlayRandomSong(listaMusicas);  //teste
-            */
+            //sAudio.PlaySoundEffectRandomPitch(PunchHit, 1f);  //teste
+            //sAudio.PlayRandomSong(listaMusicas);  //teste
+
             // Define camera window bounds
             Camera.SetCameraWindow(new Vector2(0, 0), kWindowWidth);
 
@@ -134,7 +132,6 @@ namespace SHK
 
             // TODO: Add your update logic here
             //main.Update();
-            hp.Update();
             a.Update();
             base.Update(gameTime);
         }
@@ -148,7 +145,6 @@ namespace SHK
             GraphicsDevice.Clear(Color.CornflowerBlue);
             Game1.sSpriteBatch.Begin();
 
-            hp.Draw(sSpriteBatch);
             a.Draw();
             //main.Draw(sSpriteBatch);
 
