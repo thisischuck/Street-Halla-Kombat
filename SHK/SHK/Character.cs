@@ -11,13 +11,13 @@ namespace SHK
 {
     public class Character : SpritePrimitive
     {
-        private Vector2 position;
+        public Vector2 position;
         private float valorY;
         private float valorX;
         private float xSpeed;
         private float jumpSpeed;
         private float gravity;
-        private bool isGrounded;
+        public bool isGrounded;
         private bool isAI;
         private bool animationPlay;
         private int playerNumber;
@@ -31,7 +31,7 @@ namespace SHK
             mCurrentCharState = CharState.Idle;
             SetSpriteAnimation(0,0,0,1,2);
             position = cposition;
-            isGrounded = true;
+            isGrounded = false;
             isAI = ai;
             playerNumber = player;
             valorX = 0f;
@@ -66,6 +66,8 @@ namespace SHK
 
         public override void Update()
         {
+
+            Console.WriteLine(mPosition);
 
             if (!isAI)
             {
@@ -185,21 +187,21 @@ namespace SHK
                     
                 }
 
-                if (mPosition.Y < 100)
+                if (isGrounded)
                 {
                     valorY = 0;
-                    mPosition.Y = 100;
-                    isGrounded = true;
+                    //mPosition.Y = 100;
+                    //isGrounded = true;
 
                 }
 
                 Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
             }
 
-            Console.WriteLine(playerHealth);
             if (Keyboard.GetState().IsKeyDown(Keys.G))
             {
-                playerHealth -= 1;
+                if(playerHealth > 0)
+                    playerHealth -= 1;
             }
 
             base.Update();
@@ -226,11 +228,7 @@ namespace SHK
                             break;
 
                     }
-
-                    
-
                     animationPlay = true;
-
                 }
         }
 

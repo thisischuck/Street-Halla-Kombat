@@ -17,6 +17,7 @@ namespace SHK
         private Character _player2;
 
         private bool charPixelCollision;
+        private bool charBoundCollision;
 
         public Plataforma(bool isSoft, Vector2 size, Vector2 position, Character player1, Character player2) : base("game_plat", position, size)
         {
@@ -29,17 +30,31 @@ namespace SHK
         }
 
 
-        /*private void CollisionUpdate()
+        private void CollisionUpdate(Character player)
         {
             Vector2 pixelCollisionPosition = Vector2.Zero;
 
-            charPixelCollision = PrimitivesTouches(_player1);
-            if (charPixelCollision)
+            charBoundCollision = PrimitivesTouches(player);
+            charPixelCollision = charBoundCollision;    
+            if (charBoundCollision)
             {
-                charPixelCollision = PixelTouches(mFlower, out pixelCollisionPosition);
-                if (mHeroPixelCollision)
-                    mHeroTarget.Position = pixelCollisionPosition;
+                charPixelCollision = PixelTouches(player, out pixelCollisionPosition);
+                if (charPixelCollision)
+                {
+                    player.mPosition.Y = pixelCollisionPosition.Y;
+                    player.isGrounded = true;
+
+                    
+                }
             }
-        }*/
+
+        }
+
+        public new void Update()
+        {
+            CollisionUpdate(_player1);
+            CollisionUpdate(_player2);
+            base.Update();
+        }
     }
 }

@@ -58,6 +58,8 @@ namespace SHK
 
             player2.Update();
             hpPlayer2.Update();
+
+            ChaoPlataforma.Update();
         }
 
     }

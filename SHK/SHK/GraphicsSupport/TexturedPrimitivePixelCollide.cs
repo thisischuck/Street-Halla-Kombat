@@ -36,6 +36,7 @@ namespace SHK
 
         private Color GetColor(int i, int j)
         {
+
             return mTextureColor[((j+SpriteTopPixel) * mImage.Width) + 
                                    i + SpriteLeftPixel];
         }

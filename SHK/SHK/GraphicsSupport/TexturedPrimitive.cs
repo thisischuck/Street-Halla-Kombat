@@ -34,6 +34,7 @@ namespace SHK
             mSize = size;
             mRotateAngle = 0f;
             mLabelString = label;
+            ReadColorData();
         }
 
         public TexturedPrimitive(String imageName, Vector2 position, Vector2 size, String label = null)
@@ -49,6 +50,7 @@ namespace SHK
             mPosition = position;
             mSize = size;
             mRotateAngle = 0f;
+            ReadColorData();
         }
 
         public TexturedPrimitive(String imageName)  
@@ -56,6 +58,7 @@ namespace SHK
             ImageName = imageName;
             mImage = Game1.sContent.Load<Texture2D>(imageName);
             mRotateAngle = 0f;
+            ReadColorData();
         }
 
         public void Update(Vector2 deltaTranslate, Vector2 deltaScale)
