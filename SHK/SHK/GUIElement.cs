@@ -46,7 +46,7 @@ namespace SHK
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(GUITexture, GUIRect, Color.White);
+           Game1.sSpriteBatch.Draw(GUITexture, GUIRect, Color.White);
         }
 
         // centrar elementos do menu pelo tamanho da janela

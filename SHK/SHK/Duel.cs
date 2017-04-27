@@ -51,18 +51,16 @@ namespace SHK
         {
             hpPlayer1.Draw();
             hpPlayer2.Draw();
-            //player1.Draw();
+            player1.Draw();
             
 
-            //player2.Draw();
-           // ChaoPlataforma.Draw();
+            player2.Draw();
+            ChaoPlataforma.Draw();
             
         }
 
         public void Update()
         {
-
-            Console.WriteLine(hpPosition1);
             player1.Update();
             hpPlayer1.Update();
 

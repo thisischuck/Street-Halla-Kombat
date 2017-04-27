@@ -80,10 +80,11 @@ namespace SHK
 
             /*
             #region Carregar menu
-            main.LoadContent(sContent);
+            
             #endregion
             */
             a = new Duel();
+            //main.LoadContent(sContent);
             #region Carregar sons e efeitos
 
             /*
@@ -142,7 +143,7 @@ namespace SHK
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Pink);
             Game1.sSpriteBatch.Begin();
 
             a.Draw();

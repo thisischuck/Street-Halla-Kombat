@@ -31,7 +31,7 @@ namespace SHK
         }
 
 
-        public void Update()// mudar condiçao para quando o player é atacado
+        public override void Update()// mudar condiçao para quando o player é atacado
         {
             rectangle.Width = (int)((float)(width) * ((float)(player.playerHealth) / 100f));
         }
@@ -44,7 +44,7 @@ namespace SHK
 
             //Game1.sSpriteBatch.Draw(mImage,destRect,srcRect, Color.White,0f,org,effect,0);
 
-            Game1.sSpriteBatch.Draw(mImage,position,rectangle);
+            Game1.sSpriteBatch.Draw(mImage,position,rectangle,Color.White);
         }
     }
 }
