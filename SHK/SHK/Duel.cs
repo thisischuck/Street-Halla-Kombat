@@ -31,8 +31,10 @@ namespace SHK
         static Vector2 hpPosition2 = new Vector2(0, 0);
 
         public Plataforma ChaoPlataforma;
-        static Vector2 platPosition = new Vector2(640,50);
-        static Vector2 platSize = new Vector2(1280,100);
+        public Plataforma ChaoPlataforma2;
+        static Vector2 platPosition = new Vector2(1000,100);
+        static Vector2 platPosition2 = new Vector2(200, 200);
+        static Vector2 platSize = new Vector2(510,65);
 
 
         public Duel()
@@ -45,6 +47,7 @@ namespace SHK
 
 
             ChaoPlataforma = new Plataforma(false, platSize, platPosition, player1, player2);
+            ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2, player1, player2);
         }   
 
         public void Draw()
@@ -56,7 +59,7 @@ namespace SHK
 
             player2.Draw();
             ChaoPlataforma.Draw();
-            
+            //ChaoPlataforma2.Draw();
         }
 
         public void Update()
@@ -66,8 +69,8 @@ namespace SHK
 
             player2.Update();
             hpPlayer2.Update();
-
-            //ChaoPlataforma.Update();
+            //ChaoPlataforma2.Update();
+            ChaoPlataforma.Update();
         }
 
     }

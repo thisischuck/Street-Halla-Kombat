@@ -13,7 +13,7 @@ namespace SHK
         static private Vector2 sOrigin = Vector2.Zero; // Origin of the world
         static private float sWidth = 100f; // Width of the world
         static private float sHeight = 56.25f; // Height of the world
-        static private float sRatio = 1f; // Ratio between camera window and pixel
+        static private float sRatio = 0.5f; // Ratio between camera window and pixel
         static public Vector2 CameraWindowLowerLeftPosition
         { get { return sOrigin; } }
         static public Vector2 CameraWindowUpperRightPosition

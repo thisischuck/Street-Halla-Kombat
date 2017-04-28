@@ -14,7 +14,7 @@ namespace SHK
 
         enum GameState { Menu, inGame, Paused }
         GameState gameState;// ainda por verificar se ta direito
-        Game game = new Game();
+        private Game b = new Game();
         Duel a;
 
         List<GUIElement> main = new List<GUIElement>();
@@ -87,7 +87,7 @@ namespace SHK
             }
             if( element == "exit")
             {
-               game.Exit();//verificar se ta direito
+              b.Exit();//verificar se ta direito
             }
         }
     }

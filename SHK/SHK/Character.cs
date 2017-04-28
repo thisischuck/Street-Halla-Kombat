@@ -12,6 +12,7 @@ namespace SHK
     public class Character : SpritePrimitive
     {
         public Vector2 position;
+        public Vector2 size;
         private float valorY;
         private float valorX;
         private float xSpeed;
@@ -34,6 +35,7 @@ namespace SHK
             mCurrentCharState = CharState.Idle;
             SetSpriteAnimation(0,0,0,1,2);
             position = cposition;
+            size = csize;
             isGrounded = false;
             hasAirJump = true;
             isAI = ai;
@@ -226,7 +228,7 @@ namespace SHK
                     
                 }
 
-                if (mPosition.Y < 100)
+                if (isGrounded)
                 {
                     airJumpCounter = 0;
                     valorY = 0;
