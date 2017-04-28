@@ -82,8 +82,8 @@ namespace SHK
                 // play the game
                 gameState = GameState.inGame;
 
-                a.Update();
-                a.Draw();
+                //a.Update(gameTime);
+                //a.Draw();
             }
             if( element == "exit")
             {

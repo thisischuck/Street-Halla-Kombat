@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace SHK
 {
-    class Duel
+    class Duel 
     {
 
         string player1Choice;
@@ -36,6 +37,7 @@ namespace SHK
         static Vector2 platPosition2 = new Vector2(200, 200);
         static Vector2 platSize = new Vector2(510,65);
 
+        GameTimer timer;
 
         public Duel()
         {
@@ -50,20 +52,16 @@ namespace SHK
             ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2, player1, player2);
         }   
 
-        public void Draw()
+        public void LoadContent()
         {
-            hpPlayer1.Draw();
-            hpPlayer2.Draw();
-            player1.Draw();
-            
-
-            player2.Draw();
-            ChaoPlataforma.Draw();
-            //ChaoPlataforma2.Draw();
+            timer = new GameTimer(180.0f);
+            timer.Font = Game1.sContent.Load<SpriteFont>("Arial");
+            timer.Position = new Vector2((Game1.mGraphics.PreferredBackBufferWidth / 2) - timer.Font.MeasureString(timer.Text).X / 2, 0);
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
+            timer.Update(gameTime);
             player1.Update();
             hpPlayer1.Update();
 
@@ -71,6 +69,19 @@ namespace SHK
             hpPlayer2.Update();
             //ChaoPlataforma2.Update();
             ChaoPlataforma.Update();
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            timer.Draw(spriteBatch);
+            hpPlayer1.Draw();
+            hpPlayer2.Draw();
+            player1.Draw();
+
+
+            player2.Draw();
+            ChaoPlataforma.Draw();
+
         }
 
     }

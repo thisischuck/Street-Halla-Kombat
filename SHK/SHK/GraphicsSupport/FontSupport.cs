@@ -8,11 +8,29 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SHK
 {
-    static class FontSupport
+    class FontSupport
     {
         static private SpriteFont sTheFont = null;
-        static private Color sDefaultDrawColor = Color.Black;
+        static private Color sDefaultDrawColor = Color.White;
         static private Vector2 sStatusLocation = new Vector2(5, 5);
+
+        public SpriteFont TheFont
+        {
+            get { return sTheFont; }
+            set { sTheFont = value; }
+        }
+
+        public Color DefaultDrawColor
+        {
+            get { return sDefaultDrawColor; }
+            set { sDefaultDrawColor = value; }
+        }
+
+        public Vector2 StatusLocation
+        {
+            get { return sStatusLocation; }
+            set { sStatusLocation = value; }
+        }
 
         static private void LoadFont()
         {

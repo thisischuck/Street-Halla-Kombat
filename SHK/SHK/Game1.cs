@@ -84,6 +84,7 @@ namespace SHK
             #endregion
             */
             a = new Duel();
+            a.LoadContent();
             //main.LoadContent(sContent);
             #region Carregar sons e efeitos
 
@@ -133,7 +134,7 @@ namespace SHK
 
             // TODO: Add your update logic here
             //main.Update();
-            a.Update();
+            a.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -146,7 +147,7 @@ namespace SHK
             GraphicsDevice.Clear(Color.Pink);
             Game1.sSpriteBatch.Begin();
 
-            a.Draw();
+            a.Draw(sSpriteBatch);
             //main.Draw(sSpriteBatch);
 
             Game1.sSpriteBatch.End();
