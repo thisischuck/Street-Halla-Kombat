@@ -232,8 +232,6 @@ namespace SHK
                 {
                     airJumpCounter = 0;
                     valorY = 0;
-                    mPosition.Y = 100;
-                    isGrounded = true;
                     hasAirJump = true;
 
                 }
