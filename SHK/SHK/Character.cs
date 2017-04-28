@@ -185,11 +185,11 @@ namespace SHK
                     
                 }
 
-                if (isGrounded)
+                if (mPosition.Y < 100)
                 {
                     valorY = 0;
-                    //mPosition.Y = 100;
-                    //isGrounded = true;
+                    mPosition.Y = 100;
+                    isGrounded = true;
 
                 }
 

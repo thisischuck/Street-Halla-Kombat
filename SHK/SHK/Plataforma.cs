@@ -48,11 +48,10 @@ namespace SHK
 
         }
 
-        public new void Update()
+        public override void Update()
         {
             CollisionUpdate(_player1);
             CollisionUpdate(_player2);
-            base.Update();
         }
     }
 }
