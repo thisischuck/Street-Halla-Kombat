@@ -22,11 +22,12 @@ namespace SHK
         public bool hasAirJump;
         private int airJumpCounter;
         private int airJumpDelay;           //em vez de utilizar um timer, podemos utilizar uma posição relativamente a si mesmo para tornar o airJump true e assim poder saltar
+        public bool isAttacking;
         private bool isAI;
         private bool animationPlay;
         private int playerNumber;
         public int playerHealth;
-
+        private Keys jump, right, left, down, lPunch, mPunch, hPunch, lKick, mKick, hKick;
         private bool charPixelCollision;
 
 
@@ -38,6 +39,7 @@ namespace SHK
             size = csize;
             isGrounded = false;
             hasAirJump = true;
+            isAttacking = false;
             isAI = ai;
             playerNumber = player;
             valorX = 0f;
@@ -50,6 +52,7 @@ namespace SHK
             playerHealth = 100;
             airJumpCounter = 0;
             airJumpDelay = 25;
+            SetKeys();
         }
 
         private enum CharState
@@ -65,12 +68,43 @@ namespace SHK
             LPunch,
             LKick,
             HPunch,
-            HKick,
-            
+            HKick,          
         }
 
         private CharState mCurrentCharState;
         private CharState mPreviousCharState;
+
+
+        private void SetKeys()
+        {
+            if (playerNumber == 1)
+            {
+                jump = Keys.W;
+                right = Keys.D;
+                left = Keys.A;
+                down = Keys.S;
+                lPunch = Keys.T;
+                mPunch = Keys.Y;
+                hPunch = Keys.U;
+                lKick = Keys.G;
+                mKick = Keys.H;
+                hKick = Keys.J;
+            }
+
+            else if (playerNumber == 2)
+            {
+                jump = Keys.Up;
+                right = Keys.Right;
+                left = Keys.Left;
+                down = Keys.Down;
+                lPunch = Keys.NumPad4;
+                mPunch = Keys.NumPad5;
+                hPunch = Keys.NumPad6;
+                lKick = Keys.NumPad1;
+                mKick = Keys.NumPad2;
+                hKick = Keys.NumPad3;
+            }
+        }
 
         public void Jump()
         {
@@ -86,147 +120,69 @@ namespace SHK
 
             if (!isAI)
             {
-                if (playerNumber == 1)
+                #region Movement + Animation
+
+                mPreviousCharState = mCurrentCharState;
+
+                if (Keyboard.GetState().IsKeyDown(jump) && isGrounded)
                 {
+                    Jump();
+                }
 
+                else if (Keyboard.GetState().IsKeyDown(jump) && hasAirJump && airJumpCounter > airJumpDelay)
+                {
+                    Jump();
+                    hasAirJump = false;
+                }
 
-                    #region Movement + Animation
-
-                    mPreviousCharState = mCurrentCharState;
-
-                    if (Keyboard.GetState().IsKeyDown(Keys.W) && isGrounded)
+                if (Keyboard.GetState().IsKeyDown(left) || Keyboard.GetState().IsKeyDown(right))
+                {
+                    if (Keyboard.GetState().IsKeyDown(right))
                     {
-                        Jump();
+                        valorX = xSpeed;
                     }
 
-                    else if (Keyboard.GetState().IsKeyDown(Keys.W) && hasAirJump && airJumpCounter > airJumpDelay)
+                    if (Keyboard.GetState().IsKeyDown(left))
                     {
-                        Jump();
-                        hasAirJump = false;
+                        valorX = -xSpeed;
                     }
 
-                    if (Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.D))
-                    {
-                        if (Keyboard.GetState().IsKeyDown(Keys.D))
-                        {
-                            valorX = xSpeed;
-                        }
-
-                        if (Keyboard.GetState().IsKeyDown(Keys.A))
-                        {
-                            valorX = -xSpeed;
-                        }
-  
-                        if (Keyboard.GetState().GetPressedKeys().Contains<Keys>(Keys.A) && Keyboard.GetState().GetPressedKeys().Contains<Keys>(Keys.D))
-                        {
-                            valorX = 0f;
-                        }
-                    }
-                    else
+                    if (Keyboard.GetState().GetPressedKeys().Contains<Keys>(left) && Keyboard.GetState().GetPressedKeys().Contains<Keys>(right))
                     {
                         valorX = 0f;
                     }
-
-                    if (!isGrounded)
-                    {
-                        valorY -= gravity;
-                    }
-
-                    if (valorY == 0 && valorX == 0 && isGrounded)
-                    {
-                        mCurrentCharState = CharState.Idle;
-                        animationPlay = false;
-                    }
-
-                    if (isGrounded)
-                    {
-                        if (valorX < 0)
-                        {
-                            mCurrentCharState = CharState.WalkingBackwards;
-                            animationPlay = false;
-                        }
-                        else if (valorX > 0)
-                        {
-                            mCurrentCharState = CharState.WalkingFoward;
-                            animationPlay = false;
-                        }
-                    }
-
-                    #endregion
-
                 }
-
-                if(playerNumber == 2)
+                else
                 {
+                    valorX = 0f;
+                }
 
+                if (!isGrounded)
+                {
+                    valorY -= gravity;
+                }
 
-                    #region Movement + Animation
+                if (valorY == 0 && valorX == 0 && isGrounded)
+                {
+                    mCurrentCharState = CharState.Idle;
+                    animationPlay = false;
+                }
 
-                    mPreviousCharState = mCurrentCharState;
-
-                    if (Keyboard.GetState().IsKeyDown(Keys.Up) && isGrounded)
+                if (isGrounded)
+                {
+                    if (valorX < 0)
                     {
-                        Jump();
-                    }
-
-                    else if (Keyboard.GetState().IsKeyDown(Keys.Up) && hasAirJump && airJumpCounter > airJumpDelay)
-                    {
-                        Jump();
-                        hasAirJump = false;
-                    }
-
-                    if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.Right))
-                    {
-                        if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                        {
-                            valorX = xSpeed;
-                        }
-
-                        if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                        {
-                            valorX = -xSpeed;
-                        }
-
-                        if (Keyboard.GetState().GetPressedKeys().Contains<Keys>(Keys.Left) && Keyboard.GetState().GetPressedKeys().Contains<Keys>(Keys.Right))
-                        {
-                            valorX = 0f;
-                        }
-                    }
-                    else
-                    {
-                        valorX = 0f;
-                    }
-
-                    if (!isGrounded)
-                    {
-                        valorY -= gravity;
-                    }
-
-                    if (valorY == 0 && valorX == 0 && isGrounded)
-                    {
-                        mCurrentCharState = CharState.Idle;
+                        mCurrentCharState = CharState.WalkingBackwards;
                         animationPlay = false;
                     }
-
-                    if (isGrounded)
+                    else if (valorX > 0)
                     {
-                        if (valorX < 0)
-                        {
-                            mCurrentCharState = CharState.WalkingBackwards;
-                            animationPlay = false;
-                        }
-                        else if (valorX > 0)
-                        {
-                            mCurrentCharState = CharState.WalkingFoward;
-                            animationPlay = false;
-                        }
+                        mCurrentCharState = CharState.WalkingFoward;
+                        animationPlay = false;
                     }
-
-                    #endregion
-
-
-                    
                 }
+
+                #endregion
 
                 if (isGrounded)
                 {
