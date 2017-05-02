@@ -32,6 +32,8 @@ namespace SHK
 
         static Vector2 hpPosition2 = new Vector2(0, 0);
 
+        public List<Plataforma> ListaPlataformas = new List<Plataforma>();
+
         public Plataforma ChaoPlataforma;
         public Plataforma ChaoPlataforma2;
         static Vector2 platPosition = new Vector2(1000,100);
@@ -42,15 +44,23 @@ namespace SHK
 
         public Duel()
         {
-             player1 = new Character("Untitled", charP, charS, 18, 1, 0, 1, SpriteEffects.None, false);
+            ChaoPlataforma = new Plataforma(false, platSize, platPosition, player1, player2);
+            ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2, player1, player2);
+
+            ListaPlataformas.Add(ChaoPlataforma);
+            ListaPlataformas.Add(ChaoPlataforma2);
+
+
+            player1 = new Character("Untitled", charP, charS, 18, 1, 0, 1, SpriteEffects.None, false, ListaPlataformas);
          //   hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
 
-            player2 = new Character("Untitled", char2P, char2S, 18, 1, 0, 2, SpriteEffects.None, false);
+            player2 = new Character("Untitled", char2P, char2S, 18, 1, 0, 2, SpriteEffects.None, false, ListaPlataformas);
             hpPlayer2 = new HealthBar(player2, hpPosition2,hpSize, SpriteEffects.FlipHorizontally);
 
 
-            ChaoPlataforma = new Plataforma(false, platSize, platPosition, player1, player2);
-            //ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2, player1, player2);
+
+
+
         }   
 
         public void LoadContent()
@@ -68,7 +78,7 @@ namespace SHK
 
             player2.Update();
             hpPlayer2.Update();
-            ChaoPlataforma.Update();
+            //ChaoPlataforma.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -81,6 +91,7 @@ namespace SHK
 
             player2.Draw();
             ChaoPlataforma.Draw();
+            ChaoPlataforma2.Draw();
 
         }
 

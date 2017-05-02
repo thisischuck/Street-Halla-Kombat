@@ -29,9 +29,10 @@ namespace SHK
         public int playerHealth;
         private Keys jump, right, left, down, lPunch, mPunch, hPunch, lKick, mKick, hKick;
         private bool charPixelCollision;
+        private List<Plataforma> mapa;
 
 
-        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, int player, SpriteEffects effect, bool ai) : base(imageName,cposition,csize,row,col,padding, effect)
+        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, int player, SpriteEffects effect, bool ai, List<Plataforma> mapa) : base(imageName,cposition,csize,row,col,padding, effect)
         {
             mCurrentCharState = CharState.Idle;
             SetSpriteAnimation(0,0,0,17,2);
@@ -53,6 +54,7 @@ namespace SHK
             airJumpCounter = 0;
             airJumpDelay = 25;
             SetKeys();
+            this.mapa = mapa;
         }
 
         private enum CharState
@@ -189,7 +191,6 @@ namespace SHK
                     airJumpCounter = 0;
                     valorY = 0;
                     hasAirJump = true;
-
                 }
 
                 Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
@@ -202,7 +203,7 @@ namespace SHK
                     playerHealth -= 1;
             }
 
-
+            Collision();
             base.Update();
         }
 
@@ -231,9 +232,31 @@ namespace SHK
                 }
         }
 
+        public void Collision()
+        {
+            foreach (var plataforma in mapa)
+            {
+                    if (mPosition.Y < plataforma.Position.Y + plataforma.Size.Y / 2 &&
+                        mPosition.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
+                    {
+                        if (mPosition.X > plataforma.Position.X - plataforma.Size.X / 2 && mPosition.X - size.X <
+                            plataforma.Position.X + plataforma.Size.X / 2)
+                        {
+                            isGrounded = true;
+                            mPosition.Y = plataforma.Position.Y + plataforma.Size.Y / 2;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        isGrounded = false;
+                    }
+            }
+        }
+
         public override void Draw()
         {
-          //  AnimationUpdate();
+            //  AnimationUpdate();
             base.Draw();
         }
     }
