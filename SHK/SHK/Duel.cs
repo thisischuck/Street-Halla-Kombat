@@ -19,7 +19,6 @@ namespace SHK
         public HealthBar hpPlayer1;
 
         static Vector2 hpSize = new Vector2(700, 50);
-
         static Vector2 hpPosition1 = new Vector2(500, 500);
     
         static Vector2 charP = new Vector2(200, 100);
@@ -27,8 +26,10 @@ namespace SHK
 
         public Character player2;
         public HealthBar hpPlayer2;
+
         static Vector2 char2P = new Vector2(1208, 100);
-        static Vector2 char2S = new Vector2(128f, 128f);
+        static Vector2 char2S = new Vector2(60, 106);
+
         static Vector2 hpPosition2 = new Vector2(0, 0);
 
         public Plataforma ChaoPlataforma;
@@ -41,15 +42,15 @@ namespace SHK
 
         public Duel()
         {
-            player1 = new Character("test1", charP, charS, 2, 4, 0, 1, SpriteEffects.None, false);
-            hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
+             player1 = new Character("Untitled", charP, charS, 18, 1, 0, 1, SpriteEffects.None, false);
+         //   hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
 
-            player2 = new Character("test1", char2P, charS, 2, 4, 0, 2, SpriteEffects.None, false);
+            player2 = new Character("Untitled", char2P, char2S, 18, 1, 0, 2, SpriteEffects.None, false);
             hpPlayer2 = new HealthBar(player2, hpPosition2,hpSize, SpriteEffects.FlipHorizontally);
 
 
             ChaoPlataforma = new Plataforma(false, platSize, platPosition, player1, player2);
-            ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2, player1, player2);
+            //ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2, player1, player2);
         }   
 
         public void LoadContent()
@@ -62,8 +63,8 @@ namespace SHK
         public void Update(GameTime gameTime)
         {
             timer.Update(gameTime);
-            player1.Update();
-            hpPlayer1.Update();
+          //  player1.Update();
+          //  hpPlayer1.Update();
 
             player2.Update();
             hpPlayer2.Update();
@@ -73,9 +74,9 @@ namespace SHK
         public void Draw(SpriteBatch spriteBatch)
         {
             timer.Draw(spriteBatch);
-            hpPlayer1.Draw();
+            //hpPlayer1.Draw();
             hpPlayer2.Draw();
-            player1.Draw();
+            //player1.Draw();
 
 
             player2.Draw();

@@ -34,7 +34,7 @@ namespace SHK
         public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, int player, SpriteEffects effect, bool ai) : base(imageName,cposition,csize,row,col,padding, effect)
         {
             mCurrentCharState = CharState.Idle;
-            SetSpriteAnimation(0,0,0,1,2);
+            SetSpriteAnimation(0,0,0,17,2);
             position = cposition;
             size = csize;
             isGrounded = false;
@@ -202,6 +202,8 @@ namespace SHK
                     playerHealth -= 1;
             }
 
+
+            Console.WriteLine(SpriteCurrentColumn);
             base.Update();
         }
 
@@ -232,7 +234,7 @@ namespace SHK
 
         public override void Draw()
         {
-            AnimationUpdate();
+          //  AnimationUpdate();
             base.Draw();
         }
     }
