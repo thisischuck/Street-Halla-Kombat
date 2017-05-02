@@ -193,7 +193,7 @@ namespace SHK
                 }
 
                 Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
-                Console.WriteLine(airJumpCounter);
+                //Console.WriteLine(airJumpCounter);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.G))
@@ -203,7 +203,6 @@ namespace SHK
             }
 
 
-            Console.WriteLine(SpriteCurrentColumn);
             base.Update();
         }
 

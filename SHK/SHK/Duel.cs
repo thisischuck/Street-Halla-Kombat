@@ -28,7 +28,7 @@ namespace SHK
         public HealthBar hpPlayer2;
 
         static Vector2 char2P = new Vector2(1208, 100);
-        static Vector2 char2S = new Vector2(60, 106);
+        static Vector2 char2S = new Vector2(120, 212);
 
         static Vector2 hpPosition2 = new Vector2(0, 0);
 
