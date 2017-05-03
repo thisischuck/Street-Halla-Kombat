@@ -132,7 +132,6 @@ namespace SHK
                 {
                     Jump();
                 }
-
                 else if (Keyboard.GetState().IsKeyDown(jump) && hasAirJump && airJumpCounter > airJumpDelay)
                 {
                     Jump();
@@ -161,10 +160,10 @@ namespace SHK
                     valorX = 0f;
                 }
 
-                if (!isGrounded)
+                /*if (!isGrounded)
                 {
                     valorY -= gravity;
-                }
+                }*/
 
                 if (valorY == 0 && valorX == 0 && isGrounded)
                 {
@@ -194,6 +193,10 @@ namespace SHK
                     valorY = 0;
                     hasAirJump = true;
                 }
+                else
+                {
+                    valorY -= gravity;
+                }
             }
 
             #region Ataques
@@ -203,7 +206,7 @@ namespace SHK
                 if (Keyboard.GetState().IsKeyDown(lPunch))
                 {
                     isAttacking = true;
-                    attacks.LightPunch(position);
+                    attacks.LightPunch(mPosition);
                     isAttacking = false;
                 }
             }
@@ -219,8 +222,8 @@ namespace SHK
             Collision();
 
             Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
-            position += Velocity;
-            //Console.WriteLine(Velocity);
+            //position += Velocity;
+            Console.WriteLine(isGrounded);
 
 
             base.Update();
@@ -255,10 +258,10 @@ namespace SHK
         {
             foreach (var plataforma in mapa)
             {
-                    if (mPosition.Y < plataforma.Position.Y + plataforma.Size.Y / 2 &&
+                    if (mPosition.Y <= plataforma.Position.Y + plataforma.Size.Y / 2 &&
                         mPosition.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
                     {
-                        if (mPosition.X > plataforma.Position.X - plataforma.Size.X / 2 && mPosition.X - size.X <
+                        if (mPosition.X >= plataforma.Position.X - plataforma.Size.X / 2 && mPosition.X - size.X <
                             plataforma.Position.X + plataforma.Size.X / 2)
                         {
                             isGrounded = true;
