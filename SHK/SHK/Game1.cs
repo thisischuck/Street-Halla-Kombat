@@ -147,7 +147,7 @@ namespace SHK
             GraphicsDevice.Clear(Color.Pink);
             Game1.sSpriteBatch.Begin();
 
-            a.Draw(sSpriteBatch);
+            a.Draw(sSpriteBatch, gameTime);
             //main.Draw(sSpriteBatch);
 
             Game1.sSpriteBatch.End();

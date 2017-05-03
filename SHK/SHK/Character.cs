@@ -194,16 +194,18 @@ namespace SHK
                     valorY = 0;
                     hasAirJump = true;
                 }
-
-                Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
-                //Console.WriteLine(airJumpCounter);
             }
 
             #region Ataques
 
-            if (Keyboard.GetState().IsKeyDown(lPunch))
+            if (!isAttacking)
             {
-                attacks.LightPunch();
+                if (Keyboard.GetState().IsKeyDown(lPunch))
+                {
+                    isAttacking = true;
+                    attacks.LightPunch(position);
+                    isAttacking = false;
+                }
             }
 
             #endregion
@@ -215,6 +217,12 @@ namespace SHK
             }
 
             Collision();
+
+            Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
+            position += Velocity;
+            //Console.WriteLine(Velocity);
+
+
             base.Update();
         }
 
@@ -254,6 +262,7 @@ namespace SHK
                             plataforma.Position.X + plataforma.Size.X / 2)
                         {
                             isGrounded = true;
+                            valorY = 0;
                             mPosition.Y = plataforma.Position.Y + plataforma.Size.Y / 2;
                             break;
                         }

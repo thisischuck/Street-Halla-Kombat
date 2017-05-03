@@ -89,7 +89,7 @@ namespace SHK
             //ChaoPlataforma.Update();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             timer.Draw(spriteBatch);
             //hpPlayer1.Draw();
@@ -100,6 +100,8 @@ namespace SHK
             player2.Draw();
             ChaoPlataforma.Draw();
             ChaoPlataforma2.Draw();
+            attacksPlayer1.Draw(gameTime);
+            attacksPlayer2.Draw(gameTime);
 
         }
 
