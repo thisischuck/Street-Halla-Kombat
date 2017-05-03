@@ -17,20 +17,26 @@ namespace SHK
 
         public Character player1;
         public HealthBar hpPlayer1;
+        public AttackList attacksPlayer1;
 
         static Vector2 hpSize = new Vector2(700, 50);
         static Vector2 hpPosition1 = new Vector2(500, 500);
     
-        static Vector2 charP = new Vector2(200, 100);
+        static Vector2 charP = new Vector2(1200, 100);
         static Vector2 charS = new Vector2(128f, 128f);
+
+        //---------------------------------------------------
 
         public Character player2;
         public HealthBar hpPlayer2;
+        public AttackList attacksPlayer2;
 
         static Vector2 char2P = new Vector2(1208, 100);
         static Vector2 char2S = new Vector2(120, 212);
 
         static Vector2 hpPosition2 = new Vector2(0, 0);
+
+        //---------------------------------------------------
 
         public List<Plataforma> ListaPlataformas = new List<Plataforma>();
 
@@ -51,10 +57,12 @@ namespace SHK
             ListaPlataformas.Add(ChaoPlataforma2);
 
 
-            player1 = new Character("Untitled", charP, charS, 18, 1, 0, 1, SpriteEffects.None, false, ListaPlataformas);
-         //   hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
+            attacksPlayer1 = new AttackList();
+            player1 = new Character("Untitled", charP, charS, 18, 1, 0, 1, SpriteEffects.None, false, ListaPlataformas, attacksPlayer1);
+            //   hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
 
-            player2 = new Character("Untitled", char2P, char2S, 18, 1, 0, 2, SpriteEffects.None, false, ListaPlataformas);
+            attacksPlayer2 = new AttackList();
+            player2 = new Character("Untitled", char2P, char2S, 18, 1, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
             hpPlayer2 = new HealthBar(player2, hpPosition2,hpSize, SpriteEffects.FlipHorizontally);
 
 

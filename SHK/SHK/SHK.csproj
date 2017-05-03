@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AttackList.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="AudioManager.cs" />
     <Compile Include="Duel.cs" />

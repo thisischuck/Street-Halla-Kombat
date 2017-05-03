@@ -30,9 +30,10 @@ namespace SHK
         private Keys jump, right, left, down, lPunch, mPunch, hPunch, lKick, mKick, hKick;
         private bool charPixelCollision;
         private List<Plataforma> mapa;
+        public AttackList attacks;
 
 
-        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, int player, SpriteEffects effect, bool ai, List<Plataforma> mapa) : base(imageName,cposition,csize,row,col,padding, effect)
+        public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, int player, SpriteEffects effect, bool ai, List<Plataforma> mapa, AttackList attacks) : base(imageName,cposition,csize,row,col,padding, effect)
         {
             mCurrentCharState = CharState.Idle;
             SetSpriteAnimation(0,0,0,17,2);
@@ -55,6 +56,7 @@ namespace SHK
             airJumpDelay = 25;
             SetKeys();
             this.mapa = mapa;
+            this.attacks = attacks;
         }
 
         private enum CharState
@@ -196,6 +198,15 @@ namespace SHK
                 Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
                 //Console.WriteLine(airJumpCounter);
             }
+
+            #region Ataques
+
+            if (Keyboard.GetState().IsKeyDown(lPunch))
+            {
+                attacks.LightPunch();
+            }
+
+            #endregion
 
             if (Keyboard.GetState().IsKeyDown(Keys.G))
             {
