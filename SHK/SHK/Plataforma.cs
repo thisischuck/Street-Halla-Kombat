@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SHK
 {
-    class Plataforma : GameObject
+    public class Plataforma : GameObject
     {
         bool isSoft;
-        Vector2 Size;
-        Vector2 Position;
+        public Vector2 Size;
+        public Vector2 Position;
 
         private Character _player1;
         private Character _player2;

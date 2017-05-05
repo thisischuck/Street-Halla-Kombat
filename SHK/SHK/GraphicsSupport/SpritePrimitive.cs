@@ -57,6 +57,7 @@ namespace SHK
             mPaddings = padding;
             effect = a;
             mSpriteImageWidth = mImage.Width / mNumRow;
+
             mSpriteImageHeight = mImage.Height / mNumColumn;
 
             // initialize per animation settings to showing top/left image constantly
@@ -123,8 +124,10 @@ namespace SHK
             // Defines where and size of the texture to show
             Rectangle destRect = Camera.ComputePixelRectangle(mPosition , mSize);
 
-            int imageTop = mCurrentRow * mSpriteImageWidth;
-            int imageLeft = mCurrentColumn * mSpriteImageHeight;
+            int imageTop = mCurrentRow * mSpriteImageHeight;
+            int imageLeft = mCurrentColumn * mSpriteImageWidth;
+            //PLS KILL ME
+            //Console.WriteLine(imageTop + " " + imageLeft);
 
             // define the rotation origin
             Vector2 org = new Vector2(mSpriteImageWidth / 2, mSpriteImageHeight / 2);

@@ -17,19 +17,28 @@ namespace SHK
 
         public Character player1;
         public HealthBar hpPlayer1;
+        public AttackList attacksPlayer1;
 
         static Vector2 hpSize = new Vector2(700, 50);
-
         static Vector2 hpPosition1 = new Vector2(500, 500);
     
-        static Vector2 charP = new Vector2(200, 100);
+        static Vector2 charP = new Vector2(1200, 100);
         static Vector2 charS = new Vector2(128f, 128f);
+
+        //---------------------------------------------------
 
         public Character player2;
         public HealthBar hpPlayer2;
+        public AttackList attacksPlayer2;
+
         static Vector2 char2P = new Vector2(1208, 100);
-        static Vector2 char2S = new Vector2(128f, 128f);
+        static Vector2 char2S = new Vector2(120, 212);
+
         static Vector2 hpPosition2 = new Vector2(0, 0);
+
+        //---------------------------------------------------
+
+        public List<Plataforma> ListaPlataformas = new List<Plataforma>();
 
         public Plataforma ChaoPlataforma;
         public Plataforma ChaoPlataforma2;
@@ -50,35 +59,48 @@ namespace SHK
             player1 = new Character("test1", charP, charS, 2, 4, 0, 1, SpriteEffects.None, false);
             hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
 
-            player2 = new Character("test1", char2P, charS, 2, 4, 0, 2, SpriteEffects.None, false);
+            ListaPlataformas.Add(ChaoPlataforma);
+            ListaPlataformas.Add(ChaoPlataforma2);
+
+
+            attacksPlayer1 = new AttackList();
+            player1 = new Character("Untitled", charP, charS, 18, 1, 0, 1, SpriteEffects.None, false, ListaPlataformas, attacksPlayer1);
+            //   hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
+
+            attacksPlayer2 = new AttackList();
+            player2 = new Character("Untitled", char2P, char2S, 18, 1, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
             hpPlayer2 = new HealthBar(player2, hpPosition2,hpSize, SpriteEffects.FlipHorizontally);
 
 
-            ChaoPlataforma = new Plataforma(false, platSize, platPosition, player1, player2);
-            ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2, player1, player2);
+
+
+
         }   
 
         public void Update(GameTime gameTime)
         {
             timer.Update(gameTime);
-            player1.Update();
-            hpPlayer1.Update();
+             player1.Update();
+            //hpPlayer1.Update();
 
             player2.Update();
-            hpPlayer2.Update();
-            ChaoPlataforma.Update();
+            //hpPlayer2.Update();
+            //ChaoPlataforma.Update();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             timer.Draw(spriteBatch);
-            hpPlayer1.Draw();
+            //hpPlayer1.Draw();
             hpPlayer2.Draw();
             player1.Draw();
 
 
             player2.Draw();
             ChaoPlataforma.Draw();
+            ChaoPlataforma2.Draw();
+            attacksPlayer1.Draw(gameTime);
+            attacksPlayer2.Draw(gameTime);
 
         }
 
