@@ -130,6 +130,7 @@ namespace SHK
 
                 if (Keyboard.GetState().IsKeyDown(jump) && isGrounded)
                 {
+                    Console.WriteLine("JUMP");
                     Jump();
                 }
                 else if (Keyboard.GetState().IsKeyDown(jump) && hasAirJump && airJumpCounter > airJumpDelay)
@@ -160,10 +161,10 @@ namespace SHK
                     valorX = 0f;
                 }
 
-                /*if (!isGrounded)
+                if (!isGrounded)
                 {
                     valorY -= gravity;
-                }*/
+                }
 
                 if (valorY == 0 && valorX == 0 && isGrounded)
                 {
@@ -193,10 +194,6 @@ namespace SHK
                     valorY = 0;
                     hasAirJump = true;
                 }
-                else
-                {
-                    valorY -= gravity;
-                }
             }
 
             #region Ataques
@@ -219,9 +216,12 @@ namespace SHK
                     playerHealth -= 1;
             }
 
-            Collision();
+           
 
             Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
+
+            Collision();
+
             //position += Velocity;
             Console.WriteLine(isGrounded);
 
@@ -261,7 +261,7 @@ namespace SHK
                     if (mPosition.Y <= plataforma.Position.Y + plataforma.Size.Y / 2 &&
                         mPosition.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
                     {
-                        if (mPosition.X >= plataforma.Position.X - plataforma.Size.X / 2 && mPosition.X - size.X <
+                        if (mPosition.X > plataforma.Position.X - plataforma.Size.X / 2 && mPosition.X - size.X <
                             plataforma.Position.X + plataforma.Size.X / 2)
                         {
                             isGrounded = true;
