@@ -18,17 +18,17 @@ namespace SHK
         private float xSpeed;
         private float jumpSpeed;
         private float gravity;
+        private float fallingSpeedLimiter;
         public bool isGrounded;
         public bool hasAirJump;
         private int airJumpCounter;
-        private int airJumpDelay;           //em vez de utilizar um timer, podemos utilizar uma posição relativamente a si mesmo para tornar o airJump true e assim poder saltar
+        private int airJumpDelay;
         public bool isAttacking;
         private bool isAI;
         private bool animationPlay;
         private int playerNumber;
         public int playerHealth;
         private Keys jump, right, left, down, lPunch, mPunch, hPunch, lKick, mKick, hKick;
-        private bool charPixelCollision;
         private List<Plataforma> mapa;
         public AttackList attacks;
 
@@ -47,13 +47,13 @@ namespace SHK
             valorX = 0f;
             valorY = 0f;
             xSpeed = 10f;
-            Speed = 10f;
-            jumpSpeed = 50f;
-            gravity = 2.5f;
+            jumpSpeed = 40f;
+            gravity = 2f;
+            fallingSpeedLimiter = -40f;
             animationPlay = false;
             playerHealth = 100;
             airJumpCounter = 0;
-            airJumpDelay = 25;
+            airJumpDelay = 12;
             SetKeys();
             this.mapa = mapa;
             this.attacks = attacks;
@@ -130,7 +130,6 @@ namespace SHK
 
                 if (Keyboard.GetState().IsKeyDown(jump) && isGrounded)
                 {
-                    Console.WriteLine("JUMP");
                     Jump();
                 }
                 else if (Keyboard.GetState().IsKeyDown(jump) && hasAirJump && airJumpCounter > airJumpDelay)
@@ -164,6 +163,7 @@ namespace SHK
                 if (!isGrounded)
                 {
                     valorY -= gravity;
+                    if (valorY < fallingSpeedLimiter) valorY = fallingSpeedLimiter;
                 }
 
                 if (valorY == 0 && valorX == 0 && isGrounded)
@@ -206,6 +206,41 @@ namespace SHK
                     attacks.LightPunch(mPosition);
                     isAttacking = false;
                 }
+
+                if (Keyboard.GetState().IsKeyDown(mPunch))
+                {
+                    isAttacking = true;
+                    attacks.MediumPunch(mPosition);
+                    isAttacking = false;
+                }
+
+                if (Keyboard.GetState().IsKeyDown(hPunch))
+                {
+                    isAttacking = true;
+                    attacks.HeavyPunch(mPosition);
+                    isAttacking = false;
+                }
+
+                if (Keyboard.GetState().IsKeyDown(lKick))
+                {
+                    isAttacking = true;
+                    attacks.LightKick(mPosition);
+                    isAttacking = false;
+                }
+
+                if (Keyboard.GetState().IsKeyDown(mKick))
+                {
+                    isAttacking = true;
+                    attacks.MediumKick(mPosition);
+                    isAttacking = false;
+                }
+
+                if (Keyboard.GetState().IsKeyDown(hKick))
+                {
+                    isAttacking = true;
+                    attacks.HeavyKick(mPosition);
+                    isAttacking = false;
+                }
             }
 
             #endregion
@@ -219,7 +254,7 @@ namespace SHK
            
 
             Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
-
+            Console.WriteLine(valorY);
             Collision();
 
             //position += Velocity;
@@ -258,22 +293,20 @@ namespace SHK
         {
             foreach (var plataforma in mapa)
             {
-                    if (mPosition.Y <= plataforma.Position.Y + plataforma.Size.Y / 2 &&
-                        mPosition.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
+                if (mPosition.Y <= plataforma.Position.Y + plataforma.Size.Y / 2 && mPosition.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
+                {
+                    if (mPosition.X > plataforma.Position.X - plataforma.Size.X / 2 && mPosition.X - size.X < plataforma.Position.X + plataforma.Size.X / 2)
                     {
-                        if (mPosition.X > plataforma.Position.X - plataforma.Size.X / 2 && mPosition.X - size.X <
-                            plataforma.Position.X + plataforma.Size.X / 2)
-                        {
-                            isGrounded = true;
-                            valorY = 0;
-                            mPosition.Y = plataforma.Position.Y + plataforma.Size.Y / 2;
+                        isGrounded = true;
+                        valorY = 0;
+                        mPosition.Y = plataforma.Position.Y + plataforma.Size.Y / 2;
                             break;
-                        }
                     }
-                    else
-                    {
-                        isGrounded = false;
-                    }
+                }
+                else
+                {
+                    isGrounded = false;
+                }
             }
         }
 

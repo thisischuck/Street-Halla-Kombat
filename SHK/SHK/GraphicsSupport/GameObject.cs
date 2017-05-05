@@ -106,14 +106,6 @@ namespace SHK
         }
 
         /// <summary>
-        /// Get/Sets the speed
-        /// </summary>
-        public float Speed { 
-            get { return mSpeed; }
-            set { mSpeed = value; }
-        }
-
-        /// <summary>
         /// Get/Sets the Direction of the velocity.
         /// Ensures vector is normalized
         /// </summary>

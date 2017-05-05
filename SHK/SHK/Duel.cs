@@ -23,7 +23,7 @@ namespace SHK
         static Vector2 hpPosition1 = new Vector2(500, 500);
     
         static Vector2 charP = new Vector2(1200, 100);
-        static Vector2 charS = new Vector2(128f, 128f);
+        static Vector2 charS = new Vector2(120, 212);
 
         //---------------------------------------------------
 
@@ -44,6 +44,10 @@ namespace SHK
         public Plataforma ChaoPlataforma2;
         static Vector2 platPosition = new Vector2(1000,100);
         static Vector2 platPosition2 = new Vector2(200, 200);
+        public Plataforma ChaoPlataforma3;
+        public Plataforma ChaoPlataforma4;
+        static Vector2 platPosition3 = new Vector2(2000, 400);
+        static Vector2 platPosition4 = new Vector2(1300, 700);
         static Vector2 platSize = new Vector2(510,65);
 
         GameTimer timer;
@@ -51,6 +55,10 @@ namespace SHK
 
         public Duel()
         {
+            ChaoPlataforma = new Plataforma(false, platSize, platPosition);
+            ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2);
+            ChaoPlataforma3 = new Plataforma(false, platSize, platPosition3);
+            ChaoPlataforma4 = new Plataforma(false, platSize, platPosition4);
             timUI = new TimerUI(new Vector2 (Game1.mGraphics.PreferredBackBufferWidth / 2, 0), new Vector2(1, 1));
             timer = new GameTimer(180.0f);
             timer.Font = Game1.sContent.Load<SpriteFont>("Arial");
@@ -61,6 +69,8 @@ namespace SHK
 
             ListaPlataformas.Add(ChaoPlataforma);
             ListaPlataformas.Add(ChaoPlataforma2);
+            ListaPlataformas.Add(ChaoPlataforma3);
+            ListaPlataformas.Add(ChaoPlataforma4);
 
 
             attacksPlayer1 = new AttackList();
@@ -70,11 +80,6 @@ namespace SHK
             attacksPlayer2 = new AttackList();
             player2 = new Character("Untitled", char2P, char2S, 18, 1, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
             hpPlayer2 = new HealthBar(player2, hpPosition2,hpSize, SpriteEffects.FlipHorizontally);
-
-
-
-
-
         }   
 
         public void Update(GameTime gameTime)
@@ -85,7 +90,6 @@ namespace SHK
 
             player2.Update();
             //hpPlayer2.Update();
-            //ChaoPlataforma.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -97,12 +101,12 @@ namespace SHK
 
 
             player2.Draw();
-            ChaoPlataforma.Draw();
-            ChaoPlataforma2.Draw();
+            foreach (var plataforma in ListaPlataformas)
+            {
+                plataforma.Draw();
+            }
             attacksPlayer1.Draw(gameTime);
             attacksPlayer2.Draw(gameTime);
-
         }
-
     }
 }
