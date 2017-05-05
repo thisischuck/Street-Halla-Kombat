@@ -13,16 +13,10 @@ namespace SHK
     {
         private Texture2D GUITexture;
         private Rectangle GUIRect;
-        private string assetName;
-
-        public string AssetName
-        {
-            get { return assetName; }
-            set { assetName = value; }
-        }
+        public string assetName = "start";
 
         public delegate void ElementClicked(string element);
-        public event ElementClicked clickEvent; // chamada sempre que o rato é pressionada de forma a saber onde este esta a clicar
+        public event ElementClicked PressEvent; // chamada sempre que o enter é pressionado de forma a saber onde esta a presssionar
 
         public GUIElement(string assetName)
         {
@@ -35,12 +29,29 @@ namespace SHK
             GUIRect = new Rectangle(0, 0, GUITexture.Width, GUITexture.Height);
         }
 
-        // verifica que elemento do menu é clicado
+        // verifica que elemento do menu é pressionado
         public void Update()
         {
-            if (GUIRect.Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y)) && Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.Down) && assetName == "start")
             {
-                clickEvent(assetName);
+                assetName = "exit";
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Down) && assetName == "exit")
+            {
+                assetName = "start";
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) && assetName == "start")
+            {
+                assetName = "exit";
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) && assetName == "exit")
+            {
+                assetName = "start";
+            }
+            if(Keyboard.GetState().IsKeyDown(Keys.Enter))
+            {
+                PressEvent(assetName);
             }
         }
 

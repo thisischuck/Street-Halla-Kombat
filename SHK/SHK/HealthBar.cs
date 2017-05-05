@@ -19,7 +19,7 @@ namespace SHK
         private int height;
         private SpriteEffects effect;
 
-        public HealthBar(Character player, Vector2 hpPosition,Vector2 hpSize, SpriteEffects effect) :base("healthbar",hpPosition, hpSize, 1,1,0,effect)
+        public HealthBar(Character player, Vector2 hpPosition,Vector2 hpSize, SpriteEffects effect) :base("lifebar",hpPosition, hpSize, 1,1,0,effect)
         {
             position = hpPosition;
             //containerPosition = new Vector2(70, 30);

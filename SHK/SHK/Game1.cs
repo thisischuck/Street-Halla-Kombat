@@ -78,14 +78,12 @@ namespace SHK
             sSpriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
 
-            /*
-            #region Carregar menu
             
+            #region Carregar menu
+            main.LoadContent(sContent);
             #endregion
-            */
+            
             a = new Duel();
-            a.LoadContent();
-            //main.LoadContent(sContent);
             #region Carregar sons e efeitos
 
             /*
@@ -133,7 +131,7 @@ namespace SHK
                 Exit();
 
             // TODO: Add your update logic here
-            //main.Update();
+            main.Update();
             a.Update(gameTime);
             base.Update(gameTime);
         }
@@ -148,7 +146,7 @@ namespace SHK
             Game1.sSpriteBatch.Begin();
 
             a.Draw(sSpriteBatch);
-            //main.Draw(sSpriteBatch);
+            main.Draw(sSpriteBatch);
 
             Game1.sSpriteBatch.End();
             base.Draw(gameTime);

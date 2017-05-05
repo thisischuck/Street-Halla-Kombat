@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SHK
 {
-    class GameTimer 
+    class GameTimer
     {
         public SpriteFont Font;
         public float time;
@@ -18,6 +18,7 @@ namespace SHK
         public string Text;
         public Vector2 Position;
         public float deltatime;
+        public Texture2D timerTexture;
 
 
 
@@ -28,6 +29,7 @@ namespace SHK
             paused = false;
             finished = false;
             Text = "";
+
         }
 
         public void Update(GameTime gameTime)
@@ -44,12 +46,12 @@ namespace SHK
                         finished = true;
                 }
             }
-            Text = time.ToString();
+            Text = ((int)time).ToString();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(Font, Text, Position, Color.White);
+            spriteBatch.DrawString(Font, Text, Position, Color.Black);
         }
     }
 }

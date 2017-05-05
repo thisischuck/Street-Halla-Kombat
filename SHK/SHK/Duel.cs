@@ -38,9 +38,15 @@ namespace SHK
         static Vector2 platSize = new Vector2(510,65);
 
         GameTimer timer;
+        TimerUI timUI;
 
         public Duel()
         {
+            timUI = new TimerUI(new Vector2 (Game1.mGraphics.PreferredBackBufferWidth / 2, 0), new Vector2(1, 1));
+            timer = new GameTimer(180.0f);
+            timer.Font = Game1.sContent.Load<SpriteFont>("Arial");
+            timer.Position = new Vector2((Game1.mGraphics.PreferredBackBufferWidth / 2) - timer.Font.MeasureString(timer.Text).X / 2, 0);
+
             player1 = new Character("test1", charP, charS, 2, 4, 0, 1, SpriteEffects.None, false);
             hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
 
@@ -51,13 +57,6 @@ namespace SHK
             ChaoPlataforma = new Plataforma(false, platSize, platPosition, player1, player2);
             ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2, player1, player2);
         }   
-
-        public void LoadContent()
-        {
-            timer = new GameTimer(180.0f);
-            timer.Font = Game1.sContent.Load<SpriteFont>("Arial");
-            timer.Position = new Vector2((Game1.mGraphics.PreferredBackBufferWidth / 2) - timer.Font.MeasureString(timer.Text).X / 2, 0);
-        }
 
         public void Update(GameTime gameTime)
         {

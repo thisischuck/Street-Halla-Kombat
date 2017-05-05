@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Input;
 
 namespace SHK
 {
@@ -34,11 +35,11 @@ namespace SHK
             {
                 element.LoadContent(content);
                 element.CenterElement(Game1.mGraphics.PreferredBackBufferHeight, Game1.mGraphics.PreferredBackBufferWidth);
-                element.clickEvent += onClick;
+                element.PressEvent += onPress;
             }
-            //encontrar o determinado elemento e move-lo individualmente( em pixeis)
-            main.Find(x => x.AssetName == "start").MoveElement(0, -20);
-            main.Find(x => x.AssetName == "exit").MoveElement(0, 20);
+            //encontrar o determinado elemento e move-lo individualmente(em pixeis)
+            main.Find(x => x.assetName == "start").MoveElement(0, -20);
+            main.Find(x => x.assetName == "exit").MoveElement(0, 20);
         }
 
         public void Update()
@@ -56,6 +57,7 @@ namespace SHK
                 case GameState.Paused:
                     break;
             }
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -75,15 +77,14 @@ namespace SHK
             }
         }
 
-        public void onClick(string element)
+        public void onPress(string element)
         {
             if( element == "start")
             {
                 // play the game
                 gameState = GameState.inGame;
-
-                //a.Update(gameTime);
-                //a.Draw();
+                Console.WriteLine("IT WORKED.");
+                
             }
             if( element == "exit")
             {
