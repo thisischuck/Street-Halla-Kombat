@@ -1,6 +1,8 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
@@ -97,11 +99,15 @@ namespace SHK
 
         public void Draw(GameTime gameTime)
         {
+            Console.WriteLine(a);
+
             delay = gameTime.TotalGameTime;
             if(hitbox_text != null && !endAttack && !((gameTime.TotalGameTime.TotalMilliseconds - delay.TotalMilliseconds) > attackDuration))
             {
                 Game1.sSpriteBatch.Draw(hitbox_text, hitbox, Color.Black);
                 endAttack = true;
+                a = new Rectangle(0,0,0,0);
+                
             }
         }
     }

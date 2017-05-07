@@ -21,9 +21,9 @@ namespace SHK
         // number of images: mPaddings between images
         private int mSpriteImageWidth, mSpriteImageHeight;
 
-        private SpriteEffects effect;
-        // dimension of each image
 
+        // dimension of each image
+        public SpriteEffects SpriteEffects;
         #region Per Animation setting
         private int mUserSpecifedTicks;
         // number of ticks before changing to the next image
@@ -55,7 +55,7 @@ namespace SHK
             mNumRow = rowCounts;
             mNumColumn = columnCount;
             mPaddings = padding;
-            effect = a;
+            SpriteEffects = a;
             mSpriteImageWidth = mImage.Width / mNumRow;
 
             mSpriteImageHeight = mImage.Height / mNumColumn;
@@ -145,7 +145,7 @@ namespace SHK
                             Color.White,        // 
                             mRotateAngle,       // Angle to roate (clockwise)
                             org,                // Image reference position,
-                            effect, 0f);          
+                            SpriteEffects, 0f);          
 
             //Game1.sSpriteBatch.Draw(mImage, destRect,srcRect, Color.White);
 

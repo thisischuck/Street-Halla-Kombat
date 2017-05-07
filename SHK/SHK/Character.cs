@@ -62,8 +62,8 @@ namespace SHK
         private enum CharState
         {
             Idle,
-            WalkingFoward,
-            WalkingBackwards,
+            WalkingRight,
+            WalkingLeft,
             Dead,
             Air,
             Stunned,    
@@ -125,14 +125,15 @@ namespace SHK
             if (!isAI)
             {
                 #region Movement + Animation
-
+           
+                
                 mPreviousCharState = mCurrentCharState;
 
                 if (Keyboard.GetState().IsKeyDown(jump) && isGrounded)
                 {
                     Jump();
                 }
-                else if (Keyboard.GetState().IsKeyDown(jump) && hasAirJump && airJumpCounter > airJumpDelay)
+                else if (Keyboard.GetState().IsKeyDown(jump) && hasAirJump && (airJumpCounter > airJumpDelay))
                 {
                     Jump();
                     hasAirJump = false;
@@ -176,12 +177,12 @@ namespace SHK
                 {
                     if (valorX < 0)
                     {
-                        mCurrentCharState = CharState.WalkingBackwards;
+                        mCurrentCharState = CharState.WalkingLeft;
                         animationPlay = false;
                     }
                     else if (valorX > 0)
                     {
-                        mCurrentCharState = CharState.WalkingFoward;
+                        mCurrentCharState = CharState.WalkingRight;
                         animationPlay = false;
                     }
                 }
@@ -258,7 +259,7 @@ namespace SHK
             Collision();
 
             //position += Velocity;
-            Console.WriteLine(isGrounded);
+            Console.WriteLine(hasAirJump);
 
 
             base.Update();
@@ -272,16 +273,18 @@ namespace SHK
                     switch (mCurrentCharState)
                     {
                         case CharState.Air:
-                            SetSpriteAnimation(3, 0, 3, 1, 2);
+                            //SetSpriteAnimation(3, 0, 3, 1, 2);
                             break;
                         case CharState.Idle:
-                            SetSpriteAnimation(0, 0, 0, 1, 2);
+                            SetSpriteAnimation(0, 0, 0, 17, 2);
                             break;
-                        case CharState.WalkingBackwards:
-                            SetSpriteAnimation(2, 0, 2, 1, 2);
+                        case CharState.WalkingLeft:
+                            this.SpriteEffects = SpriteEffects.FlipHorizontally;
+                            //SetSpriteAnimation(2, 0, 2, 1, 2);
                             break;
-                        case CharState.WalkingFoward:
-                            SetSpriteAnimation(1, 0, 1, 1, 2);
+                        case CharState.WalkingRight:
+                            this.SpriteEffects = SpriteEffects.None;
+                            //SetSpriteAnimation(1, 0, 1, 1, 2);
                             break;
 
                     }
@@ -312,7 +315,7 @@ namespace SHK
 
         public override void Draw()
         {
-            //  AnimationUpdate();
+            AnimationUpdate();
             base.Draw();
         }
     }
