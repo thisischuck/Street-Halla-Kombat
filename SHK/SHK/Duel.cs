@@ -72,11 +72,11 @@ namespace SHK
 
 
             attacksPlayer1 = new AttackList();
-            player1 = new Character("Ryu-Test", charP, charS, 18, 13, 0, 1, SpriteEffects.None, false, ListaPlataformas, attacksPlayer1);
+            player1 = new Character("Ryu-Test", charP, charS, 18, 5, 0, 1, SpriteEffects.None, false, ListaPlataformas, attacksPlayer1);
             //   hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
 
             attacksPlayer2 = new AttackList();
-            player2 = new Character("Ryu-Test", char2P, char2S, 18, 13, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
+            player2 = new Character("Ryu-Test", char2P, char2S, 18, 5, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
             hpPlayer2 = new HealthBar(player2, hpPosition2,hpSize, SpriteEffects.FlipHorizontally);
         }   
 
