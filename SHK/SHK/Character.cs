@@ -273,18 +273,18 @@ namespace SHK
                     switch (mCurrentCharState)
                     {
                         case CharState.Air:
-                            //SetSpriteAnimation(3, 0, 3, 1, 2);
+                            SetSpriteAnimation(1, 0, 1, 10, 2);
                             break;
                         case CharState.Idle:
                             SetSpriteAnimation(0, 0, 0, 17, 2);
                             break;
                         case CharState.WalkingLeft:
                             this.SpriteEffects = SpriteEffects.FlipHorizontally;
-                            //SetSpriteAnimation(2, 0, 2, 1, 2);
+                            SetSpriteAnimation(3, 0, 3, 6, 2);
                             break;
                         case CharState.WalkingRight:
                             this.SpriteEffects = SpriteEffects.None;
-                            //SetSpriteAnimation(1, 0, 1, 1, 2);
+                            SetSpriteAnimation(3, 0, 3, 6, 2);
                             break;
 
                     }

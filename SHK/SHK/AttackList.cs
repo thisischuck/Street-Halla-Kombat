@@ -99,14 +99,12 @@ namespace SHK
 
         public void Draw(GameTime gameTime)
         {
-            Console.WriteLine(a);
 
             delay = gameTime.TotalGameTime;
             if(hitbox_text != null && !endAttack && !((gameTime.TotalGameTime.TotalMilliseconds - delay.TotalMilliseconds) > attackDuration))
             {
                 Game1.sSpriteBatch.Draw(hitbox_text, hitbox, Color.Black);
                 endAttack = true;
-                a = new Rectangle(0,0,0,0);
                 
             }
         }

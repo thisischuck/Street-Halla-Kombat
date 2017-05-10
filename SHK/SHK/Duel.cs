@@ -23,7 +23,7 @@ namespace SHK
         static Vector2 hpPosition1 = new Vector2(500, 500);
     
         static Vector2 charP = new Vector2(1200, 100);
-        static Vector2 charS = new Vector2(120, 212);
+        static Vector2 charS = new Vector2(200, 200);
 
         //---------------------------------------------------
 
@@ -32,7 +32,7 @@ namespace SHK
         public AttackList attacksPlayer2;
 
         static Vector2 char2P = new Vector2(1208, 100);
-        static Vector2 char2S = new Vector2(120, 212);
+        static Vector2 char2S = new Vector2(200, 200);
 
         static Vector2 hpPosition2 = new Vector2(0, 0);
 
@@ -59,13 +59,11 @@ namespace SHK
             ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2);
             ChaoPlataforma3 = new Plataforma(false, platSize, platPosition3);
             ChaoPlataforma4 = new Plataforma(false, platSize, platPosition4);
+
             timUI = new TimerUI(new Vector2 (Game1.mGraphics.PreferredBackBufferWidth / 2, 0), new Vector2(1, 1));
             timer = new GameTimer(180.0f);
             timer.Font = Game1.sContent.Load<SpriteFont>("Arial");
             timer.Position = new Vector2((Game1.mGraphics.PreferredBackBufferWidth / 2) - timer.Font.MeasureString(timer.Text).X / 2, 0);
-
-            player1 = new Character("test1", charP, charS, 2, 4, 0, 1, SpriteEffects.None, false);
-            hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
 
             ListaPlataformas.Add(ChaoPlataforma);
             ListaPlataformas.Add(ChaoPlataforma2);
@@ -74,11 +72,11 @@ namespace SHK
 
 
             attacksPlayer1 = new AttackList();
-            player1 = new Character("Untitled", charP, charS, 18, 1, 0, 1, SpriteEffects.None, false, ListaPlataformas, attacksPlayer1);
+            player1 = new Character("Ryu-Test", charP, charS, 18, 13, 0, 1, SpriteEffects.None, false, ListaPlataformas, attacksPlayer1);
             //   hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
 
             attacksPlayer2 = new AttackList();
-            player2 = new Character("Untitled", char2P, char2S, 18, 1, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
+            player2 = new Character("Ryu-Test", char2P, char2S, 18, 13, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
             hpPlayer2 = new HealthBar(player2, hpPosition2,hpSize, SpriteEffects.FlipHorizontally);
         }   
 

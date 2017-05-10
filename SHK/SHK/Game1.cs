@@ -131,7 +131,7 @@ namespace SHK
                 Exit();
 
             // TODO: Add your update logic here
-            main.Update();
+            //main.Update();
             a.Update(gameTime);
             base.Update(gameTime);
         }
@@ -145,8 +145,8 @@ namespace SHK
             GraphicsDevice.Clear(Color.Pink);
             Game1.sSpriteBatch.Begin();
 
-            a.Draw(sSpriteBatch);
-            main.Draw(sSpriteBatch);
+            a.Draw(sSpriteBatch,gameTime);
+            //main.Draw(sSpriteBatch);
 
             Game1.sSpriteBatch.End();
             base.Draw(gameTime);
