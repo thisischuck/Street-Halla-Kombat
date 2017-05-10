@@ -205,6 +205,7 @@ namespace SHK
                 {
                     isAttacking = true;
                     attacks.LightPunch(mPosition);
+                    mCurrentCharState = CharState.LPunch;
                     isAttacking = false;
                 }
 
@@ -285,6 +286,9 @@ namespace SHK
                         case CharState.WalkingRight:
                             this.SpriteEffects = SpriteEffects.None;
                             SetSpriteAnimation(3, 0, 3, 6, 4);
+                            break;
+                        case CharState.LPunch:
+                            SetSpriteAnimation(4,0,4,3,3);
                             break;
 
                     }

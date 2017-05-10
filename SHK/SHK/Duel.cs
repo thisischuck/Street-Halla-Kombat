@@ -23,7 +23,7 @@ namespace SHK
         static Vector2 hpPosition1 = new Vector2(500, 500);
     
         static Vector2 charP = new Vector2(1200, 100);
-        static Vector2 charS = new Vector2(200, 200);
+        static Vector2 charS = new Vector2(400, 400);
 
         //---------------------------------------------------
 
@@ -32,7 +32,7 @@ namespace SHK
         public AttackList attacksPlayer2;
 
         static Vector2 char2P = new Vector2(1208, 100);
-        static Vector2 char2S = new Vector2(200, 200);
+        static Vector2 char2S = new Vector2(400, 400);
 
         static Vector2 hpPosition2 = new Vector2(0, 0);
 
