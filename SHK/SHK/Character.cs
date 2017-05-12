@@ -281,11 +281,11 @@ namespace SHK
                             break;
                         case CharState.WalkingLeft:
                             this.SpriteEffects = SpriteEffects.FlipHorizontally;
-                            SetSpriteAnimation(3, 0, 3, 6, 4);
+                            SetSpriteAnimation(3, 0, 3, 5, 4);
                             break;
                         case CharState.WalkingRight:
                             this.SpriteEffects = SpriteEffects.None;
-                            SetSpriteAnimation(3, 0, 3, 6, 4);
+                            SetSpriteAnimation(3, 0, 3, 5, 4);
                             break;
                         case CharState.LPunch:
                             SetSpriteAnimation(4,0,4,3,3);
