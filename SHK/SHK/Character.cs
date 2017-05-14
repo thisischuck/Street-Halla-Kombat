@@ -72,7 +72,13 @@ namespace SHK
             LPunch,
             LKick,
             HPunch,
-            HKick,          
+            HKick,
+            MKickAir,
+            MPunchAir,
+            LPunchAir,
+            LKickAir,
+            HPunchAir,
+            HKickAir,
         }
 
         private CharState mCurrentCharState;
@@ -124,70 +130,67 @@ namespace SHK
 
             if (!isAI)
             {
-                #region Movement + Animation
-           
-                
-                mPreviousCharState = mCurrentCharState;
+                if (!isAttacking)
+                {
+                    #region Movement + Animation
 
-                if (Keyboard.GetState().IsKeyDown(jump) && isGrounded)
-                {
-                    Jump();
-                }
-                else if (Keyboard.GetState().IsKeyDown(jump) && hasAirJump && (airJumpCounter > airJumpDelay))
-                {
-                    Jump();
-                    hasAirJump = false;
-                }
 
-                if (Keyboard.GetState().IsKeyDown(left) || Keyboard.GetState().IsKeyDown(right))
-                {
-                    if (Keyboard.GetState().IsKeyDown(right))
+                    mPreviousCharState = mCurrentCharState;
+
+                    if (Keyboard.GetState().IsKeyDown(jump) && isGrounded)
                     {
-                        valorX = xSpeed;
+                        Jump();
+                    }
+                    else if (Keyboard.GetState().IsKeyDown(jump) && hasAirJump && (airJumpCounter > airJumpDelay))
+                    {
+                        Jump();
+                        hasAirJump = false;
                     }
 
-                    if (Keyboard.GetState().IsKeyDown(left))
+                    if (Keyboard.GetState().IsKeyDown(left) || Keyboard.GetState().IsKeyDown(right))
                     {
-                        valorX = -xSpeed;
-                    }
+                        if (Keyboard.GetState().IsKeyDown(right))
+                        {
+                            valorX = xSpeed;
+                        }
 
-                    if (Keyboard.GetState().GetPressedKeys().Contains<Keys>(left) && Keyboard.GetState().GetPressedKeys().Contains<Keys>(right))
+                        if (Keyboard.GetState().IsKeyDown(left))
+                        {
+                            valorX = -xSpeed;
+                        }
+
+                        if (Keyboard.GetState().GetPressedKeys().Contains<Keys>(left) && Keyboard.GetState().GetPressedKeys().Contains<Keys>(right))
+                        {
+                            valorX = 0f;
+                        }
+                    }
+                    else
                     {
                         valorX = 0f;
                     }
-                }
-                else
-                {
-                    valorX = 0f;
-                }
 
-                if (!isGrounded)
-                {
-                    valorY -= gravity;
-                    if (valorY < fallingSpeedLimiter) valorY = fallingSpeedLimiter;
-                }
-
-                if (valorY == 0 && valorX == 0 && isGrounded)
-                {
-                    mCurrentCharState = CharState.Idle;
-                    animationPlay = false;
-                }
-
-                if (isGrounded)
-                {
-                    if (valorX < 0)
+                    if (valorY == 0 && valorX == 0 && isGrounded && !isAttacking)
                     {
-                        mCurrentCharState = CharState.WalkingLeft;
+                        mCurrentCharState = CharState.Idle;
                         animationPlay = false;
                     }
-                    else if (valorX > 0)
-                    {
-                        mCurrentCharState = CharState.WalkingRight;
-                        animationPlay = false;
-                    }
-                }
 
-                #endregion
+                    if (isGrounded && !isAttacking)
+                    {
+                        if (valorX < 0)
+                        {
+                            mCurrentCharState = CharState.WalkingLeft;
+                            animationPlay = false;
+                        }
+                        else if (valorX > 0)
+                        {
+                            mCurrentCharState = CharState.WalkingRight;
+                            animationPlay = false;
+                        }
+                    }
+
+                    #endregion
+                }
 
                 if (isGrounded)
                 {
@@ -201,67 +204,85 @@ namespace SHK
 
             if (!isAttacking)
             {
-                if (Keyboard.GetState().IsKeyDown(lPunch))
+                if (isGrounded)
                 {
-                    isAttacking = true;
-                    attacks.LightPunch(mPosition);
-                    mCurrentCharState = CharState.LPunch;
-                    isAttacking = false;
-                }
+                    if (Keyboard.GetState().IsKeyDown(lPunch))
+                    {
+                        valorX = 0;
+                        isAttacking = true;
+                        attacks.LightPunch(mPosition, SpriteEffects);
+                        mCurrentCharState = CharState.LPunch;
+                    }
 
-                if (Keyboard.GetState().IsKeyDown(mPunch))
-                {
-                    isAttacking = true;
-                    attacks.MediumPunch(mPosition);
-                    isAttacking = false;
-                }
+                    if (Keyboard.GetState().IsKeyDown(mPunch))
+                    {
+                        valorX = 0;
+                        isAttacking = true;
+                        attacks.MediumPunch(mPosition, SpriteEffects);
+                        mCurrentCharState = CharState.MPunch;
+                    }
 
-                if (Keyboard.GetState().IsKeyDown(hPunch))
-                {
-                    isAttacking = true;
-                    attacks.HeavyPunch(mPosition);
-                    isAttacking = false;
-                }
+                    if (Keyboard.GetState().IsKeyDown(hPunch))
+                    {
+                        valorX = 0;
+                        isAttacking = true;
+                        attacks.HeavyPunch(mPosition, SpriteEffects);
+                        mCurrentCharState = CharState.HPunch;
+                    }
 
-                if (Keyboard.GetState().IsKeyDown(lKick))
-                {
-                    isAttacking = true;
-                    attacks.LightKick(mPosition);
-                    isAttacking = false;
-                }
+                    if (Keyboard.GetState().IsKeyDown(lKick))
+                    {
+                        valorX = 0;
+                        isAttacking = true;
+                        attacks.LightKick(mPosition, SpriteEffects);
+                        mCurrentCharState = CharState.LKick;
+                    }
 
-                if (Keyboard.GetState().IsKeyDown(mKick))
-                {
-                    isAttacking = true;
-                    attacks.MediumKick(mPosition);
-                    isAttacking = false;
-                }
+                    if (Keyboard.GetState().IsKeyDown(mKick))
+                    {
+                        valorX = 0;
+                        isAttacking = true;
+                        attacks.MediumKick(mPosition, SpriteEffects);
+                        mCurrentCharState = CharState.MKick;
+                    }
 
-                if (Keyboard.GetState().IsKeyDown(hKick))
+                    if (Keyboard.GetState().IsKeyDown(hKick))
+                    {
+                        valorX = 0;
+                        isAttacking = true;
+                        attacks.HeavyKick(mPosition, SpriteEffects);
+                        mCurrentCharState = CharState.HKick;
+                    }
+                }
+                else
                 {
-                    isAttacking = true;
-                    attacks.HeavyKick(mPosition);
-                    isAttacking = false;
+                    if (Keyboard.GetState().IsKeyDown(lPunch))
+                    {
+                        isAttacking = true;
+                        attacks.LightPunchAir(mPosition, SpriteEffects);
+                        mCurrentCharState = CharState.LPunchAir;
+                    }
                 }
             }
 
             #endregion
 
-            if (Keyboard.GetState().IsKeyDown(Keys.G))
+            //gravidade
+            if (!isGrounded)
             {
-                if(playerHealth > 0)
-                    playerHealth -= 1;
+                valorY -= gravity;
+                if (valorY < fallingSpeedLimiter) valorY = fallingSpeedLimiter;
             }
 
-           
-
             Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
-            Console.WriteLine(valorY);
+            Console.WriteLine(isAttacking);
+
+            if (SpriteCurrentColumn == SpriteEndColumn)
+            {
+                isAttacking = false;
+            }
+
             Collision();
-
-            //position += Velocity;
-            Console.WriteLine(hasAirJump);
-
 
             base.Update();
         }
@@ -292,7 +313,7 @@ namespace SHK
                             break;
 
                     }
-                    animationPlay = true;
+                animationPlay = true;
                 }
         }
 

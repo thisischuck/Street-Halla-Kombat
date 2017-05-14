@@ -83,7 +83,7 @@ namespace SHK
         public void Update(GameTime gameTime)
         {
             timer.Update(gameTime);
-             player1.Update();
+            player1.Update();
             //hpPlayer1.Update();
 
             player2.Update();
