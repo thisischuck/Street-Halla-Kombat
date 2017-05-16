@@ -328,7 +328,7 @@ namespace SHK
                         isGrounded = true;
                         valorY = 0;
                         mPosition.Y = plataforma.Position.Y + plataforma.Size.Y / 2;
-                            break;
+                        break;
                     }
                 }
                 else
