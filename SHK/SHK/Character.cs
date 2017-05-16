@@ -31,7 +31,8 @@ namespace SHK
         private Keys jump, right, left, down, lPunch, mPunch, hPunch, lKick, mKick, hKick;
         private List<Plataforma> mapa;
         public AttackList attacks;
-
+        private Rectangle hurtbox;
+        private Texture2D a_text;
 
         public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, int player, SpriteEffects effect, bool ai, List<Plataforma> mapa, AttackList attacks) : base(imageName,cposition,csize,row,col,padding, effect)
         {
@@ -126,6 +127,17 @@ namespace SHK
 
         public override void Update()
         {
+            Vector2 a = new Vector2(mPosition.X - mSize.X/2 - 10, mPosition.Y + mSize.Y/2 - 40);
+            Vector2 b = new Vector2(mSize.X/2 - 50, mSize.Y - mSize.Y/3);
+            hurtbox = Camera.ComputePixelRectangle(a, b);
+            a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hurtbox.Width, hurtbox.Height);
+
+            Color[] data = new Color[hurtbox.Width * hurtbox.Height];
+            for (int i = 0; i < data.Length; ++i) data[i] = Color.Chocolate;
+            a_text.SetData(data);
+
+
+
             airJumpCounter++;
 
             if (!isAI)
@@ -321,9 +333,9 @@ namespace SHK
         {
             foreach (var plataforma in mapa)
             {
-                if (mPosition.Y <= plataforma.Position.Y + plataforma.Size.Y / 2 && mPosition.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
+                if (hurtbox.Y <= plataforma.Position.Y + plataforma.Size.Y / 2 && hurtbox.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
                 {
-                    if (mPosition.X > plataforma.Position.X - plataforma.Size.X / 2 && mPosition.X - size.X < plataforma.Position.X + plataforma.Size.X / 2)
+                    if (hurtbox.X > plataforma.Position.X - plataforma.Size.X / 2 && hurtbox.X - hurtbox.Size.X < plataforma.Position.X + plataforma.Size.X / 2)
                     {
                         isGrounded = true;
                         valorY = 0;
@@ -341,6 +353,7 @@ namespace SHK
         public override void Draw()
         {
             AnimationUpdate();
+            Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
             base.Draw();
         }
     }
