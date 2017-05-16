@@ -67,6 +67,8 @@ namespace SHK
             isDownDown = false;
             hasHadouken = false;
             comboCounter = 0;
+
+            
         }
 
         private enum CharState
@@ -137,6 +139,7 @@ namespace SHK
         public override void Update()
         {
             Vector2 a = new Vector2(mPosition.X - mSize.X/2 - 10, mPosition.Y + mSize.Y/2 - 40);
+            //Vector2 a = new Vector2(mPosition.X, mPosition.Y);
             Vector2 b = new Vector2(mSize.X/2 - 50, mSize.Y - mSize.Y/3);
             hurtbox = Camera.ComputePixelRectangle(a, b);
             a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hurtbox.Width, hurtbox.Height);
@@ -144,8 +147,6 @@ namespace SHK
             Color[] data = new Color[hurtbox.Width * hurtbox.Height];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Chocolate;
             a_text.SetData(data);
-
-
 
             airJumpCounter++;
             comboCounter++;
@@ -341,12 +342,16 @@ namespace SHK
                 isAttacking = false;
             }
             Collision();
+
+
             foreach(Keys k in movementKeyHistory)
             {
-                Console.WriteLine(k);
+                //Console.WriteLine(k);
             }
-            Console.WriteLine("------------------------");
+            //Console.WriteLine("------------------------");
             movementKeyHistory.TrimExcess();
+
+            Console.WriteLine(hurtbox + " " + mPosition);
 
             base.Update();
         }
@@ -385,9 +390,9 @@ namespace SHK
         {
             foreach (var plataforma in mapa)
             {
-                if (hurtbox.Y <= plataforma.Position.Y + plataforma.Size.Y / 2 && hurtbox.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
+                if (mPosition.Y <= plataforma.Position.Y + plataforma.Size.Y / 2 && mPosition.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
                 {
-                    if (hurtbox.X > plataforma.Position.X - plataforma.Size.X / 2 && hurtbox.X - hurtbox.Size.X < plataforma.Position.X + plataforma.Size.X / 2)
+                    if (mPosition.X > plataforma.Position.X - plataforma.Size.X / 2 && mPosition.X - mSize.X/2 < plataforma.Position.X + plataforma.Size.X / 2)
                     {
                         isGrounded = true;
                         valorY = 0;

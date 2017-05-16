@@ -83,7 +83,7 @@ namespace SHK
         public void Update(GameTime gameTime)
         {
             timer.Update(gameTime);
-            player1.Update();
+            //player1.Update();
             //hpPlayer1.Update();
 
             player2.Update();
@@ -95,7 +95,7 @@ namespace SHK
             timer.Draw(spriteBatch);
             //hpPlayer1.Draw();
             hpPlayer2.Draw();
-            player1.Draw();
+            //player1.Draw();
 
 
             player2.Draw();

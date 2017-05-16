@@ -27,8 +27,14 @@ namespace SHK
             a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, a.Width, a.Height);
 
             Color[] data = new Color[a.Width * a.Height];
-            for (int i = 0; i < data.Length; ++i) data[i] = Color.Chocolate;
+            for (int i = 0; i < data.Length; ++i) data[i] = Color.Black;
             a_text.SetData(data);
+        }
+
+        public override void Draw()
+        {
+            Game1.sSpriteBatch.Draw(a_text,a,Color.White);
+            base.Draw();
         }
     }
 }
