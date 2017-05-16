@@ -21,7 +21,7 @@ namespace SHK
         private float fallingSpeedLimiter;
         public bool isGrounded;
         public bool hasAirJump;
-        private int airJumpCounter;
+        private int airJumpCounter, comboCounter;
         private int airJumpDelay;
         public bool isAttacking;
         private bool isAI;
@@ -31,6 +31,9 @@ namespace SHK
         private Keys jump, right, left, down, lPunch, mPunch, hPunch, lKick, mKick, hKick;
         private List<Plataforma> mapa;
         public AttackList attacks;
+        public Queue<Keys> movementKeyHistory;
+        public bool isRightDown, isLeftDown, isDownDown;
+        public bool hasHadouken;
         private Rectangle hurtbox;
         private Texture2D a_text;
 
@@ -58,6 +61,12 @@ namespace SHK
             SetKeys();
             this.mapa = mapa;
             this.attacks = attacks;
+            movementKeyHistory = new Queue<Keys>();
+            isRightDown = false;
+            isLeftDown = false;
+            isDownDown = false;
+            hasHadouken = false;
+            comboCounter = 0;
         }
 
         private enum CharState
@@ -139,6 +148,45 @@ namespace SHK
 
 
             airJumpCounter++;
+            comboCounter++;
+
+            if (comboCounter > 50)
+            {
+                hasHadouken = false;
+                comboCounter = 0;
+            }
+            if (movementKeyHistory.Count > 3 && hasHadouken == false)
+                hasHadouken = CheckHadouken();
+
+            #region QueueKeyHistory
+
+            if (Keyboard.GetState().IsKeyDown(right))
+                isRightDown = true;
+            if (isRightDown == true && Keyboard.GetState().IsKeyUp(right))
+            {
+                isRightDown = false;
+                movementKeyHistory.Enqueue(right);
+            }
+
+
+            if (Keyboard.GetState().IsKeyDown(left))
+                isLeftDown = true;
+            if (isLeftDown == true && Keyboard.GetState().IsKeyUp(left))
+            {
+                isLeftDown = false;
+                movementKeyHistory.Enqueue(left);
+            }
+
+
+            if (Keyboard.GetState().IsKeyDown(down))
+                isDownDown = true;
+            if (isDownDown == true && Keyboard.GetState().IsKeyUp(down))
+            {
+                isDownDown = false;
+                movementKeyHistory.Enqueue(down);
+            }
+
+            #endregion
 
             if (!isAI)
             {
@@ -287,14 +335,18 @@ namespace SHK
             }
 
             Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
-            Console.WriteLine(isAttacking);
 
             if (SpriteCurrentColumn == SpriteEndColumn)
             {
                 isAttacking = false;
             }
-
             Collision();
+            foreach(Keys k in movementKeyHistory)
+            {
+                Console.WriteLine(k);
+            }
+            Console.WriteLine("------------------------");
+            movementKeyHistory.TrimExcess();
 
             base.Update();
         }
@@ -355,6 +407,24 @@ namespace SHK
             AnimationUpdate();
             Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
             base.Draw();
+        }
+
+        public bool CheckHadouken()
+        {
+            if (movementKeyHistory.Dequeue() == down)
+            {
+                if (movementKeyHistory.Dequeue() == down)
+                {
+                    if (movementKeyHistory.Dequeue() == right)
+                    {
+                        return true;
+                    }
+                    else return false;
+                }
+                else return false;
+            }
+            else return false;
+
         }
     }
 }
