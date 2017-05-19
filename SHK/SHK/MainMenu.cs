@@ -75,7 +75,7 @@ namespace SHK
             switch (gameState)
             {
                 case GameState.Menu:
-                        element.Draw(Game1.sSpriteBatch);
+                        element.Draw();
                         c.Draw();
                         foreach (var plat in plataforma)
                         {
@@ -83,7 +83,7 @@ namespace SHK
                         }
                     break;
                 case GameState.inGame:
-                        a.Draw(Game1.sSpriteBatch);
+                        a.Draw();
                         break;
                 case GameState.Paused:
                         break;

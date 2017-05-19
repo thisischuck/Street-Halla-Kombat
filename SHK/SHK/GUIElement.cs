@@ -59,7 +59,7 @@ namespace SHK
             Console.WriteLine(assetName);
         }
 
-        public void Draw( SpriteBatch spriteBatch)
+        public void Draw()
         {
            Game1.sSpriteBatch.Draw(GUITexture, GUIRect, Color.White);
            Game1.sSpriteBatch.Draw(GUITexture1, GUIRect1, Color.White);

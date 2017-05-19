@@ -98,7 +98,7 @@ namespace SHK
             //hpPlayer2.Update();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
             timer.Draw();
             timUI.Draw();
