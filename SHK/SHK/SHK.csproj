@@ -74,10 +74,10 @@
     <Content Include="Content\game_plat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\lifebar.png">
+    <Content Include="Content\Menu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\menu.png">
+    <Content Include="Content\lifebar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Ryu-Test.png">

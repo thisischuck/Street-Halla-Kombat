@@ -28,7 +28,7 @@ namespace SHK
 
         // plataforma
         public Plataforma ChaoPlataforma;
-        static Vector2 platSize = new Vector2(510, 65);
+        static Vector2 platSize = new Vector2(3500, 65);
         static Vector2 platPosition = new Vector2(1000, 100);
 
         #endregion
@@ -39,20 +39,17 @@ namespace SHK
         {
             ChaoPlataforma = new Plataforma(false, platSize, platPosition);
             plataforma.Add(ChaoPlataforma);
-           // a = new Duel();
+            a = new Duel();
             c = new Character("Ryu-Test", cPosition, cSize, 18, 5, 0, 2, SpriteEffects.None, false, plataforma, attacks);
-           
-        }
 
-        public void LoadContent(ContentManager content)
-        {
+
             element = new GUIElement();
-            element.LoadContent(content);
+            element.LoadContent(Game1.sContent);
             element.CenterElement(Game1.mGraphics.PreferredBackBufferHeight, Game1.mGraphics.PreferredBackBufferWidth);
             element.PressEvent += onPress;
             //encontrar o determinado elemento e move-lo individualmente(em pixeis)
-            element.MoveElement("start",0, -20);
-            element.MoveElement("exit",0, 20);
+            element.MoveElement("start", -300, 285);
+            element.MoveElement("exit", 300, 285);
         }
 
         public void Update()
@@ -61,8 +58,8 @@ namespace SHK
             {
                 case GameState.Menu:
                         element.Update();
-                    c.Update();
-                    break;
+                        c.Update();
+                         break;
                 case GameState.inGame:
                     break;
                 case GameState.Paused:
@@ -71,19 +68,20 @@ namespace SHK
 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
             switch (gameState)
             {
                 case GameState.Menu:
-                        element.Draw(spriteBatch);
+                        element.Draw(Game1.sSpriteBatch);
                         c.Draw();
-                    foreach (var plat in plataforma)
-                    {
-                        plat.Draw();
-                    }
+                        foreach (var plat in plataforma)
+                        {
+                            plat.Draw();
+                        }
                     break;
                 case GameState.inGame:
+                    // a.Draw(Game1.sSpriteBatch);
                     break;
                 case GameState.Paused:
                     break;

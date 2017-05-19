@@ -27,7 +27,7 @@ namespace SHK
             a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, rect.Width, rect.Height);
 
             Color[] data = new Color[rect.Width * rect.Height];
-            for (int i = 0; i < data.Length; ++i) data[i] = Color.Black;
+            for (int i = 0; i < data.Length; ++i) data[i] = Color.DeepPink;
             a_text.SetData(data);
         }
 

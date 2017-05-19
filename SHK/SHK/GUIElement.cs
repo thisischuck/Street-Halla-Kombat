@@ -28,12 +28,14 @@ namespace SHK
             GUITexture1 = content.Load<Texture2D>("start");
             GUITexture2 = content.Load<Texture2D>("exit");
             GUIRect = new Rectangle(0, 0, GUITexture.Width, GUITexture.Height);
+            GUIRect1 = new Rectangle(0, 0, GUITexture1.Width, GUITexture1.Height);
+            GUIRect2 = new Rectangle(0, 0, GUITexture2.Width, GUITexture2.Height);
         }
 
         // verifica que elemento do menu é pressionado
         public void Update()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Down) && assetName == "start")
+            /*if (Keyboard.GetState().IsKeyDown(Keys.Down) && assetName == "start")
             {
                 assetName = "exit";
             }
@@ -49,11 +51,10 @@ namespace SHK
             if (Keyboard.GetState().IsKeyDown(Keys.Up) && assetName == "exit")
             {
                 assetName = "start";
-            }
+            }*/
             if(Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 PressEvent(assetName);
-               
             }
             Console.WriteLine(assetName);
         }

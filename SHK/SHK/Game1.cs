@@ -37,7 +37,7 @@ namespace SHK
         SoundEffect PunchMiss;
         SoundEffect PunchHit;
 
-        MainMenu main = new MainMenu();
+        MainMenu main;
         Duel a;
 
         public Game1()
@@ -78,9 +78,9 @@ namespace SHK
             sSpriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: use this.Content to load your game content here
 
-            
+
             #region Carregar menu
-            main.LoadContent(sContent);
+            main = new MainMenu();
             #endregion
             
             a = new Duel();
@@ -145,8 +145,8 @@ namespace SHK
             GraphicsDevice.Clear(Color.Pink);
             Game1.sSpriteBatch.Begin();
 
-            a.Draw(sSpriteBatch,gameTime);
-            main.Draw(sSpriteBatch);
+            //a.Draw(sSpriteBatch,gameTime);
+            main.Draw();
 
             Game1.sSpriteBatch.End();
             base.Draw(gameTime);
