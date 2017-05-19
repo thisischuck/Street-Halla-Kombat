@@ -24,7 +24,7 @@ namespace SHK
         static Vector2 cPosition = new Vector2(1200, 100);
         static Vector2 cSize = new Vector2(400, 400);
         private List<Plataforma> plataforma = new List<Plataforma>();
-        public AttackList attacks;
+        public AttackList attacks = new AttackList();
 
         // plataforma
         public Plataforma ChaoPlataforma;
@@ -41,6 +41,7 @@ namespace SHK
             plataforma.Add(ChaoPlataforma);
             a = new Duel();
             c = new Character("Ryu-Test", cPosition, cSize, 18, 5, 0, 2, SpriteEffects.None, false, plataforma, attacks);
+            c.SetInimigo(attacks);
 
 
             element = new GUIElement();
@@ -61,7 +62,8 @@ namespace SHK
                         c.Update();
                          break;
                 case GameState.inGame:
-                    break;
+                        //a.Update();
+                        break;
                 case GameState.Paused:
                     break;
             }
@@ -81,7 +83,7 @@ namespace SHK
                         }
                     break;
                 case GameState.inGame:
-                    // a.Draw(Game1.sSpriteBatch);
+                    //a.Draw();
                     break;
                 case GameState.Paused:
                     break;
