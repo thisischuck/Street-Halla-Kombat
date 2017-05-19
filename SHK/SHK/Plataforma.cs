@@ -14,7 +14,7 @@ namespace SHK
         public Vector2 Size;
         public Vector2 Position;
 
-        private Rectangle a;
+        public Rectangle rect;
         private Texture2D a_text;
 
         public Plataforma(bool isSoft, Vector2 size, Vector2 position) : base("game_plat", position, size)
@@ -23,17 +23,17 @@ namespace SHK
             this.Size = size;
             this.Position = position;
 
-            a = Camera.ComputePixelRectangle(Position, Size);
-            a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, a.Width, a.Height);
+            rect = Camera.ComputePixelRectangle(Position, Size);
+            a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, rect.Width, rect.Height);
 
-            Color[] data = new Color[a.Width * a.Height];
+            Color[] data = new Color[rect.Width * rect.Height];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Black;
             a_text.SetData(data);
         }
 
         public override void Draw()
         {
-            Game1.sSpriteBatch.Draw(a_text,a,Color.White);
+            Game1.sSpriteBatch.Draw(a_text,rect,Color.White);
             base.Draw();
         }
     }

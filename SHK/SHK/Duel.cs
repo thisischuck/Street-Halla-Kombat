@@ -97,7 +97,6 @@ namespace SHK
             hpPlayer2.Draw();
             //player1.Draw();
 
-
             player2.Draw();
             foreach (var plataforma in ListaPlataformas)
             {

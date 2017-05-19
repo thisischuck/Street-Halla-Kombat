@@ -351,7 +351,7 @@ namespace SHK
             //Console.WriteLine("------------------------");
             movementKeyHistory.TrimExcess();
 
-            Console.WriteLine(hurtbox + " " + mPosition);
+            Console.WriteLine(isGrounded);
 
             base.Update();
         }
@@ -390,10 +390,11 @@ namespace SHK
         {
             foreach (var plataforma in mapa)
             {
-                if (mPosition.Y <= plataforma.Position.Y + plataforma.Size.Y / 2 && mPosition.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
+
+                if (hurtbox.X +hurtbox.Width > plataforma.rect.X && hurtbox.X < plataforma.rect.X + plataforma.rect.Width)
                 {
-                    if (mPosition.X > plataforma.Position.X - plataforma.Size.X / 2 && mPosition.X - mSize.X/2 < plataforma.Position.X + plataforma.Size.X / 2)
-                    {
+                    if (mPosition.Y <= plataforma.Position.Y + plataforma.Size.Y / 2 && mPosition.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
+                    { 
                         isGrounded = true;
                         valorY = 0;
                         mPosition.Y = plataforma.Position.Y + plataforma.Size.Y / 2;
@@ -405,7 +406,7 @@ namespace SHK
                     isGrounded = false;
                 }
             }
-        }
+        }  
 
         public override void Draw()
         {
