@@ -36,6 +36,8 @@ namespace SHK
         public bool hasHadouken;
         private Rectangle hurtbox;
         private Texture2D a_text;
+        private AttackList inimigoAttackList;
+
 
         public Character(string imageName,Vector2 cposition, Vector2 csize,int row, int col, int padding, int player, SpriteEffects effect, bool ai, List<Plataforma> mapa, AttackList attacks) : base(imageName,cposition,csize,row,col,padding, effect)
         {
@@ -69,6 +71,11 @@ namespace SHK
             comboCounter = 0;
 
             
+        }
+
+        public void SetInimigo(AttackList inimigo)
+        {
+            this.inimigoAttackList = inimigo;
         }
 
         private enum CharState
@@ -341,8 +348,8 @@ namespace SHK
             {
                 isAttacking = false;
             }
-            Collision();
-
+            CollisionMovement();
+            CollisionAttacks();
 
             foreach(Keys k in movementKeyHistory)
             {
@@ -350,8 +357,6 @@ namespace SHK
             }
             //Console.WriteLine("------------------------");
             movementKeyHistory.TrimExcess();
-
-            Console.WriteLine(isGrounded);
 
             base.Update();
         }
@@ -386,7 +391,7 @@ namespace SHK
                 }
         }
 
-        public void Collision()
+        public void CollisionMovement()
         {
             foreach (var plataforma in mapa)
             {
@@ -406,7 +411,19 @@ namespace SHK
                     isGrounded = false;
                 }
             }
-        }  
+        }
+
+        public void CollisionAttacks()
+        {
+            if (inimigoAttackList.hitbox.X <= hurtbox.X + hurtbox.Width)
+            {
+                if (inimigoAttackList.hitbox.Y > hurtbox.Y && inimigoAttackList.hitbox.Y + inimigoAttackList.hitbox.Height < hurtbox.Y + hurtbox.Height)
+                {
+                    playerHealth -= inimigoAttackList.damage;
+                    Console.WriteLine("HIT");
+                }
+            }
+        }
 
         public override void Draw()
         {

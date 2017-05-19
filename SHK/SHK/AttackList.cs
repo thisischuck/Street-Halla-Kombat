@@ -38,7 +38,6 @@ namespace SHK
 
             positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
             SetDrawHitbox(positionHitbox);
-            Console.WriteLine(positionHitbox);
         }
 
         public void MediumPunch(Vector2 position, SpriteEffects spriteffects)
@@ -117,7 +116,6 @@ namespace SHK
 
             positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
             SetDrawHitbox(positionHitbox);
-            Console.WriteLine(positionHitbox);
         }
 
 
@@ -138,6 +136,12 @@ namespace SHK
                 Game1.sSpriteBatch.Draw(hitbox_text, hitbox, Color.Black);
                 endAttack = true;                
             }
+            else
+            {
+                hitbox = new Rectangle(-100, -100, 0, 0);
+            }
+
+           
         }
     }
 }
