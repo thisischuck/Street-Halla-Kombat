@@ -62,7 +62,7 @@ namespace SHK
                         c.Update();
                          break;
                 case GameState.inGame:
-                        //a.Update();
+                        a.Update();
                         break;
                 case GameState.Paused:
                     break;
@@ -83,10 +83,10 @@ namespace SHK
                         }
                     break;
                 case GameState.inGame:
-                    //a.Draw();
-                    break;
+                        a.Draw(Game1.sSpriteBatch);
+                        break;
                 case GameState.Paused:
-                    break;
+                        break;
             }
         }
 

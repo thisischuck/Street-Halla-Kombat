@@ -100,10 +100,10 @@ namespace SHK
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            timer.Draw(spriteBatch);
+            timer.Draw();
             timUI.Draw();
             //hpPlayer1.Draw();
-            hpPlayer2.Draw();
+           // hpPlayer2.Draw();
             player1.Draw();
 
             player2.Draw();

@@ -51,9 +51,9 @@ namespace SHK
             Text = ((int)time).ToString();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
-            spriteBatch.DrawString(Font, Text, Position, Color.Black);
+            Game1.sSpriteBatch.DrawString(Font, Text, Position, Color.Black);
         }
     }
 }

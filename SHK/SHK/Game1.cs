@@ -83,8 +83,7 @@ namespace SHK
             #region Carregar menu
             main = new MainMenu();
             #endregion
-            
-            a = new Duel();
+
             #region Carregar sons e efeitos
 
             /*
@@ -101,6 +100,8 @@ namespace SHK
             PunchHit = sContent.Load<SoundEffect>("PunchHit");
             PunchMiss = sContent.Load<SoundEffect>("PunchMiss");
             #endregion
+
+            //a = new Duel();
 
 
             //sAudio.PlaySoundEffectRandomPitch(PunchHit, 1f);  //teste
@@ -132,8 +133,8 @@ namespace SHK
                 Exit();
 
             // TODO: Add your update logic here
-            //main.Update();
-            a.Update();
+            main.Update();
+            //a.Update();
             base.Update(gameTime);
         }
 
@@ -146,8 +147,8 @@ namespace SHK
             GraphicsDevice.Clear(Color.Pink);
             Game1.sSpriteBatch.Begin();
 
-            //a.Draw(sSpriteBatch);
             main.Draw();
+           // a.Draw(sSpriteBatch);
 
             Game1.sSpriteBatch.End();
             base.Draw(gameTime);

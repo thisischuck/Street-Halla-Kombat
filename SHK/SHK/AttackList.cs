@@ -165,13 +165,13 @@ namespace SHK
         {
             if(hitbox_text != null && !endAttack)
             {
-                Game1.sSpriteBatch.Draw(hitbox_text, hitbox, Color.Black);
+                //Game1.sSpriteBatch.Draw(hitbox_text, hitbox, Color.Black);
                 if ((Game1.gameTime.TotalGameTime.TotalMilliseconds - delay.TotalMilliseconds) > attackDuration)
                     endAttack = true;                
             }
             else
             {
-                hitbox = new Rectangle(-100, -100, 0, 0);
+                hitbox.Location = new Point(-100,-100);
             }
 
            

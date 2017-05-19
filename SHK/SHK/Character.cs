@@ -149,11 +149,11 @@ namespace SHK
             //Vector2 a = new Vector2(mPosition.X, mPosition.Y);
             Vector2 b = new Vector2(mSize.X/2 - 50, mSize.Y - mSize.Y/3);
             hurtbox = Camera.ComputePixelRectangle(a, b);
-            a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hurtbox.Width, hurtbox.Height);
+            /*a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hurtbox.Width, hurtbox.Height);
 
             Color[] data = new Color[hurtbox.Width * hurtbox.Height];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Chocolate;
-            a_text.SetData(data);
+            a_text.SetData(data);*/
 
             airJumpCounter++;
             if (hasHadouken)
@@ -357,15 +357,10 @@ namespace SHK
             {
                 isAttacking = false;
             }
+
             CollisionMovement();
             CollisionAttacks();
 
-            foreach(Keys k in movementKeyHistory)
-            {
-                Console.WriteLine(k);
-            }
-            Console.WriteLine(hasHadouken);
-            Console.WriteLine("------------------------");
             movementKeyHistory.TrimExcess();
 
             base.Update();
@@ -430,7 +425,6 @@ namespace SHK
                 if (inimigoAttackList.hitbox.Y > hurtbox.Y && inimigoAttackList.hitbox.Y + inimigoAttackList.hitbox.Height < hurtbox.Y + hurtbox.Height)
                 {
                     playerHealth -= inimigoAttackList.damage;
-                    Console.WriteLine("HIT");
                 }
             }
         }
@@ -438,7 +432,7 @@ namespace SHK
         public override void Draw()
         {
             AnimationUpdate();
-            Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
+           // Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
             base.Draw();
         }
 
