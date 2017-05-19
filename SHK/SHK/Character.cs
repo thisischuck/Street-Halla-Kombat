@@ -363,7 +363,7 @@ namespace SHK
             foreach(Keys k in movementKeyHistory)
             {
                 Console.WriteLine(k);
-            }*/
+            }
             Console.WriteLine(hasHadouken);
             Console.WriteLine("------------------------");
             movementKeyHistory.TrimExcess();
