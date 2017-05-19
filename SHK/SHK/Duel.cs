@@ -88,7 +88,7 @@ namespace SHK
             player2.SetInimigo(attacksPlayer1);
         }   
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
             timer.Update(gameTime);
             player1.Update();
@@ -98,7 +98,7 @@ namespace SHK
             //hpPlayer2.Update();
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch)
         {
             timer.Draw(spriteBatch);
             timUI.Draw();
@@ -111,8 +111,8 @@ namespace SHK
             {
                 plataforma.Draw();
             }
-            attacksPlayer1.Draw(gameTime);
-            attacksPlayer2.Draw(gameTime);
+            attacksPlayer1.Draw();
+            attacksPlayer2.Draw();
         }
     }
 }

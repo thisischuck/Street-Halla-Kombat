@@ -20,6 +20,7 @@ namespace SHK
         static public SpriteBatch sSpriteBatch;
         static public ContentManager sContent;
         static public AudioManager sAudio;
+        static public GameTime gameTime;
         public Song song;
         public float songVolume = 0.2f;
         protected Random rnd = new Random();
@@ -42,7 +43,7 @@ namespace SHK
 
         public Game1()
         {
-
+            gameTime = new GameTime();
             sAudio = new AudioManager();
             mGraphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -131,8 +132,8 @@ namespace SHK
                 Exit();
 
             // TODO: Add your update logic here
-            main.Update();
-            a.Update(gameTime);
+            //main.Update();
+            a.Update();
             base.Update(gameTime);
         }
 

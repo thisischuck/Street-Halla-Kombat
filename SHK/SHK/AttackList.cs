@@ -20,6 +20,7 @@ namespace SHK
         private int attackDuration;
         private TimeSpan delay;
         private Vector2 positionHitbox;
+        private Vector2 sizeHitbox;
 
         public AttackList()
         {
@@ -29,6 +30,7 @@ namespace SHK
 
         public void LightPunch(Vector2 position, SpriteEffects spriteffects)
         {
+            delay = Game1.gameTime.TotalGameTime;
             int pos = -95;
             if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
                 pos = -205;
@@ -36,12 +38,14 @@ namespace SHK
             endAttack = false;
             attackDuration = 1000;
 
+            sizeHitbox = new Vector2(100, 30);
             positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
-            SetDrawHitbox(positionHitbox);
+            SetDrawHitbox(positionHitbox, sizeHitbox);
         }
 
         public void MediumPunch(Vector2 position, SpriteEffects spriteffects)
         {
+            delay = Game1.gameTime.TotalGameTime;
             int pos = -95;
             if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
                 pos = -205;
@@ -49,12 +53,14 @@ namespace SHK
             endAttack = false;
             attackDuration = 1000;
 
+            sizeHitbox = new Vector2(100, 30);
             positionHitbox = new Vector2(position.X + pos, (position.Y + 170f));
-            SetDrawHitbox(positionHitbox);
+            SetDrawHitbox(positionHitbox, sizeHitbox);
         }
 
         public void HeavyPunch(Vector2 position, SpriteEffects spriteffects)
         {
+            delay = Game1.gameTime.TotalGameTime;
             int pos = -95;
             if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
                 pos = -205;
@@ -62,12 +68,14 @@ namespace SHK
             endAttack = false;
             attackDuration = 1000;
 
+            sizeHitbox = new Vector2(100, 30);
             positionHitbox = new Vector2(position.X + pos, (position.Y + 170f));
-            SetDrawHitbox(positionHitbox);
+            SetDrawHitbox(positionHitbox, sizeHitbox);
         }
 
         public void LightKick(Vector2 position, SpriteEffects spriteffects)
         {
+            delay = Game1.gameTime.TotalGameTime;
             int pos = -95;
             if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
                 pos = -205;
@@ -75,12 +83,14 @@ namespace SHK
             endAttack = false;
             attackDuration = 1000;
 
+            sizeHitbox = new Vector2(100, 30);
             positionHitbox = new Vector2(position.X + pos, (position.Y + 170f));
-            SetDrawHitbox(positionHitbox);
+            SetDrawHitbox(positionHitbox, sizeHitbox);
         }
 
         public void MediumKick(Vector2 position, SpriteEffects spriteffects)
         {
+            delay = Game1.gameTime.TotalGameTime;
             int pos = -95;
             if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
                 pos = -205;
@@ -88,12 +98,14 @@ namespace SHK
             endAttack = false;
             attackDuration = 1000;
 
+            sizeHitbox = new Vector2(100, 30);
             positionHitbox = new Vector2(position.X + pos, (position.Y + 170f));
-            SetDrawHitbox(positionHitbox);
+            SetDrawHitbox(positionHitbox, sizeHitbox);
         }
 
         public void HeavyKick(Vector2 position, SpriteEffects spriteffects)
         {
+            delay = Game1.gameTime.TotalGameTime;
             int pos = -95;
             if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
                 pos = -205;
@@ -101,12 +113,14 @@ namespace SHK
             endAttack = false;
             attackDuration = 1000;
 
+            sizeHitbox = new Vector2(100, 30);
             positionHitbox = new Vector2(position.X + pos, (position.Y + 170f));
-            SetDrawHitbox(positionHitbox);
+            SetDrawHitbox(positionHitbox, sizeHitbox);
         }
 
         public void LightPunchAir(Vector2 position, SpriteEffects spriteffects)
         {
+            delay = Game1.gameTime.TotalGameTime;
             int pos = -95;
             if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
                 pos = -205;
@@ -114,27 +128,46 @@ namespace SHK
             endAttack = false;
             attackDuration = 1000;
 
+            sizeHitbox = new Vector2(100, 30);
             positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
-            SetDrawHitbox(positionHitbox);
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        public void Hadouken(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 100);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 100f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
         }
 
 
-        public void SetDrawHitbox(Vector2 positionHitbox)
+        //------------------------------------------------------------------------------------------------------
+
+
+        public void SetDrawHitbox(Vector2 positionHitbox, Vector2 sizeHitbox)
         {
-            hitbox = Camera.ComputePixelRectangle(positionHitbox, (Vector2.UnitX * 100) + (Vector2.UnitY * 30));
+            hitbox = Camera.ComputePixelRectangle(positionHitbox, sizeHitbox);
             hitbox_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hitbox.Width, hitbox.Height);
             Color[] data = new Color[hitbox.Width * hitbox.Height];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Chocolate;
             hitbox_text.SetData(data);
         }
 
-        public void Draw(GameTime gameTime)
+        public void Draw()
         {
-            delay = gameTime.TotalGameTime;
-            if(hitbox_text != null && !endAttack && !((gameTime.TotalGameTime.TotalMilliseconds - delay.TotalMilliseconds) > attackDuration))
+            if(hitbox_text != null && !endAttack)
             {
                 Game1.sSpriteBatch.Draw(hitbox_text, hitbox, Color.Black);
-                endAttack = true;                
+                if ((Game1.gameTime.TotalGameTime.TotalMilliseconds - delay.TotalMilliseconds) > attackDuration)
+                    endAttack = true;                
             }
             else
             {

@@ -22,7 +22,7 @@ namespace SHK
         public bool isGrounded;
         public bool hasAirJump;
         private int airJumpCounter, comboCounter;
-        private int airJumpDelay;
+        private int airJumpDelay, comboDelay;
         public bool isAttacking;
         private bool isAI;
         private bool animationPlay;
@@ -69,8 +69,7 @@ namespace SHK
             isDownDown = false;
             hasHadouken = false;
             comboCounter = 0;
-
-            
+            comboDelay = 50;
         }
 
         public void SetInimigo(AttackList inimigo)
@@ -98,6 +97,7 @@ namespace SHK
             LKickAir,
             HPunchAir,
             HKickAir,
+            Hadouken
         }
 
         private CharState mCurrentCharState;
@@ -156,9 +156,10 @@ namespace SHK
             a_text.SetData(data);
 
             airJumpCounter++;
-            comboCounter++;
+            if (hasHadouken)
+                comboCounter++;
 
-            if (comboCounter > 50)
+            if (comboCounter > comboDelay)
             {
                 hasHadouken = false;
                 comboCounter = 0;
@@ -294,8 +295,16 @@ namespace SHK
                     {
                         valorX = 0;
                         isAttacking = true;
-                        attacks.HeavyPunch(mPosition, SpriteEffects);
-                        mCurrentCharState = CharState.HPunch;
+                        if (hasHadouken)
+                        {
+                            attacks.Hadouken(mPosition, SpriteEffects);
+                            mCurrentCharState = CharState.Hadouken;
+                        }
+                        else
+                        {
+                            attacks.HeavyPunch(mPosition, SpriteEffects);
+                            mCurrentCharState = CharState.HPunch;
+                        }
                     }
 
                     if (Keyboard.GetState().IsKeyDown(lKick))
@@ -353,9 +362,10 @@ namespace SHK
 
             foreach(Keys k in movementKeyHistory)
             {
-                //Console.WriteLine(k);
-            }
-            //Console.WriteLine("------------------------");
+                Console.WriteLine(k);
+            }*/
+            Console.WriteLine(hasHadouken);
+            Console.WriteLine("------------------------");
             movementKeyHistory.TrimExcess();
 
             base.Update();
@@ -438,16 +448,15 @@ namespace SHK
             {
                 if (movementKeyHistory.Dequeue() == down)
                 {
-                    if (movementKeyHistory.Dequeue() == right)
+                    if (movementKeyHistory.Dequeue() == right || movementKeyHistory.Dequeue() == left)
                     {
                         return true;
                     }
-                    else return false;
+                    return false;
                 }
-                else return false;
+                return false;
             }
-            else return false;
-
+            return false;
         }
     }
 }
