@@ -39,7 +39,7 @@ namespace SHK
         //---------------------------------------------------
 
         public List<Plataforma> ListaPlataformas = new List<Plataforma>();
-
+          
         public Plataforma ChaoPlataforma;
         public Plataforma ChaoPlataforma2;
         static Vector2 platPosition = new Vector2(1000,100);
@@ -50,9 +50,13 @@ namespace SHK
         static Vector2 platPosition4 = new Vector2(1300, 700);
         static Vector2 platSize = new Vector2(510,65);
 
+        // tamanho do TimerUI
+        int TimerHeight = 221;
+        int TimerWidth = 3676;
+
         GameTimer timer;
         TimerUI timUI;
-
+            
         public Duel()
         {
             ChaoPlataforma = new Plataforma(false, platSize, platPosition);
@@ -60,7 +64,9 @@ namespace SHK
             ChaoPlataforma3 = new Plataforma(false, platSize, platPosition3);
             ChaoPlataforma4 = new Plataforma(false, platSize, platPosition4);
 
-            timUI = new TimerUI(new Vector2 (Game1.mGraphics.PreferredBackBufferWidth / 2, 0), new Vector2(1, 1));
+
+
+            timUI = new TimerUI(new Vector2(Game1.mGraphics.PreferredBackBufferWidth / 2, Game1.mGraphics.PreferredBackBufferHeight / 2), new Vector2(Game1.mGraphics.PreferredBackBufferWidth - TimerWidth / 2, 0));
             timer = new GameTimer(180.0f);
             timer.Font = Game1.sContent.Load<SpriteFont>("Arial");
             timer.Position = new Vector2((Game1.mGraphics.PreferredBackBufferWidth / 2) - timer.Font.MeasureString(timer.Text).X / 2, 0);
@@ -69,7 +75,6 @@ namespace SHK
             ListaPlataformas.Add(ChaoPlataforma2);
             ListaPlataformas.Add(ChaoPlataforma3);
             ListaPlataformas.Add(ChaoPlataforma4);
-
 
             attacksPlayer1 = new AttackList();
             player1 = new Character("Ryu-Test", charP, charS, 18, 5, 0, 1, SpriteEffects.None, false, ListaPlataformas, attacksPlayer1);
@@ -93,9 +98,11 @@ namespace SHK
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             timer.Draw(spriteBatch);
+            timUI.Draw();
             //hpPlayer1.Draw();
-            hpPlayer2.Draw();
-            //player1.Draw();
+            //hpPlayer2.Draw();
+            player1.Draw();
+        
 
             player2.Draw();
             foreach (var plataforma in ListaPlataformas)

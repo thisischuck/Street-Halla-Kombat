@@ -14,9 +14,9 @@ namespace SHK
         private int width;
         private int height;
 
-        public TimerUI(Vector2 timerPosition, Vector2 timerSize) :base("timerContainer",timerPosition, timerSize)
+        public TimerUI(Vector2 timerSize, Vector2 timerPosition) :base("timerContainer",timerPosition, timerSize)
         {
-            position = timerPosition;
+            position = timerPosition/2;
             height = SpriteImageHeight;
             width = SpriteImageWidth;
             rectangle = new Rectangle(0, 0, width, height);
@@ -28,12 +28,6 @@ namespace SHK
             Rectangle srcRect = new Rectangle((int)position.X, (int)position.Y, width, height);
             Vector2 org = new Vector2(width / 2, height / 2);
             Game1.sSpriteBatch.Draw(mImage, position, rectangle, Color.White);
-        }
-
-        public void DownScale(int windowWidth, int windowHeight)
-        {
-            height = windowHeight / 2;
-            windowWidth = windowWidth / 2;
         }
     }
 }

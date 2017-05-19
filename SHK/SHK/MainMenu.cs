@@ -17,29 +17,42 @@ namespace SHK
         GameState gameState;// ainda por verificar se ta direito
         private Game b = new Game();
         Duel a;
+        GUIElement element;
 
-        List<GUIElement> main = new List<GUIElement>();
+        #region PlayerStuff
+        Character c;
+        static Vector2 cPosition = new Vector2(1200, 100);
+        static Vector2 cSize = new Vector2(400, 400);
+        private List<Plataforma> plataforma = new List<Plataforma>();
+        public AttackList attacks;
+
+        // plataforma
+        public Plataforma ChaoPlataforma;
+        static Vector2 platSize = new Vector2(510, 65);
+        static Vector2 platPosition = new Vector2(1000, 100);
+
+        #endregion
+
+
 
         public MainMenu()
         {
-            main.Add(new GUIElement("menu"));
-            main.Add(new GUIElement("start"));
-            main.Add(new GUIElement("exit"));
+            ChaoPlataforma = new Plataforma(false, platSize, platPosition);
+            plataforma.Add(ChaoPlataforma);
+           // a = new Duel();
+            c = new Character("Ryu-Test", cPosition, cSize, 18, 5, 0, 2, SpriteEffects.None, false, plataforma, attacks);
+           
         }
 
         public void LoadContent(ContentManager content)
         {
-
-            a = new Duel();
-            foreach ( GUIElement element in main)
-            {
-                element.LoadContent(content);
-                element.CenterElement(Game1.mGraphics.PreferredBackBufferHeight, Game1.mGraphics.PreferredBackBufferWidth);
-                element.PressEvent += onPress;
-            }
+            element = new GUIElement();
+            element.LoadContent(content);
+            element.CenterElement(Game1.mGraphics.PreferredBackBufferHeight, Game1.mGraphics.PreferredBackBufferWidth);
+            element.PressEvent += onPress;
             //encontrar o determinado elemento e move-lo individualmente(em pixeis)
-            main.Find(x => x.assetName == "start").MoveElement(0, -20);
-            main.Find(x => x.assetName == "exit").MoveElement(0, 20);
+            element.MoveElement("start",0, -20);
+            element.MoveElement("exit",0, 20);
         }
 
         public void Update()
@@ -47,10 +60,8 @@ namespace SHK
             switch(gameState)
             {
                 case GameState.Menu:
-                    foreach (GUIElement element in main)
-                    {
                         element.Update();
-                    }
+                    c.Update();
                     break;
                 case GameState.inGame:
                     break;
@@ -65,9 +76,11 @@ namespace SHK
             switch (gameState)
             {
                 case GameState.Menu:
-                    foreach (GUIElement element in main)
-                    {
                         element.Draw(spriteBatch);
+                        c.Draw();
+                    foreach (var plat in plataforma)
+                    {
+                        plat.Draw();
                     }
                     break;
                 case GameState.inGame:
@@ -77,16 +90,15 @@ namespace SHK
             }
         }
 
-        public void onPress(string element)
+        public void onPress(string buttonName)
         {
-            if( element == "start")
+            if( buttonName == "start")
             {
                 // play the game
                 gameState = GameState.inGame;
-                Console.WriteLine("IT WORKED.");
                 
             }
-            if( element == "exit")
+            if( buttonName == "exit")
             {
               b.Exit();//verificar se ta direito
             }
