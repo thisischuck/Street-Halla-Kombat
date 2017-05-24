@@ -13,27 +13,17 @@ namespace SHK
     {
         public Vector2 position;
         public Vector2 size;
-        private float valorY;
-        private float valorX;
-        private float xSpeed;
-        private float jumpSpeed;
-        private float gravity;
-        private float fallingSpeedLimiter;
-        public bool isGrounded;
-        public bool hasAirJump;
-        private int airJumpCounter, comboCounter;
-        private int airJumpDelay, comboDelay;
-        public bool isAttacking;
-        private bool isAI;
-        private bool animationPlay;
+        private float valorY, valorX ,xSpeed ,jumpSpeed ,gravity ,fallingSpeedLimiter;
+        public bool isGrounded, hasAirJump, isAttacking, isRightDown, isLeftDown, isDownDown, hasHadouken ;
+        private int airJumpCounter, comboCounter, airJumpDelay, comboDelay;
+        private bool isAI, animationPlay, isCrouched;
         private int playerNumber;
         public int playerHealth;
         private Keys jump, right, left, down, lPunch, mPunch, hPunch, lKick, mKick, hKick;
         private List<Plataforma> mapa;
         public AttackList attacks;
         public Queue<Keys> movementKeyHistory;
-        public bool isRightDown, isLeftDown, isDownDown;
-        public bool hasHadouken;
+
         private Rectangle hurtbox;
         private Texture2D a_text;
         private AttackList inimigoAttackList;
@@ -68,6 +58,7 @@ namespace SHK
             isLeftDown = false;
             isDownDown = false;
             hasHadouken = false;
+            isCrouched = false;
             comboCounter = 0;
             comboDelay = 50;
         }
@@ -97,7 +88,14 @@ namespace SHK
             LKickAir,
             HPunchAir,
             HKickAir,
-            Hadouken
+            Hadouken,
+            Crouch,
+            cLPunch,
+            cMPunch,
+            cHPunch,
+            cLKick,
+            cMKick,
+            cHKick
         }
 
         private CharState mCurrentCharState;
@@ -232,13 +230,24 @@ namespace SHK
                         {
                             valorX = 0f;
                         }
+
+                        if (Keyboard.GetState().IsKeyDown(down))
+                        {
+                            mCurrentCharState = CharState.Crouch;
+                            isCrouched = true;
+                            animationPlay = false;
+                        }
+                        if (Keyboard.GetState().IsKeyUp(down))
+                        {
+                            isCrouched = false;
+                        }
                     }
                     else
                     {
                         valorX = 0f;
                     }
 
-                    if (valorY == 0 && valorX == 0 && isGrounded && !isAttacking)
+                    if (valorY == 0 && valorX == 0 && isGrounded && !isAttacking && !isCrouched)
                     {
                         mCurrentCharState = CharState.Idle;
                         animationPlay = false;
@@ -350,6 +359,7 @@ namespace SHK
                         mCurrentCharState = CharState.LPunchAir;
                     }
                 }
+                animationPlay = false;
             }
 
             #endregion
@@ -397,12 +407,59 @@ namespace SHK
                             this.SpriteEffects = SpriteEffects.None;
                             SetSpriteAnimation(3, 0, 3, 5, 4);
                             break;
-                        case CharState.LPunch:
-                            SetSpriteAnimation(4,0,4,3,3);
+                        case CharState.Crouch:
                             break;
 
-                    }
-                animationPlay = true;
+                        //LIGHTS---------------------------------------------------------
+                        case CharState.LPunch:
+                            SetSpriteAnimation(4, 0, 4, 3, 3);
+                            break;
+                        case CharState.LPunchAir:
+                            break;
+                        case CharState.LKick:
+                            SetSpriteAnimation(8, 0, 8, 5, 3);
+                        break;
+                        case CharState.LKickAir:
+                            break;
+                    case CharState.cLPunch:
+                        break;
+                        case CharState.cLKick:
+                            break;
+
+                    //MEDIUM---------------------------------------------------------
+                    case CharState.MKick:
+                            SetSpriteAnimation(7, 0, 7, 6, 3);
+                        break;
+                        case CharState.MKickAir:
+                            break;
+                        case CharState.MPunch:
+                            SetSpriteAnimation(5, 0, 5, 5, 3);
+                            break;
+                        case CharState.MPunchAir:
+                            break;
+                        case CharState.cMPunch:
+                            break;
+                        case CharState.cMKick:
+                            break;
+
+                    //HARD---------------------------------------------------------
+                    case CharState.HKick:
+                            SetSpriteAnimation(9, 0, 9, 8, 3);
+                        break;
+                        case CharState.HKickAir:
+                            break;
+                        case CharState.HPunch:
+                            SetSpriteAnimation(6, 0, 6, 8, 3);
+                            break;
+                        case CharState.HPunchAir:
+                            break;
+                        case CharState.cHPunch:
+                            break;
+                        case CharState.cHKick:
+                            break;
+
+                }
+                    animationPlay = true;
                 }
         }
 
