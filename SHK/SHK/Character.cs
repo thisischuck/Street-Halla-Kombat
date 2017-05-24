@@ -277,10 +277,20 @@ namespace SHK
                 {
                     if (Keyboard.GetState().IsKeyDown(lPunch))
                     {
-                        valorX = 0;
-                        isAttacking = true;
-                        attacks.LightPunch(mPosition, SpriteEffects);
-                        mCurrentCharState = CharState.LPunch;
+                        if(hasHadouken)
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            attacks.Hadouken(mPosition, SpriteEffects);
+                            mCurrentCharState = CharState.Hadouken;
+                        }
+                        else
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            attacks.LightPunch(mPosition, SpriteEffects);
+                            mCurrentCharState = CharState.LPunch;
+                        }
                     }
 
                     if (Keyboard.GetState().IsKeyDown(mPunch))

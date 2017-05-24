@@ -43,7 +43,6 @@ namespace SHK
 
         public Game1()
         {
-            gameTime = new GameTime();
             sAudio = new AudioManager();
             mGraphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -65,7 +64,7 @@ namespace SHK
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            gameTime = new GameTime();
             base.Initialize();
         }
 

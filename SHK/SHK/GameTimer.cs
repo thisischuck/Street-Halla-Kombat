@@ -19,7 +19,7 @@ namespace SHK
         public Vector2 Position;
         public float deltatime;
         public Texture2D timerTexture;
-        private TimeSpan gametime;
+        public GameTime gametime;
 
 
 
@@ -30,13 +30,13 @@ namespace SHK
             paused = false;
             finished = false;
             Text = "";
-            gametime = new TimeSpan();
+            gametime = new GameTime();
         }
 
         public void Update()
         {
-            Console.WriteLine(gametime.TotalMilliseconds);
-            deltatime = (float)gametime.TotalMilliseconds;
+            deltatime = gametime.ElapsedGameTime.Milliseconds;
+            Console.WriteLine(gametime.ElapsedGameTime.Milliseconds);
 
             if (true) //started
             {
