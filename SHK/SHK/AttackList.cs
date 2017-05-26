@@ -16,7 +16,7 @@ namespace SHK
         //private Character player;
         public Rectangle hitbox;
         private Texture2D hitbox_text;
-        private bool endAttack = true;
+        public bool endAttack = true;
         private int attackDuration;
         private TimeSpan delay;
         private Vector2 positionHitbox;
@@ -147,7 +147,6 @@ namespace SHK
 
         public void Draw()
         {
-            Console.WriteLine(endAttack);
             if(hitbox_text != null && !endAttack)
             {
                 Game1.sSpriteBatch.Draw(hitbox_text, hitbox, Color.Black);

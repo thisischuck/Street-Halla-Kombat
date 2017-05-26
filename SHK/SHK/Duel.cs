@@ -73,7 +73,7 @@ namespace SHK
             
 
             attacksPlayer2 = new AttackList();
-            player2 = new Character("Ryu-Final2", char2P, char2S, 18, 29, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
+            player2 = new Character("Transcendent", char2P, char2S, 18, 29, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
 
             player1.SetInimigo(attacksPlayer2);
             player2.SetInimigo(attacksPlayer1);
@@ -84,7 +84,6 @@ namespace SHK
             player1.Update();
             player2.Update();
 
-            timUI.player2.setPlayerHealth(player2.playerHealth);
             if (player1.gotHit)
             {
                 timUI.player1.setPlayerHealth(player1.playerHealth);

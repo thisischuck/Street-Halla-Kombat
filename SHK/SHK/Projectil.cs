@@ -30,7 +30,7 @@ namespace SHK
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Black;
             a_text.SetData(data);
 
-            Velocity = (Vector2.UnitX * speed) + (Vector2.UnitY);
+            Velocity = (Vector2.UnitX * speed) + (Vector2.Zero);
         }
 
         public override void Draw()

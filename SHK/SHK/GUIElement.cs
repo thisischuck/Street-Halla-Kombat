@@ -56,7 +56,7 @@ namespace SHK
             {
                 PressEvent(assetName);
             }
-            Console.WriteLine(assetName);
+           // Console.WriteLine(assetName);
         }
 
         public void Draw()
