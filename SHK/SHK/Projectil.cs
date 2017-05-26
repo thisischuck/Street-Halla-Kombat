@@ -10,9 +10,16 @@ namespace SHK
 {
     class Projectil : SpritePrimitive
     {
-        public Projectil(Vector2 position, Vector2 size) : base("a", position, size, 0, 0, 0, SpriteEffects.None)
+        private Vector2 position, size;
+        private SpriteEffects effects;
+
+        public Projectil(Vector2 position, Vector2 size, int row, int colum, SpriteEffects effect) : base("hadouken", position, size,row, colum, 0, effect)
         {
-            
+            this.position = position;
+            this.size = size;
+            this.effects = effect;
         }
+
+
     }
 }
