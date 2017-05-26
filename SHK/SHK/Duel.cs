@@ -77,11 +77,11 @@ namespace SHK
             ListaPlataformas.Add(ChaoPlataforma4);
 
             attacksPlayer1 = new AttackList();
-            player1 = new Character("Ryu-Final", charP, charS, 18, 25, 0, 1, SpriteEffects.None, false, ListaPlataformas, attacksPlayer1);
+            player1 = new Character("Ryu-Final2", charP, charS, 18, 29, 0, 1, SpriteEffects.None, false, ListaPlataformas, attacksPlayer1);
             //   hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
 
             attacksPlayer2 = new AttackList();
-            player2 = new Character("Ryu-Final", char2P, char2S, 18, 25, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
+            player2 = new Character("Ryu-Final2", char2P, char2S, 18, 29, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
             hpPlayer2 = new HealthBar(player2, hpPosition2,hpSize, SpriteEffects.FlipHorizontally);
 
             player1.SetInimigo(attacksPlayer2);

@@ -40,7 +40,7 @@ namespace SHK
             ChaoPlataforma = new Plataforma(false, platSize, platPosition);
             plataforma.Add(ChaoPlataforma);
             a = new Duel();
-            c = new Character("Ryu-Test", cPosition, cSize, 18, 5, 0, 2, SpriteEffects.None, false, plataforma, attacks);
+            c = new Character("Ryu-Final2", cPosition, cSize, 18, 29, 0, 2, SpriteEffects.None, false, plataforma, attacks);
             c.SetInimigo(attacks);
 
 
