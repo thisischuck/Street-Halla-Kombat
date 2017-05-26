@@ -163,7 +163,7 @@ namespace SHK
             {
                 while (hitbox.X > 0 && hitbox.X < 1280)
                 {
-                    hitbox.X += 100;
+                    hitbox.X += 1;
                 }
             }
         }
@@ -172,9 +172,7 @@ namespace SHK
         {
             if(hitbox_text != null && !endAttack)
             {
-                Game1.sSpriteBatch.Draw(hitbox_text, hitbox, Color.Black);
-                if ((Game1.gameTime.TotalGameTime.TotalMilliseconds - delay.TotalMilliseconds) > attackDuration)
-                    endAttack = true;                
+                Game1.sSpriteBatch.Draw(hitbox_text, hitbox, Color.Black);               
             }
             else
             {

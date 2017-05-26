@@ -63,10 +63,10 @@ namespace SHK
             ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2);
             ChaoPlataforma3 = new Plataforma(false, platSize, platPosition3);
             ChaoPlataforma4 = new Plataforma(false, platSize, platPosition4);
+            
 
 
-
-            timUI = new TimerUI(new Vector2(Game1.mGraphics.PreferredBackBufferWidth / 2, Game1.mGraphics.PreferredBackBufferHeight / 2), new Vector2(Game1.mGraphics.PreferredBackBufferWidth - TimerWidth / 2, 0));
+            timUI = new TimerUI(new Vector2(Game1.mGraphics.PreferredBackBufferWidth , Game1.mGraphics.PreferredBackBufferHeight / 2), Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);
             timer = new GameTimer(180.0f);
             timer.Font = Game1.sContent.Load<SpriteFont>("Arial");
             timer.Position = new Vector2((Game1.mGraphics.PreferredBackBufferWidth / 2) - timer.Font.MeasureString(timer.Text).X / 2, 0);
@@ -100,10 +100,11 @@ namespace SHK
 
         public void Draw()
         {
-            timer.Draw();
+            
             timUI.Draw();
+            timer.Draw();
             //hpPlayer1.Draw();
-           // hpPlayer2.Draw();
+            // hpPlayer2.Draw();
             player1.Draw();
 
             player2.Draw();

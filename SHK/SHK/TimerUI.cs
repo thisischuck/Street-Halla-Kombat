@@ -4,30 +4,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SHK
 {
-    class TimerUI : GameObject
+    class TimerUI
     {
-        public Vector2 position;
-        Rectangle rectangle;
-        private int width;
-        private int height;
+        Texture2D TimerTexture;
+        Rectangle TimerRect;
 
-        public TimerUI(Vector2 timerSize, Vector2 timerPosition) :base("timerContainer",timerPosition, timerSize)
+        public TimerUI(Vector2 timerSize, int width, int height)
         {
-            position = timerPosition/2;
-            height = SpriteImageHeight;
-            width = SpriteImageWidth;
-            rectangle = new Rectangle(0, 0, width, height);
+            //TimerTexture = Game1.sContent.Load<Texture2D>("timerContainer");
+            //TimerRect = new Rectangle(0, 0, TimerTexture.Width, TimerTexture.Height);
+            //221
+            TimerTexture = Game1.sContent.Load<Texture2D>("timerContainer");
+            TimerRect = new Rectangle(0,0, (int)(timerSize.X ), 115);
+
+            
+
 
         }
-        public override void Draw()
+        public void Draw()
         {
-            Rectangle destRect = Camera.ComputePixelRectangle(mPosition, mSize);
-            Rectangle srcRect = new Rectangle((int)position.X, (int)position.Y, width, height);
-            Vector2 org = new Vector2(width / 2, height / 2);
-            Game1.sSpriteBatch.Draw(mImage, position, rectangle, Color.White);
+            Game1.sSpriteBatch.Draw(TimerTexture, TimerRect, Color.White);
         }
     }
 }
