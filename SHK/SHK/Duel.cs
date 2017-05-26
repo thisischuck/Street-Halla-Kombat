@@ -16,11 +16,7 @@ namespace SHK
         string player2Choice;
 
         public Character player1;
-        public HealthBar hpPlayer1;
         public AttackList attacksPlayer1;
-
-        static Vector2 hpSize = new Vector2(700, 50);
-        static Vector2 hpPosition1 = new Vector2(500, 500);
     
         static Vector2 charP = new Vector2(1200, 100);
         static Vector2 charS = new Vector2(300, 300);
@@ -28,13 +24,9 @@ namespace SHK
         //---------------------------------------------------
 
         public Character player2;
-        public HealthBar hpPlayer2;
         public AttackList attacksPlayer2;
-
         static Vector2 char2P = new Vector2(1208, 100);
         static Vector2 char2S = new Vector2(300, 300);
-
-        static Vector2 hpPosition2 = new Vector2(0, 0);
 
         //---------------------------------------------------
 
@@ -78,11 +70,10 @@ namespace SHK
 
             attacksPlayer1 = new AttackList();
             player1 = new Character("Ryu-Final2", charP, charS, 18, 29, 0, 1, SpriteEffects.None, false, ListaPlataformas, attacksPlayer1);
-            //hpPlayer1 = new HealthBar(player1, hpPosition1,hpSize, SpriteEffects.None);
+            
 
             attacksPlayer2 = new AttackList();
-            player2 = new Character("Transcendent", char2P, char2S, 18, 29, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
-            hpPlayer2 = new HealthBar(player2, hpPosition2,hpSize, SpriteEffects.FlipHorizontally);
+            player2 = new Character("Ryu-Final2", char2P, char2S, 18, 29, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
 
             player1.SetInimigo(attacksPlayer2);
             player2.SetInimigo(attacksPlayer1);
@@ -90,24 +81,38 @@ namespace SHK
 
         public void Update()
         {
-            timer.Update();
             player1.Update();
-            //hpPlayer1.Update();
-
             player2.Update();
-            //hpPlayer2.Update();
+
+            timUI.player2.setPlayerHealth(player2.playerHealth);
+            if (player1.gotHit)
+            {
+                timUI.player1.setPlayerHealth(player1.playerHealth);
+                timUI.player1.Update();
+                player1.gotHit = false;
+            }
+
+            if(player2.gotHit)
+            {
+                timUI.player2.setPlayerHealth(player2.playerHealth);
+                timUI.player2.Update();
+                player2.gotHit = false;
+            }
+
+
+            timer.Update();
+
         }
 
         public void Draw()
         {
-            
+
             timUI.Draw();
             timer.Draw();
-            //hpPlayer1.Draw();
-            // hpPlayer2.Draw();
-            player1.Draw();
 
+            player1.Draw();
             player2.Draw();
+
             foreach (var plataforma in ListaPlataformas)
             {
                 plataforma.Draw();

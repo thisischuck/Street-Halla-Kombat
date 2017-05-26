@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,9 @@ namespace SHK
         private Rectangle hurtbox;
         private Texture2D a_text;
         private AttackList inimigoAttackList;
-
+        private Projectil aux;
+        private bool hadoukenPlay;
+        public bool gotHit = false;
 
         public Character(string imageName, Vector2 cposition, Vector2 csize, int row, int col, int padding, int player,
             SpriteEffects effect, bool ai, List<Plataforma> mapa, AttackList attacks) : base(imageName, cposition,
@@ -145,6 +148,7 @@ namespace SHK
 
         public override void Update()
         {
+            gotHit = false;
             Vector2 a = new Vector2(mPosition.X - mSize.X / 2 - 10, mPosition.Y + mSize.Y / 2 - 40);
             //Vector2 a = new Vector2(mPosition.X, mPosition.Y);
             Vector2 b = new Vector2(mSize.X / 2 - 50, mSize.Y - mSize.Y / 3);
@@ -293,8 +297,9 @@ namespace SHK
                         {
                             valorX = 0;
                             isAttacking = true;
-                            attacks.Hadouken(mPosition, SpriteEffects);
-                            mCurrentCharState = CharState.Hadouken;
+                            Hadouken();
+                            //attacks.Hadouken(mPosition, SpriteEffects);
+                            //mCurrentCharState = CharState.Hadouken;
                         }
                         else
                         {
@@ -319,7 +324,7 @@ namespace SHK
                         isAttacking = true;
                         if (hasHadouken)
                         {
-                            attacks.Hadouken(mPosition, SpriteEffects);
+                            //attacks.Hadouken(mPosition, SpriteEffects);
                             mCurrentCharState = CharState.Hadouken;
                         }
                         else
@@ -385,6 +390,16 @@ namespace SHK
             CollisionAttacks();
 
             movementKeyHistory.TrimExcess();
+
+            if (hadoukenPlay)
+            {
+                aux.Update();
+                if (aux.mPosition.X > 3000)
+                {
+                    hadoukenPlay = false;
+                    
+                }
+            }
             base.Update();
         }
 
@@ -500,7 +515,9 @@ namespace SHK
                 if (inimigoAttackList.hitbox.Y > hurtbox.Y &&
                     inimigoAttackList.hitbox.Y + inimigoAttackList.hitbox.Height < hurtbox.Y + hurtbox.Height)
                 {
+                    gotHit = true;
                     playerHealth -= inimigoAttackList.damage;
+                    inimigoAttackList.damage = 0;
                 }
             }
         }
@@ -517,10 +534,49 @@ namespace SHK
             }
             return false;
         }
-        
-        public override void Draw()
+
+        public void Hadouken()
+        {
+            if (SpriteCurrentColumn == 10)
+            {
+                
+            }
+            Console.WriteLine("me");
+            Vector2 position = new Vector2(mPosition.X, mPosition.Y);
+            aux = new Projectil(position, size, 1, 1, this.SpriteEffects);
+            hadoukenPlay = true;
+
+            /*public void Hadouken(Vector2 position, SpriteEffects spriteffects)
+            {
+                delay = Game1.gameTime.TotalGameTime;
+                int pos = -95;
+                if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                    pos = -205;
+                damage = 5;
+                endAttack = false;
+                attackDuration = 1000;
+
+                sizeHitbox = new Vector2(500, 500);
+                positionHitbox = new Vector2((position.X + pos), (position.Y + 100f));
+                SetDrawHitbox(positionHitbox, sizeHitbox, true);
+            }*/
+
+        }
+
+
+    public override void Draw()
         {
             AnimationUpdate();
+
+            if (hadoukenPlay)
+            {
+                aux.Draw();
+                if (aux.mPosition.X > 3000)
+                {
+                    hadoukenPlay = false;
+                }
+            }
+
             // Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
             base.Draw();
         }
