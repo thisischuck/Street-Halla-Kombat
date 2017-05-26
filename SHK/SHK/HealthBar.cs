@@ -17,6 +17,7 @@ namespace SHK
         Rectangle healthRectangle;
         private SpriteEffects effect;
         private int playerHealth;
+        private float tamanho;
 
         public HealthBar(Vector2 hpPosition,Vector2 hpSize, SpriteEffects effect)
         {
@@ -24,6 +25,7 @@ namespace SHK
             //containerPosition = new Vector2(70, 30);
             healthTexture = Game1.sContent.Load<Texture2D>("lifebar");
             healthRectangle = new Rectangle((int)hpPosition.X, (int)hpPosition.Y, (int)hpSize.X, (int)hpSize.Y);
+            tamanho = hpSize.X;
             this.effect = effect;
         }
 
@@ -34,7 +36,7 @@ namespace SHK
 
         public void Update()// mudar condiçao para quando o player é atacado
         {
-            healthRectangle.Width = (int)(healthRectangle.Width * (playerHealth / 100f));
+            healthRectangle.Width = (int)(tamanho * (playerHealth / 100f));
         }
 
         public void Draw()
