@@ -417,11 +417,13 @@ namespace SHK
                         SetSpriteAnimation(4, 0, 4, 3, 3);
                         break;
                     case CharState.LPunchAir:
+                        SetSpriteAnimation(17, 0, 17, 3, 3);
                         break;
                     case CharState.LKick:
                         SetSpriteAnimation(8, 0, 8, 5, 3);
                         break;
                     case CharState.LKickAir:
+                        SetSpriteAnimation(18, 0, 18, 3, 3);
                         break;
                     case CharState.cLPunch:
                         break;
@@ -438,6 +440,7 @@ namespace SHK
                         SetSpriteAnimation(5, 0, 5, 5, 3);
                         break;
                     case CharState.MPunchAir:
+                        SetSpriteAnimation(19, 0, 19, 3, 3);
                         break;
                     case CharState.cMPunch:
                         break;
@@ -454,6 +457,7 @@ namespace SHK
                         SetSpriteAnimation(6, 0, 6, 8, 3);
                         break;
                     case CharState.HPunchAir:
+                        SetSpriteAnimation(24, 0, 24, 6, 3);
                         break;
                     case CharState.cHPunch:
                         break;
