@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace SHK
         public Vector2 size;
         private float valorY, valorX, xSpeed, jumpSpeed, gravity, fallingSpeedLimiter;
         public bool isGrounded, hasAirJump, isAttacking, isRightDown, isLeftDown, isDownDown, hasHadouken;
-        private int airJumpCounter, comboCounter, airJumpDelay, comboDelay;
+        private int airJumpCounter, comboCounter, airJumpDelay, comboDelay, invulFrames;
         private bool isAI, animationPlay, isCrouched;
         private int playerNumber;
         public int playerHealth;
@@ -24,10 +25,12 @@ namespace SHK
         public AttackList attacks;
         public Queue<Keys> movementKeyHistory;
 
-        private Rectangle hurtbox;
+        protected Rectangle hurtbox;
         private Texture2D a_text;
         private AttackList inimigoAttackList;
-
+        private Projectil aux;
+        private bool hadoukenPlay;
+        public bool gotHit;
 
         public Character(string imageName, Vector2 cposition, Vector2 csize, int row, int col, int padding, int player,
             SpriteEffects effect, bool ai, List<Plataforma> mapa, AttackList attacks) : base(imageName, cposition,
@@ -63,6 +66,7 @@ namespace SHK
             isCrouched = false;
             comboCounter = 0;
             comboDelay = 50;
+            invulFrames = 60;
         }
 
         public void SetInimigo(AttackList inimigo)
@@ -145,15 +149,17 @@ namespace SHK
 
         public override void Update()
         {
-            Vector2 a = new Vector2(mPosition.X - mSize.X / 2 - 10, mPosition.Y + mSize.Y / 2 - 40);
+            gotHit = false;
+            Vector2 a = new Vector2(mPosition.X - mSize.X / 2 , mPosition.Y + mSize.Y / 2 - 40);
             //Vector2 a = new Vector2(mPosition.X, mPosition.Y);
-            Vector2 b = new Vector2(mSize.X / 2 - 50, mSize.Y - mSize.Y / 3);
+            Vector2 b = new Vector2(mSize.X / 2 - 65, mSize.Y - mSize.Y / 3);
             hurtbox = Camera.ComputePixelRectangle(a, b);
-            /*a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hurtbox.Width, hurtbox.Height);
+            
+            a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hurtbox.Width, hurtbox.Height);
 
             Color[] data = new Color[hurtbox.Width * hurtbox.Height];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Chocolate;
-            a_text.SetData(data);*/
+            a_text.SetData(data);
 
             airJumpCounter++;
             if (hasHadouken)
@@ -293,14 +299,15 @@ namespace SHK
                         {
                             valorX = 0;
                             isAttacking = true;
-                            attacks.Hadouken(mPosition, SpriteEffects);
+                            Hadouken();
+                            //attacks.Hadouken(mPosition, SpriteEffects);
                             mCurrentCharState = CharState.Hadouken;
                         }
                         else
                         {
                             valorX = 0;
                             isAttacking = true;
-                            attacks.LightPunch(mPosition, SpriteEffects);
+                            //attacks.LightPunch(mPosition, SpriteEffects);
                             mCurrentCharState = CharState.LPunch;
                         }
                     }
@@ -309,7 +316,7 @@ namespace SHK
                     {
                         valorX = 0;
                         isAttacking = true;
-                        attacks.MediumPunch(mPosition, SpriteEffects);
+                        //attacks.MediumPunch(mPosition, SpriteEffects);
                         mCurrentCharState = CharState.MPunch;
                     }
 
@@ -319,12 +326,12 @@ namespace SHK
                         isAttacking = true;
                         if (hasHadouken)
                         {
-                            attacks.Hadouken(mPosition, SpriteEffects);
+                            //attacks.Hadouken(mPosition, SpriteEffects);
                             mCurrentCharState = CharState.Hadouken;
                         }
                         else
                         {
-                            attacks.HeavyPunch(mPosition, SpriteEffects);
+                            //attacks.HeavyPunch(mPosition, SpriteEffects);
                             mCurrentCharState = CharState.HPunch;
                         }
                     }
@@ -333,7 +340,7 @@ namespace SHK
                     {
                         valorX = 0;
                         isAttacking = true;
-                        attacks.LightKick(mPosition, SpriteEffects);
+                        //attacks.LightKick(mPosition, SpriteEffects);
                         mCurrentCharState = CharState.LKick;
                     }
 
@@ -341,7 +348,7 @@ namespace SHK
                     {
                         valorX = 0;
                         isAttacking = true;
-                        attacks.MediumKick(mPosition, SpriteEffects);
+                        //attacks.MediumKick(mPosition, SpriteEffects);
                         mCurrentCharState = CharState.MKick;
                     }
 
@@ -349,7 +356,7 @@ namespace SHK
                     {
                         valorX = 0;
                         isAttacking = true;
-                        attacks.HeavyKick(mPosition, SpriteEffects);
+                        //attacks.HeavyKick(mPosition, SpriteEffects);
                         mCurrentCharState = CharState.HKick;
                     }
                 }
@@ -358,12 +365,13 @@ namespace SHK
                     if (Keyboard.GetState().IsKeyDown(lPunch))
                     {
                         isAttacking = true;
-                        attacks.LightPunchAir(mPosition, SpriteEffects);
+                        //attacks.LightPunchAir(mPosition, SpriteEffects);
                         mCurrentCharState = CharState.LPunchAir;
                     }
                 }
                 animationPlay = false;
             }
+            SpawnHitBox();
 
             #endregion
 
@@ -379,12 +387,27 @@ namespace SHK
             if (SpriteCurrentColumn == SpriteEndColumn)
             {
                 isAttacking = false;
+                attacks.endAttack = true;
             }
 
             CollisionMovement();
-            CollisionAttacks();
+            if(invulFrames > 10)
+                CollisionAttacks();
+
+            invulFrames++;
 
             movementKeyHistory.TrimExcess();
+
+            if (hadoukenPlay)
+            {
+                aux.Update();
+                if (aux.mPosition.X > 3000)
+                {
+                    hadoukenPlay = false;
+                    
+                }
+            }
+
             base.Update();
         }
 
@@ -417,11 +440,13 @@ namespace SHK
                         SetSpriteAnimation(4, 0, 4, 3, 3);
                         break;
                     case CharState.LPunchAir:
+                        SetSpriteAnimation(17, 0, 17, 3, 3);
                         break;
                     case CharState.LKick:
                         SetSpriteAnimation(8, 0, 8, 5, 3);
                         break;
                     case CharState.LKickAir:
+                        SetSpriteAnimation(18, 0, 18, 3, 3);
                         break;
                     case CharState.cLPunch:
                         break;
@@ -438,6 +463,7 @@ namespace SHK
                         SetSpriteAnimation(5, 0, 5, 5, 3);
                         break;
                     case CharState.MPunchAir:
+                        SetSpriteAnimation(19, 0, 19, 3, 3);
                         break;
                     case CharState.cMPunch:
                         break;
@@ -454,6 +480,7 @@ namespace SHK
                         SetSpriteAnimation(6, 0, 6, 8, 3);
                         break;
                     case CharState.HPunchAir:
+                        SetSpriteAnimation(24, 0, 24, 6, 3);
                         break;
                     case CharState.cHPunch:
                         break;
@@ -491,11 +518,13 @@ namespace SHK
 
         public void CollisionAttacks()
         {
-            if (inimigoAttackList.hitbox.X <= hurtbox.X + hurtbox.Width)
+            if (inimigoAttackList.hitbox.X <= hurtbox.X + hurtbox.Width && inimigoAttackList.hitbox.X + inimigoAttackList.hitbox.Width >= hurtbox.X)
             {
-                if (inimigoAttackList.hitbox.Y > hurtbox.Y &&
+                if (inimigoAttackList.hitbox.Y > hurtbox.Y ||
                     inimigoAttackList.hitbox.Y + inimigoAttackList.hitbox.Height < hurtbox.Y + hurtbox.Height)
                 {
+                    gotHit = true;
+                    invulFrames = 0;
                     playerHealth -= inimigoAttackList.damage;
                 }
             }
@@ -513,11 +542,144 @@ namespace SHK
             }
             return false;
         }
-        
+
+        public void Hadouken()
+        {
+            if (SpriteCurrentColumn == 10)
+            {
+                
+            }
+            Console.WriteLine("me");
+            Vector2 position = new Vector2(mPosition.X, mPosition.Y);
+            aux = new Projectil(position, size, 1, 1, this.SpriteEffects);
+            hadoukenPlay = true;
+
+            /*public void Hadouken(Vector2 position, SpriteEffects spriteffects)
+            {
+                delay = Game1.gameTime.TotalGameTime;
+                int pos = -95;
+                if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                    pos = -205;
+                damage = 5;
+                endAttack = false;
+                attackDuration = 1000;
+
+                sizeHitbox = new Vector2(500, 500);
+                positionHitbox = new Vector2((position.X + pos), (position.Y + 100f));
+                SetDrawHitbox(positionHitbox, sizeHitbox, true);
+            }*/
+
+        }
+
+        public void SpawnHitBox()
+        {
+            if (isAttacking)
+            {
+
+                switch (mCurrentCharState)
+                {
+                    //LIGHTS---------------------------------------------------------
+                    case CharState.LPunch:
+                        if(SpriteCurrentColumn == 2)
+                            attacks.LightPunch(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
+                        break;
+                    case CharState.LPunchAir:
+                        if (SpriteCurrentColumn == 1)
+                            attacks.LightPunchAir(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
+                        break;
+                    case CharState.LKick:
+                        if (SpriteCurrentColumn == 3)
+                            attacks.LightKick(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
+                        break;
+                    case CharState.LKickAir:
+                        break;
+                    case CharState.cLPunch:
+                        break;
+                    case CharState.cLKick:
+                        break;
+
+                    //MEDIUM---------------------------------------------------------
+                    case CharState.MKick:
+                        if (SpriteCurrentColumn == 3)
+                            attacks.MediumKick(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
+                        break;
+                    case CharState.MKickAir:
+                        break;
+                    case CharState.MPunch:
+                        if (SpriteCurrentColumn == 2)
+                            attacks.MediumPunch(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
+                        break;
+                    case CharState.MPunchAir:
+                        break;
+                    case CharState.cMPunch:
+                        break;
+                    case CharState.cMKick:
+                        break;
+
+                    //HARD---------------------------------------------------------
+                    case CharState.HKick:
+                        if (SpriteCurrentColumn == 3)
+                            attacks.HeavyKick(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
+                        break;
+                    case CharState.HKickAir:
+                        break;
+                    case CharState.HPunch:
+                        if (SpriteCurrentColumn == 3)
+                            attacks.HeavyPunch(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
+                        break;
+                    case CharState.HPunchAir:
+                        break;
+                    case CharState.cHPunch:
+                        break;
+                    case CharState.cHKick:
+                        break;
+
+                }
+            }
+        }
+
         public override void Draw()
         {
             AnimationUpdate();
-            // Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
+
+            if (hadoukenPlay)
+            {
+                aux.Draw();
+                if (aux.mPosition.X > 3000)
+                {
+                    hadoukenPlay = false;
+                }
+            }
+
+            Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
             base.Draw();
         }
 

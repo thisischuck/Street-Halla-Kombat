@@ -55,7 +55,7 @@ namespace SHK
 
         public void Update()
         {
-            switch(gameState)
+            /*switch(gameState)
             {
                 case GameState.Menu:
                         element.Update();
@@ -66,13 +66,14 @@ namespace SHK
                         break;
                 case GameState.Paused:
                     break;
-            }
+            }*/
+            a.Update();
 
         }
 
         public void Draw()
         {
-            switch (gameState)
+           /*switch (gameState)
             {
                 case GameState.Menu:
                         element.Draw();
@@ -87,7 +88,8 @@ namespace SHK
                         break;
                 case GameState.Paused:
                         break;
-            }
+            }*/
+            a.Draw();
         }
 
         public void onPress(string buttonName)

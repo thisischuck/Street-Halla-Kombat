@@ -10,41 +10,58 @@ using System.Threading.Tasks;
 
 namespace SHK
 {
-    class HealthBar : SpritePrimitive
+    class HealthBar
     {
         private Vector2 position;
-        Rectangle rectangle;
-        Character player;
-        private int width;
-        private int height;
+        Texture2D healthTexture;
+        Rectangle healthRectangle;
         private SpriteEffects effect;
-
-        public HealthBar(Character player, Vector2 hpPosition,Vector2 hpSize, SpriteEffects effect) :base("lifebar",hpPosition, hpSize, 1,1,0,effect)
+        private int playerHealth;
+        private float tamanho;
+        private Vector2 size;
+        private float hpaux;
+        public HealthBar(Vector2 hpPosition,Vector2 hpSize, SpriteEffects effect)
         {
+            size = size;
             position = hpPosition;
             //containerPosition = new Vector2(70, 30);
-            this.player = player;
-            height = SpriteImageHeight;
-            width = SpriteImageWidth;
-            rectangle = new Rectangle(0, 0, width, height);
+            healthTexture = Game1.sContent.Load<Texture2D>("lifebar");
+            healthRectangle = new Rectangle((int)hpPosition.X, (int)hpPosition.Y, (int)hpSize.X, (int)hpSize.Y);
+            hpaux = hpPosition.X;
+            tamanho = hpSize.X;
             this.effect = effect;
         }
 
-
-        public override void Update()// mudar condiçao para quando o player é atacado
+        public void setPlayerHealth(int aux)
         {
-            rectangle.Width = (int)((float)(width) * ((float)(player.playerHealth) / 100f));
+            this.playerHealth = aux;
         }
 
-        public override void Draw()
+        public void Update()// mudar condiçao para quando o player é atacado
         {
-            Rectangle destRect = Camera.ComputePixelRectangle(mPosition, mSize);
-            Rectangle srcRect = new Rectangle((int)position.X, (int)position.Y, width, height);
-            Vector2 org = new Vector2(width / 2,height / 2);
+            if (effect == SpriteEffects.None)
+            {
+                float cortou = (1 - playerHealth / 100f) * tamanho;
+                healthRectangle.X = (int) Math.Round((hpaux + cortou)) ;
+                
+            }
 
-            //Game1.sSpriteBatch.Draw(mImage,destRect,srcRect, Color.White,0f,org,effect,0);
+            healthRectangle.Width = (int)(tamanho * (playerHealth / 100f));
+            
+        }
 
-            Game1.sSpriteBatch.Draw(mImage,position,rectangle,Color.White);
+        public void Draw()
+        {
+            Rectangle destRect = Camera.ComputePixelRectangle(position, size);
+
+            // define the rotation origin
+            Vector2 org = new Vector2(size.X/2, size.Y / 2);
+
+            // define the area to be drawn
+            Rectangle srcRect = new Rectangle();
+
+            // Draw the texture
+            Game1.sSpriteBatch.Draw(healthTexture, healthRectangle, healthTexture.Bounds,Color.White, 0f, org, effect, 0);
         }
     }
 }

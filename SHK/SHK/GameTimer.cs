@@ -36,7 +36,7 @@ namespace SHK
         public void Update()
         {
             deltatime = gametime.ElapsedGameTime.Milliseconds;
-            Console.WriteLine(gametime.ElapsedGameTime.Milliseconds);
+            //Console.WriteLine(gametime.ElapsedGameTime.Milliseconds);
 
             if (true) //started
             {
