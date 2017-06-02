@@ -35,23 +35,6 @@ namespace SHK
         // verifica que elemento do menu é pressionado
         public void Update()
         {
-            /*if (Keyboard.GetState().IsKeyDown(Keys.Down) && assetName == "start")
-            {
-                assetName = "exit";
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Down) && assetName == "exit")
-            {
-                assetName = "start";
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Up) && assetName == "start")
-            {
-                assetName = "exit";
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Up) && assetName == "exit")
-            {
-                assetName = "start";
-            }*/
             if(Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 PressEvent(assetName);
@@ -88,9 +71,10 @@ namespace SHK
             else GUIRect = new Rectangle(GUIRect.X += x, GUIRect.Y += y, GUIRect.Width = y, GUIRect.Height = x);
         }
         // torna a imagem com as mesmas dimensoes que a janela
-        public void SameDimensions(int x, int y)
+        public void SameDimensions(int width, int height)
         {
-            // ainda por fazer..............................................................................................
+            GUIRect.X = width;
+            GUIRect.Y = height;
         }
     }
 }

@@ -50,10 +50,6 @@ namespace SHK
         static Vector2 platPosition4 = new Vector2(1300, 700);
         static Vector2 platSize = new Vector2(510,65);
 
-        // tamanho do TimerUI
-        int TimerHeight = 221;
-        int TimerWidth = 3676;
-
         GameTimer timer;
         TimerUI timUI;
             
