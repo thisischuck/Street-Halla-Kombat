@@ -30,28 +30,18 @@ namespace SHK
 
         //---------------------------------------------------
 
-        public List<Plataforma> ListaPlataformas = new List<Plataforma>();
-          
-        public Plataforma ChaoPlataforma;
-        public Plataforma ChaoPlataforma2;
-        static Vector2 platPosition = new Vector2(1000,100);
-        static Vector2 platPosition2 = new Vector2(200, 200);
-        public Plataforma ChaoPlataforma3;
-        public Plataforma ChaoPlataforma4;
-        static Vector2 platPosition3 = new Vector2(2000, 400);
-        static Vector2 platPosition4 = new Vector2(1300, 700);
-        static Vector2 platSize = new Vector2(510,65);
+        private Map mapa;
+        //Vector2 mapaSize = new Vector2(2343, 1470);
+        Vector2 mapaSize = new Vector2(2650,1480);
+        Vector2 mapaPosition = new Vector2(1250,700);
+
 
         GameTimer timer;
         TimerUI timUI;
             
         public Duel()
         {
-            ChaoPlataforma = new Plataforma(false, platSize, platPosition);
-            ChaoPlataforma2 = new Plataforma(false,platSize, platPosition2);
-            ChaoPlataforma3 = new Plataforma(false, platSize, platPosition3);
-            ChaoPlataforma4 = new Plataforma(false, platSize, platPosition4);
-            
+            mapa = new Map(mapaSize,mapaPosition,"map1");
 
 
             timUI = new TimerUI(new Vector2(Game1.mGraphics.PreferredBackBufferWidth , Game1.mGraphics.PreferredBackBufferHeight / 2), Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);
@@ -59,17 +49,12 @@ namespace SHK
             timer.Font = Game1.sContent.Load<SpriteFont>("Arial");
             timer.Position = new Vector2((Game1.mGraphics.PreferredBackBufferWidth / 2) - timer.Font.MeasureString(timer.Text).X / 2, 0);
 
-            ListaPlataformas.Add(ChaoPlataforma);
-            ListaPlataformas.Add(ChaoPlataforma2);
-            ListaPlataformas.Add(ChaoPlataforma3);
-            ListaPlataformas.Add(ChaoPlataforma4);
-
             attacksPlayer1 = new AttackList();
-            player1 = new Character("Ryu-Final2", charP, charS, 18, 29, 0, 1, SpriteEffects.None, false, ListaPlataformas, attacksPlayer1);
+            player1 = new Character("Ryu-Final2", charP, charS, 18, 29, 0, 1, SpriteEffects.None, false, mapa.ListaPlataformas, attacksPlayer1);
             
 
             attacksPlayer2 = new AttackList();
-            player2 = new Character("Transcendent", char2P, char2S, 18, 29, 0, 2, SpriteEffects.None, false, ListaPlataformas, attacksPlayer2);
+            player2 = new Character("Transcendent", char2P, char2S, 18, 29, 0, 2, SpriteEffects.None, false, mapa.ListaPlataformas, attacksPlayer2);
 
             player1.SetInimigo(attacksPlayer2);
             player2.SetInimigo(attacksPlayer1);
@@ -101,17 +86,14 @@ namespace SHK
 
         public void Draw()
         {
-
+            mapa.Draw();
             timUI.Draw();
             timer.Draw();
 
             player1.Draw();
             player2.Draw();
 
-            foreach (var plataforma in ListaPlataformas)
-            {
-                plataforma.Draw();
-            }
+            
             attacksPlayer1.Draw();
             attacksPlayer2.Draw();
         }

@@ -520,7 +520,7 @@ namespace SHK
         {
             if (inimigoAttackList.hitbox.X <= hurtbox.X + hurtbox.Width && inimigoAttackList.hitbox.X + inimigoAttackList.hitbox.Width >= hurtbox.X)
             {
-                if (inimigoAttackList.hitbox.Y > hurtbox.Y ||
+                if (inimigoAttackList.hitbox.Y > hurtbox.Y &&
                     inimigoAttackList.hitbox.Y + inimigoAttackList.hitbox.Height < hurtbox.Y + hurtbox.Height)
                 {
                     gotHit = true;

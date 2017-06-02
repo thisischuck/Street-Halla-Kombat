@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SHK
 {
-    public class Plataforma : GameObject
+    public class Plataforma
     {
         bool isSoft;
         public Vector2 Size;
@@ -17,7 +17,7 @@ namespace SHK
         public Rectangle rect;
         private Texture2D a_text;
 
-        public Plataforma(bool isSoft, Vector2 size, Vector2 position) : base("game_plat", position, size)
+        public Plataforma(bool isSoft, Vector2 size, Vector2 position)
         {
             this.isSoft = isSoft;
             this.Size = size;
@@ -31,10 +31,9 @@ namespace SHK
             a_text.SetData(data);
         }
 
-        public override void Draw()
+        public void Draw()
         {
             Game1.sSpriteBatch.Draw(a_text,rect,Color.White);
-            base.Draw();
         }
     }
 }
