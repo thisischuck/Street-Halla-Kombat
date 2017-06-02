@@ -25,12 +25,12 @@ namespace SHK
             //221
             TimerTexture = Game1.sContent.Load<Texture2D>("timerContainer");
             TimerRect = new Rectangle(0,0, (int)(timerSize.X ), 115);
-        }
-
-            player1 = new HealthBar(hp1Position,hSize, SpriteEffects.None);
+            player1 = new HealthBar(hp1Position, hSize, SpriteEffects.None);
             player2 = new HealthBar(hp2Position, hSize, SpriteEffects.FlipHorizontally);
-
         }
+
+            
+
 
         public void Draw()
         {
