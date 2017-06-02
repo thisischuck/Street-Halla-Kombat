@@ -14,9 +14,9 @@ namespace SHK
         Rectangle TimerRect;
         public HealthBar player1;
         public HealthBar player2;
-        private Vector2 hSize = new Vector2(Game1.mGraphics.PreferredBackBufferWidth/2, 50);
-        private Vector2 hp1Position = new Vector2(100,0);
-        private Vector2 hp2Position = new Vector2(0, 500);
+        private Vector2 hSize = new Vector2(553, 40);
+        private Vector2 hp1Position = new Vector2(17,68);
+        private Vector2 hp2Position = new Vector2(710, 68);
 
         public TimerUI(Vector2 timerSize, int width, int height)
         {
@@ -33,6 +33,8 @@ namespace SHK
 
         public void Draw()
         {
+            
+           
             player1.Draw();
             player2.Draw();
             Game1.sSpriteBatch.Draw(TimerTexture, TimerRect, Color.White);
