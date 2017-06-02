@@ -152,5 +152,10 @@ namespace SHK
             Game1.sSpriteBatch.End();
             base.Draw(gameTime);
         }
+
+        public void Quit()
+        {
+            this.Exit();
+        }
     }
 }
