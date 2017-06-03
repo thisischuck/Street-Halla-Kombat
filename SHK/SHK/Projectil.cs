@@ -12,6 +12,7 @@ namespace SHK
     {
         private Vector2 position, size;
         private SpriteEffects effects;
+        public int damage;
         public float speed;
         public Rectangle hitbox;
         private Texture2D a_text;
@@ -22,7 +23,7 @@ namespace SHK
             this.size = size;
             this.effects = effect;
             this.speed = 10;
-
+            this.damage = 20;
             hitbox = Camera.ComputePixelRectangle(position, size);
             a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hitbox.Width, hitbox.Height);
 

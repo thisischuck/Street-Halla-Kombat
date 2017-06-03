@@ -14,8 +14,6 @@ namespace SHK
         public Vector2 Size;
         public Vector2 Position;
 
-        
-        private Texture2D a_text;
         private Plataforma plat;
         Vector2 platPosition = new Vector2(0, 0);
         Vector2 platSize = new Vector2(0,0);

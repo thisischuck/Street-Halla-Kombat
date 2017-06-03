@@ -22,7 +22,7 @@ namespace SHK
         private float hpaux;
         public HealthBar(Vector2 hpPosition,Vector2 hpSize, SpriteEffects effect)
         {
-            size = size;
+            //this.size = size;
             position = hpPosition;
             //containerPosition = new Vector2(70, 30);
             healthTexture = Game1.sContent.Load<Texture2D>("lifebar");
@@ -56,9 +56,6 @@ namespace SHK
 
             // define the rotation origin
             Vector2 org = new Vector2(size.X/2, size.Y / 2);
-
-            // define the area to be drawn
-            Rectangle srcRect = new Rectangle();
 
             // Draw the texture
             Game1.sSpriteBatch.Draw(healthTexture, healthRectangle, healthTexture.Bounds,Color.White, 0f, org, effect, 0);
