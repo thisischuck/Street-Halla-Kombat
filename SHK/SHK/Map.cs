@@ -17,6 +17,8 @@ namespace SHK
         
         private Texture2D a_text;
         private Plataforma plat;
+        Vector2 platPosition = new Vector2(0, 0);
+        Vector2 platSize = new Vector2(0,0);
         public List<Plataforma> ListaPlataformas = new List<Plataforma>();
         
 
@@ -27,12 +29,18 @@ namespace SHK
 
             if (imageName.Equals("map1"))
             {
-                Vector2 platPosition = new Vector2(2110, 360);
-                Vector2 platSize = new Vector2(900, 100);
+                platPosition = new Vector2(2110, 360);
+                platSize = new Vector2(900, 100);
                 plat = new Plataforma(false, platSize, platPosition);
+                ListaPlataformas.Add(plat);
+                ///////////////////////////////////////
+                platPosition = new Vector2(500, 650);
+                platSize = new Vector2(1000, 100);
+                plat = new Plataforma(false, platSize, platPosition);
+                ListaPlataformas.Add(plat);
             }
 
-            ListaPlataformas.Add(plat);
+            
         }
 
         public override void Draw()

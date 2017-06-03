@@ -15,22 +15,22 @@ namespace SHK
         string player1Choice;
         string player2Choice;
 
+        static Vector2 charS = new Vector2(300, 300);
+
         public Character player1;
         public AttackList attacksPlayer1;
-    
-        static Vector2 charP = new Vector2(1200, 100);
-        static Vector2 charS = new Vector2(300, 300);
+        static Vector2 charP = new Vector2(0, 0);
 
         //---------------------------------------------------
 
         public Character player2;
         public AttackList attacksPlayer2;
-        static Vector2 char2P = new Vector2(1208, 100);
-        static Vector2 char2S = new Vector2(300, 300);
-
+        static Vector2 char2P = new Vector2(0, 0);
+        
         //---------------------------------------------------
 
         private Map mapa;
+        private string nomeMapa = "map1";
         //Vector2 mapaSize = new Vector2(2343, 1470);
         Vector2 mapaSize = new Vector2(2650,1480);
         Vector2 mapaPosition = new Vector2(1250,700);
@@ -41,7 +41,7 @@ namespace SHK
             
         public Duel()
         {
-            mapa = new Map(mapaSize,mapaPosition,"map1");
+            mapa = new Map(mapaSize,mapaPosition,nomeMapa);
 
 
             timUI = new TimerUI(new Vector2(Game1.mGraphics.PreferredBackBufferWidth , Game1.mGraphics.PreferredBackBufferHeight / 2), Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);
@@ -49,12 +49,22 @@ namespace SHK
             timer.Font = Game1.sContent.Load<SpriteFont>("Arial");
             timer.Position = new Vector2((Game1.mGraphics.PreferredBackBufferWidth / 2) - timer.Font.MeasureString(timer.Text).X / 2, 0);
 
+
+
+            if (nomeMapa.Equals("map1"))
+            {
+                charP.X = 200;
+                charP.Y = 1000;
+                char2P.X = 2500;
+                char2P.Y = 1000;
+            }
+
             attacksPlayer1 = new AttackList();
-            player1 = new Character("Ryu-Final2", charP, charS, 18, 29, 0, 1, SpriteEffects.None, false, mapa.ListaPlataformas, attacksPlayer1);
+            player1 = new Character("SpriteRyu", charP, charS, 18, 32, 0, 1, SpriteEffects.None, false, mapa.ListaPlataformas, attacksPlayer1);
             
 
             attacksPlayer2 = new AttackList();
-            player2 = new Character("Transcendent", char2P, char2S, 18, 29, 0, 2, SpriteEffects.None, false, mapa.ListaPlataformas, attacksPlayer2);
+            player2 = new Character("SpriteRyu", char2P, charS, 18, 32, 0, 2, SpriteEffects.FlipHorizontally, false, mapa.ListaPlataformas, attacksPlayer2);
 
             player1.SetInimigo(attacksPlayer2);
             player2.SetInimigo(attacksPlayer1);

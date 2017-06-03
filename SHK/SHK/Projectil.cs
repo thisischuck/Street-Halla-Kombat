@@ -21,7 +21,7 @@ namespace SHK
             this.position = position;
             this.size = size;
             this.effects = effect;
-            this.speed = 5;
+            this.speed = 10;
 
             hitbox = Camera.ComputePixelRectangle(position, size);
             a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hitbox.Width, hitbox.Height);
@@ -30,8 +30,17 @@ namespace SHK
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Black;
             a_text.SetData(data);
 
-            Velocity = (Vector2.UnitX * speed) + (Vector2.Zero);
+            if(effect != SpriteEffects.FlipHorizontally)
+                Velocity = (Vector2.UnitX * speed) + (Vector2.Zero);
+            else Velocity = (Vector2.UnitX * -speed) + (Vector2.Zero);
         }
+
+        public override void Update()
+        {
+            hitbox = Camera.ComputePixelRectangle(mPosition, mSize);
+            base.Update();
+        }
+
 
         public override void Draw()
         {

@@ -28,7 +28,9 @@ namespace SHK
         protected Rectangle hurtbox;
         private Texture2D a_text;
         private AttackList inimigoAttackList;
-        private Projectil aux;
+
+        private List<Projectil> listHadouken;
+
         private bool hadoukenPlay;
         public bool gotHit;
 
@@ -67,6 +69,7 @@ namespace SHK
             comboCounter = 0;
             comboDelay = 50;
             invulFrames = 60;
+            listHadouken = new List<Projectil>();
         }
 
         public void SetInimigo(AttackList inimigo)
@@ -298,16 +301,13 @@ namespace SHK
                         if (hasHadouken)
                         {
                             valorX = 0;
-                            isAttacking = true;
-                            Hadouken();
-                            //attacks.Hadouken(mPosition, SpriteEffects);
+                            isAttacking = true;  
                             mCurrentCharState = CharState.Hadouken;
                         }
                         else
                         {
                             valorX = 0;
                             isAttacking = true;
-                            //attacks.LightPunch(mPosition, SpriteEffects);
                             mCurrentCharState = CharState.LPunch;
                         }
                     }
@@ -316,7 +316,6 @@ namespace SHK
                     {
                         valorX = 0;
                         isAttacking = true;
-                        //attacks.MediumPunch(mPosition, SpriteEffects);
                         mCurrentCharState = CharState.MPunch;
                     }
 
@@ -326,12 +325,10 @@ namespace SHK
                         isAttacking = true;
                         if (hasHadouken)
                         {
-                            //attacks.Hadouken(mPosition, SpriteEffects);
                             mCurrentCharState = CharState.Hadouken;
                         }
                         else
                         {
-                            //attacks.HeavyPunch(mPosition, SpriteEffects);
                             mCurrentCharState = CharState.HPunch;
                         }
                     }
@@ -340,7 +337,6 @@ namespace SHK
                     {
                         valorX = 0;
                         isAttacking = true;
-                        //attacks.LightKick(mPosition, SpriteEffects);
                         mCurrentCharState = CharState.LKick;
                     }
 
@@ -348,7 +344,6 @@ namespace SHK
                     {
                         valorX = 0;
                         isAttacking = true;
-                        //attacks.MediumKick(mPosition, SpriteEffects);
                         mCurrentCharState = CharState.MKick;
                     }
 
@@ -356,7 +351,6 @@ namespace SHK
                     {
                         valorX = 0;
                         isAttacking = true;
-                        //attacks.HeavyKick(mPosition, SpriteEffects);
                         mCurrentCharState = CharState.HKick;
                     }
                 }
@@ -365,7 +359,6 @@ namespace SHK
                     if (Keyboard.GetState().IsKeyDown(lPunch))
                     {
                         isAttacking = true;
-                        //attacks.LightPunchAir(mPosition, SpriteEffects);
                         mCurrentCharState = CharState.LPunchAir;
                     }
                 }
@@ -398,13 +391,14 @@ namespace SHK
 
             movementKeyHistory.TrimExcess();
 
-            if (hadoukenPlay)
+            
+            foreach (var hadouken in listHadouken)
             {
-                aux.Update();
-                if (aux.mPosition.X > 3000)
+                hadouken.Update();
+                if (hadouken.hitbox.X > 1000 || hadouken.hitbox.X < 0)
                 {
-                    hadoukenPlay = false;
-                    
+                    listHadouken.Remove(hadouken);
+                    break;
                 }
             }
 
@@ -487,6 +481,17 @@ namespace SHK
                     case CharState.cHKick:
                         break;
 
+                    //Other---------------------------------------------------------
+                    case CharState.Hadouken:
+                        SetSpriteAnimation(26, 0, 26, 13, 3);
+                        break;
+                    case CharState.Dead:
+                        SetSpriteAnimation(0, 0, 0, 0, 3);
+                        break;
+                    case CharState.Stunned:
+                        SetSpriteAnimation(0, 0, 0, 0, 3);
+                        break;
+
                 }
                 animationPlay = true;
             }
@@ -545,14 +550,12 @@ namespace SHK
 
         public void Hadouken()
         {
-            if (SpriteCurrentColumn == 10)
-            {
-                
-            }
-            Console.WriteLine("me");
-            Vector2 position = new Vector2(mPosition.X, mPosition.Y);
-            aux = new Projectil(position, size, 1, 1, this.SpriteEffects);
-            hadoukenPlay = true;
+                Console.WriteLine("me");
+                Vector2 position = new Vector2(mPosition.X, mPosition.Y);
+                Projectil aux = new Projectil(position, size, 1, 1, this.SpriteEffects);
+                listHadouken.Add(aux);
+                hadoukenPlay = true;
+            
 
             /*public void Hadouken(Vector2 position, SpriteEffects spriteffects)
             {
@@ -662,6 +665,11 @@ namespace SHK
                     case CharState.cHKick:
                         break;
 
+                    //HARD---------------------------------------------------------
+                    case CharState.Hadouken:
+                        if(SpriteCurrentColumn == 6)
+                            Hadouken();
+                        break;
                 }
             }
         }
@@ -670,16 +678,12 @@ namespace SHK
         {
             AnimationUpdate();
 
-            if (hadoukenPlay)
+            foreach (var hadouken in listHadouken)
             {
-                aux.Draw();
-                if (aux.mPosition.X > 3000)
-                {
-                    hadoukenPlay = false;
-                }
+                hadouken.Draw();
             }
 
-            Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
+            //Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
             base.Draw();
         }
 
