@@ -57,7 +57,7 @@ namespace SHK
             plataforma.Add(ChaoPlataforma);
             a = new Duel();
             c = new Character("Ryu-Final2", cPosition, cSize, 18, 29, 0, 2, SpriteEffects.None, false, plataforma, attacks);
-            c.SetInimigo(attacks);
+            //c.SetInimigo(attacks);
 
             CenterElement(Game1.mGraphics.PreferredBackBufferHeight, Game1.mGraphics.PreferredBackBufferWidth);
             SameDimensions(Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);

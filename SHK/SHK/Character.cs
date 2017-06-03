@@ -27,9 +27,11 @@ namespace SHK
 
         protected Rectangle hurtbox;
         private Texture2D a_text;
-        private AttackList inimigoAttackList;
 
-        private List<Projectil> listHadouken;
+        private AttackList inimigoAttackList;
+        private List<Projectil> hInimigo;
+
+        public List<Projectil> listHadouken;
 
         private bool hadoukenPlay;
         public bool gotHit;
@@ -72,9 +74,10 @@ namespace SHK
             listHadouken = new List<Projectil>();
         }
 
-        public void SetInimigo(AttackList inimigo)
+        public void SetInimigo(AttackList inimigo, List<Projectil> hInimigo)
         {
             this.inimigoAttackList = inimigo;
+            this.hInimigo = hInimigo;
         }
 
         private enum CharState
@@ -533,6 +536,22 @@ namespace SHK
                     playerHealth -= inimigoAttackList.damage;
                 }
             }
+
+            foreach (var hadouken in hInimigo)
+            {   
+                if (hadouken.hitbox.X <= hurtbox.X + hurtbox.Width && hadouken.hitbox.X + hadouken.hitbox.Width >= hurtbox.X)
+                { 
+                    if (hadouken.hitbox.Y > hurtbox.Y &&
+                        hadouken.hitbox.Y + hadouken.hitbox.Height < hurtbox.Y + hurtbox.Height)
+                    {
+                        gotHit = true;
+                        invulFrames = 0;
+                        playerHealth -= hadouken.damage;
+                    }
+                }
+            }
+            
+
         }
 
         public bool CheckHadouken()
@@ -550,7 +569,6 @@ namespace SHK
 
         public void Hadouken()
         {
-                Console.WriteLine("me");
                 Vector2 position = new Vector2(mPosition.X, mPosition.Y);
                 Projectil aux = new Projectil(position, size, 1, 1, this.SpriteEffects);
                 listHadouken.Add(aux);
