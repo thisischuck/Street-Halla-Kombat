@@ -74,6 +74,44 @@ namespace SHK
             listHadouken = new List<Projectil>();
         }
 
+        public Character(string imageName, Vector2 cposition, Vector2 csize, List<Plataforma> mapa) : base(imageName, cposition,
+            csize, 18, 32, 0, SpriteEffects.None)
+        {
+            playerNumber = 1;
+            mCurrentCharState = CharState.Idle;
+            SetSpriteAnimation(0, 0, 0, 17, 2);
+            position = cposition;
+            size = csize;
+            isGrounded = false;
+            hasAirJump = true;
+            isAttacking = false;
+            valorX = 0f;
+            valorY = 0f;
+            xSpeed = 10f;
+            jumpSpeed = 40f;
+            gravity = 2f;
+            fallingSpeedLimiter = -40f;
+            animationPlay = false;
+            airJumpCounter = 0;
+            airJumpDelay = 12;
+            SetKeys();
+            this.mapa = mapa;
+            this.attacks = attacks;
+            movementKeyHistory = new Queue<Keys>();
+            isRightDown = false;
+            isLeftDown = false;
+            isDownDown = false;
+            hasHadouken = false;
+            isCrouched = false;
+            comboCounter = 0;
+            comboDelay = 50;
+            invulFrames = 60;
+            attacks = new AttackList();
+            listHadouken = new List<Projectil>();
+            inimigoAttackList = new AttackList();
+            hInimigo = new List<Projectil>();
+        }
+
         public void SetInimigo(AttackList inimigo, List<Projectil> hInimigo)
         {
             this.inimigoAttackList = inimigo;

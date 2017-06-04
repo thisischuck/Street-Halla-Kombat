@@ -24,7 +24,6 @@ namespace SHK
         static Vector2 cPosition = new Vector2(1200, 100);
         static Vector2 cSize = new Vector2(400, 400);
         private List<Plataforma> plataforma = new List<Plataforma>();
-        public AttackList attacks = new AttackList();
 
         // plataforma
         public Plataforma ChaoPlataforma;
@@ -56,9 +55,7 @@ namespace SHK
             ChaoPlataforma = new Plataforma(false, platSize, platPosition);
             plataforma.Add(ChaoPlataforma);
             a = new Duel();
-            c = new Character("Ryu-Final2", cPosition, cSize, 18, 29, 0, 2, SpriteEffects.None, false, plataforma, attacks);
-            List<Projectil> inimigo = new List<Projectil>();
-            c.SetInimigo(attacks, inimigo);
+            c = new Character("SpriteRyu", cPosition, cSize, plataforma);
 
             CenterElement(Game1.mGraphics.PreferredBackBufferHeight, Game1.mGraphics.PreferredBackBufferWidth);
             SameDimensions(Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);
@@ -97,16 +94,16 @@ namespace SHK
                     Game1.sSpriteBatch.Draw(GUITexture3, GUIRect3, Color.White);
 
                     c.Draw();
-                        foreach (var plat in plataforma)
-                        {
-                            plat.Draw();
-                        }
+                    foreach (var plat in plataforma)
+                    {
+                        plat.Draw();
+                    }
                     break;
                 case GameState.inGame:
-                        a.Draw();
-                        break;
+                    a.Draw();
+                    break;
                 case GameState.Paused:
-                        break;
+                    break;
             }
         }
 
