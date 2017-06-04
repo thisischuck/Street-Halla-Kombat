@@ -278,13 +278,13 @@ namespace SHK
                             valorX = -xSpeed;
                         }
 
-                        if (Keyboard.GetState().GetPressedKeys().Contains<Keys>(left) &&
-                            Keyboard.GetState().GetPressedKeys().Contains<Keys>(right))
+                        if (Keyboard.GetState().GetPressedKeys().Contains(left) &&
+                            Keyboard.GetState().GetPressedKeys().Contains(right))
                         {
                             valorX = 0f;
                         }
 
-                        /*if (Keyboard.GetState().IsKeyDown(down))
+                        if (Keyboard.GetState().IsKeyDown(down))
                         {
                             mCurrentCharState = CharState.Crouch;
                             isCrouched = true;
@@ -292,8 +292,9 @@ namespace SHK
                         }
                         if (Keyboard.GetState().IsKeyUp(down))
                         {
+                            mCurrentCharState = CharState.Idle;
                             isCrouched = false;
-                        }*/
+                        }
                     }
                     else
                     {
@@ -337,62 +338,109 @@ namespace SHK
             {
                 if (isGrounded)
                 {
-                    if (Keyboard.GetState().IsKeyDown(lPunch))
+                    if (!isCrouched)
                     {
-                        valorX = 0;
-                        isAttacking = true;
-                        if (hasHadouken)
+                        if (Keyboard.GetState().IsKeyDown(lPunch))
                         {
-                            
-                            mCurrentCharState = CharState.Hadouken;
+                            valorX = 0;
+                            isAttacking = true;
+                            if (hasHadouken)
+                            {
+
+                                mCurrentCharState = CharState.Hadouken;
+                            }
+                            else
+                            {
+
+                                mCurrentCharState = CharState.LPunch;
+                            }
+                        }
+
+                        if (Keyboard.GetState().IsKeyDown(mPunch))
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            mCurrentCharState = CharState.MPunch;
+                        }
+
+                        if (Keyboard.GetState().IsKeyDown(hPunch))
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            if (hasHadouken)
+                            {
+                                mCurrentCharState = CharState.Hadouken;
+                            }
+                            else
+                            {
+                                mCurrentCharState = CharState.HPunch;
+                            }
+                        }
+
+                        if (Keyboard.GetState().IsKeyDown(lKick))
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            mCurrentCharState = CharState.LKick;
+                        }
+
+                        if (Keyboard.GetState().IsKeyDown(mKick))
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            mCurrentCharState = CharState.MKick;
+                        }
+
+                        if (Keyboard.GetState().IsKeyDown(hKick))
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            mCurrentCharState = CharState.HKick;
                         }
                         else
                         {
+                            if (Keyboard.GetState().IsKeyDown(lPunch))
+                            {
+                                valorX = 0;
+                                isAttacking = true;
+                                mCurrentCharState = CharState.cLPunch;
+                            }
 
-                            mCurrentCharState = CharState.LPunch;
+                            if (Keyboard.GetState().IsKeyDown(mPunch))
+                            {
+                                valorX = 0;
+                                isAttacking = true;
+                                mCurrentCharState = CharState.cMPunch;
+                            }
+
+                            if (Keyboard.GetState().IsKeyDown(hPunch))
+                            {
+                                valorX = 0;
+                                isAttacking = true;
+                                mCurrentCharState = CharState.cHPunch;
+                            }
+
+                            if (Keyboard.GetState().IsKeyDown(lKick))
+                            {
+                                valorX = 0;
+                                isAttacking = true;
+                                mCurrentCharState = CharState.cLKick;
+                            }
+
+                            if (Keyboard.GetState().IsKeyDown(mKick))
+                            {
+                                valorX = 0;
+                                isAttacking = true;
+                                mCurrentCharState = CharState.cMKick;
+                            }
+
+                            if (Keyboard.GetState().IsKeyDown(hKick))
+                            {
+                                valorX = 0;
+                                isAttacking = true;
+                                mCurrentCharState = CharState.cHKick;
+                            }
                         }
-                    }
-
-                    if (Keyboard.GetState().IsKeyDown(mPunch))
-                    {
-                        valorX = 0;
-                        isAttacking = true;
-                        mCurrentCharState = CharState.MPunch;
-                    }
-
-                    if (Keyboard.GetState().IsKeyDown(hPunch))
-                    {
-                        valorX = 0;
-                        isAttacking = true;
-                        if (hasHadouken)
-                        {
-                            mCurrentCharState = CharState.Hadouken;
-                        }
-                        else
-                        {
-                            mCurrentCharState = CharState.HPunch;
-                        }
-                    }
-
-                    if (Keyboard.GetState().IsKeyDown(lKick))
-                    {
-                        valorX = 0;
-                        isAttacking = true;
-                        mCurrentCharState = CharState.LKick;
-                    }
-
-                    if (Keyboard.GetState().IsKeyDown(mKick))
-                    {
-                        valorX = 0;
-                        isAttacking = true;
-                        mCurrentCharState = CharState.MKick;
-                    }
-
-                    if (Keyboard.GetState().IsKeyDown(hKick))
-                    {
-                        valorX = 0;
-                        isAttacking = true;
-                        mCurrentCharState = CharState.HKick;
                     }
                 }
                 else
@@ -401,6 +449,36 @@ namespace SHK
                     {
                         isAttacking = true;
                         mCurrentCharState = CharState.LPunchAir;
+                    }
+
+                    if (Keyboard.GetState().IsKeyDown(mPunch))
+                    {
+                        isAttacking = true;
+                        mCurrentCharState = CharState.MPunchAir;
+                    }
+
+                    if (Keyboard.GetState().IsKeyDown(hPunch))
+                    {
+                        isAttacking = true;
+                        mCurrentCharState = CharState.HPunchAir;
+                    }
+
+                    if (Keyboard.GetState().IsKeyDown(lKick))
+                    {
+                        isAttacking = true;
+                        mCurrentCharState = CharState.LKickAir;
+                    }
+
+                    if (Keyboard.GetState().IsKeyDown(mKick))
+                    {
+                        isAttacking = true;
+                        mCurrentCharState = CharState.MKickAir;
+                    }
+
+                    if (Keyboard.GetState().IsKeyDown(hKick))
+                    {
+                        isAttacking = true;
+                        mCurrentCharState = CharState.HKickAir;
                     }
                 }
                 animationPlay = false;
@@ -470,6 +548,7 @@ namespace SHK
                         SetSpriteAnimation(3, 0, 3, 5, 4);
                         break;
                     case CharState.Crouch:
+                        SetSpriteAnimation(2, 0, 2, 2, 3);
                         break;
 
                     //LIGHTS---------------------------------------------------------
@@ -486,8 +565,10 @@ namespace SHK
                         SetSpriteAnimation(18, 0, 18, 3, 3);
                         break;
                     case CharState.cLPunch:
+                        SetSpriteAnimation(11, 0, 11, 2, 3);
                         break;
                     case CharState.cLKick:
+                        SetSpriteAnimation(14, 0, 14, 3, 3);
                         break;
 
                     //MEDIUM---------------------------------------------------------
@@ -495,6 +576,7 @@ namespace SHK
                         SetSpriteAnimation(7, 0, 7, 6, 3);
                         break;
                     case CharState.MKickAir:
+                        SetSpriteAnimation(20, 0, 20, 4, 3);
                         break;
                     case CharState.MPunch:
                         SetSpriteAnimation(5, 0, 5, 5, 3);
@@ -503,8 +585,10 @@ namespace SHK
                         SetSpriteAnimation(19, 0, 19, 3, 3);
                         break;
                     case CharState.cMPunch:
+                        SetSpriteAnimation(12, 0, 12, 2, 3);
                         break;
                     case CharState.cMKick:
+                        SetSpriteAnimation(15, 0, 15, 6, 3);
                         break;
 
                     //HARD---------------------------------------------------------
@@ -512,6 +596,7 @@ namespace SHK
                         SetSpriteAnimation(9, 0, 9, 8, 3);
                         break;
                     case CharState.HKickAir:
+                        SetSpriteAnimation(21, 0, 21, 4, 3);
                         break;
                     case CharState.HPunch:
                         SetSpriteAnimation(6, 0, 6, 8, 3);
@@ -520,8 +605,10 @@ namespace SHK
                         SetSpriteAnimation(24, 0, 24, 6, 3);
                         break;
                     case CharState.cHPunch:
+                        SetSpriteAnimation(13, 0, 13, 8, 3);
                         break;
                     case CharState.cHKick:
+                        SetSpriteAnimation(16, 0, 16, 7, 3);
                         break;
 
                     //Other---------------------------------------------------------
@@ -674,10 +761,28 @@ namespace SHK
                         }
                         break;
                     case CharState.LKickAir:
+                        if (SpriteCurrentColumn == 1)
+                            attacks.LightKickAir(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
                         break;
                     case CharState.cLPunch:
+                        if (SpriteCurrentColumn == 1)
+                            attacks.LightPunchCrouched(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
                         break;
                     case CharState.cLKick:
+                        if (SpriteCurrentColumn == 1)
+                            attacks.LightKickCrouched(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
                         break;
 
                     //MEDIUM---------------------------------------------------------
@@ -690,6 +795,12 @@ namespace SHK
                         }
                         break;
                     case CharState.MKickAir:
+                        if (SpriteCurrentColumn == 2)
+                            attacks.MediumKick(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
                         break;
                     case CharState.MPunch:
                         if (SpriteCurrentColumn == 2)
@@ -700,15 +811,33 @@ namespace SHK
                         }
                         break;
                     case CharState.MPunchAir:
+                        if (SpriteCurrentColumn == 2)
+                            attacks.MediumPunchAir(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
                         break;
                     case CharState.cMPunch:
+                        if (SpriteCurrentColumn == 1)
+                            attacks.MediumPunchCrouched(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
                         break;
                     case CharState.cMKick:
+                        if (SpriteCurrentColumn == 3)
+                            attacks.MediumKickCrouched(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
                         break;
 
                     //HARD---------------------------------------------------------
                     case CharState.HKick:
-                        if (SpriteCurrentColumn == 3)
+                        if (SpriteCurrentColumn == 4)
                             attacks.HeavyKick(mPosition, SpriteEffects);
                         else
                         {
@@ -716,6 +845,12 @@ namespace SHK
                         }
                         break;
                     case CharState.HKickAir:
+                        if (SpriteCurrentColumn == 2)
+                            attacks.HeavyKickAir(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
                         break;
                     case CharState.HPunch:
                         if (SpriteCurrentColumn == 3)
@@ -726,10 +861,28 @@ namespace SHK
                         }
                         break;
                     case CharState.HPunchAir:
+                        if (SpriteCurrentColumn == 3)
+                            attacks.HeavyPunchAir(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
                         break;
                     case CharState.cHPunch:
+                        if (SpriteCurrentColumn == 5)
+                            attacks.HeavyPunchCrouched(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
                         break;
                     case CharState.cHKick:
+                        if (SpriteCurrentColumn == 3)
+                            attacks.HeavyKickCrouched(mPosition, SpriteEffects);
+                        else
+                        {
+                            attacks.hitbox.Location = new Point(-100, -100);
+                        }
                         break;
 
                     //HARD---------------------------------------------------------
