@@ -65,7 +65,7 @@ namespace SHK
             
 
             attacksPlayer2 = new AttackList();
-            player2 = new Character("SpriteRyu", char2P, charS, 18, 32, 0, 2, SpriteEffects.FlipHorizontally, false, mapa.ListaPlataformas, attacksPlayer2);
+            player2 = new Character("SpriteBlackGayRyu", char2P, charS, 18, 32, 0, 2, SpriteEffects.FlipHorizontally, false, mapa.ListaPlataformas, attacksPlayer2);
 
             player1.SetInimigo(attacksPlayer2, player2.listHadouken);
             player2.SetInimigo(attacksPlayer1, player1.listHadouken);
@@ -90,6 +90,18 @@ namespace SHK
                 timUI.player2.Update();
                 player2.gotHit = false;
             }
+
+            if (player1.playerHealth < 100)
+            {
+                Console.WriteLine("Player2 Wins");
+            }
+            else if (player2.playerHealth < 100)
+            {
+                Console.WriteLine("Player1 Wins");
+            }
+
+            timer.Update();
+
         }
 
         public void Draw()

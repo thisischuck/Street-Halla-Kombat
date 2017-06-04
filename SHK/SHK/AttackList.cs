@@ -28,6 +28,11 @@ namespace SHK
         }
 
 
+        //==========================================================================
+        //GROUNDED
+        //==========================================================================   
+        
+             
         public void LightPunch(Vector2 position, SpriteEffects spriteffects)
         {
             delay = Game1.gameTime.TotalGameTime;
@@ -118,7 +123,182 @@ namespace SHK
             SetDrawHitbox(positionHitbox, sizeHitbox);
         }
 
+
+        //==========================================================================
+        //AIR
+        //==========================================================================
+
+
         public void LightPunchAir(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 30);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        public void MediumPunchAir(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 30);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        public void HeavyPunchAir(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 30);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        public void LightKickAir(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 30);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        public void MediumKickAir(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 30);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        public void HeavyKickAir(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 30);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        //==========================================================================
+        //CROUCHED
+        //==========================================================================
+
+        public void LightPunchCrouched(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 30);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        public void MediumPunchCrouched(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 30);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        public void HeavyPunchCrouched(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 30);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        public void LightKickCrouched(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 30);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        public void MediumKickCrouched(Vector2 position, SpriteEffects spriteffects)
+        {
+            delay = Game1.gameTime.TotalGameTime;
+            int pos = -95;
+            if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
+                pos = -205;
+            damage = 5;
+            endAttack = false;
+            attackDuration = 1000;
+
+            sizeHitbox = new Vector2(100, 30);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 170f));
+            SetDrawHitbox(positionHitbox, sizeHitbox);
+        }
+
+        public void HeavyKickCrouched(Vector2 position, SpriteEffects spriteffects)
         {
             delay = Game1.gameTime.TotalGameTime;
             int pos = -95;

@@ -22,9 +22,13 @@ namespace SHK
             this.position = position;
             this.size = size;
             this.effects = effect;
-            this.speed = 10;
+            this.speed = 20;
             this.damage = 20;
-            hitbox = Camera.ComputePixelRectangle(position, size);
+
+            Vector2 a = new Vector2(mPosition.X - mSize.X / 2, mPosition.Y + mSize.Y / 2 - 40);
+            Vector2 b = new Vector2(mSize.X / 2 - 65, mSize.Y - mSize.Y / 3);
+
+            hitbox = Camera.ComputePixelRectangle(a, b);
             a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hitbox.Width, hitbox.Height);
 
             Color[] data = new Color[hitbox.Width * hitbox.Height];
@@ -38,15 +42,18 @@ namespace SHK
 
         public override void Update()
         {
-            hitbox = Camera.ComputePixelRectangle(mPosition, mSize);
+            Vector2 a = new Vector2(mPosition.X - mSize.X / 2, mPosition.Y + mSize.Y / 2 - 40);
+            //Vector2 a = new Vector2(mPosition.X, mPosition.Y);
+            Vector2 b = new Vector2(mSize.X / 2 - 65, mSize.Y - mSize.Y / 3);
+            hitbox = Camera.ComputePixelRectangle(a, b);
             base.Update();
         }
 
 
         public override void Draw()
         {
-            Game1.sSpriteBatch.Draw(a_text, hitbox, Color.White);
             base.Draw();
+            Game1.sSpriteBatch.Draw(a_text, hitbox, Color.White);
         }
     }
 }
