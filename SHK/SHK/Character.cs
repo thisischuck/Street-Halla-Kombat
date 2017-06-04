@@ -96,7 +96,6 @@ namespace SHK
             airJumpDelay = 12;
             SetKeys();
             this.mapa = mapa;
-            this.attacks = attacks;
             movementKeyHistory = new Queue<Keys>();
             isRightDown = false;
             isLeftDown = false;

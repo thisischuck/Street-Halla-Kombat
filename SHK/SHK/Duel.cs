@@ -89,6 +89,14 @@ namespace SHK
                 player2.gotHit = false;
             }
 
+            if (player1.playerHealth < 100)
+            {
+                Console.WriteLine("Player2 Wins");
+            }
+            else if (player2.playerHealth < 100)
+            {
+                Console.WriteLine("Player1 Wins");
+            }
 
             timer.Update();
 

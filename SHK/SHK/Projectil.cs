@@ -52,7 +52,6 @@ namespace SHK
 
         public override void Draw()
         {
-           
             base.Draw();
             Game1.sSpriteBatch.Draw(a_text, hitbox, Color.White);
         }
