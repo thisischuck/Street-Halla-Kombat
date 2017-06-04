@@ -27,13 +27,13 @@ namespace SHK
 
             if (imageName.Equals("map1"))
             {
-                platPosition = new Vector2(2110, 360);
-                platSize = new Vector2(900, 100);
+                platPosition = new Vector2(2150, 365);
+                platSize = new Vector2(1000, 100);
                 plat = new Plataforma(false, platSize, platPosition);
                 ListaPlataformas.Add(plat);
                 ///////////////////////////////////////
-                platPosition = new Vector2(500, 650);
-                platSize = new Vector2(1000, 100);
+                platPosition = new Vector2(420, 645);
+                platSize = new Vector2(1100, 100);
                 plat = new Plataforma(false, platSize, platPosition);
                 ListaPlataformas.Add(plat);
             }

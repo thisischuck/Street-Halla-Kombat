@@ -406,6 +406,8 @@ namespace SHK
                     break;
                 }
             }
+
+            Console.WriteLine(isGrounded);
             base.Update();
         }
 
@@ -487,7 +489,7 @@ namespace SHK
 
                     //Other---------------------------------------------------------
                     case CharState.Hadouken:
-                        SetSpriteAnimation(26, 0, 26, 13, 5);
+                        SetSpriteAnimation(26, 0, 26, 13, 3);
                         break;
                     case CharState.Dead:
                         SetSpriteAnimation(0, 0, 0, 0, 3);
@@ -509,12 +511,12 @@ namespace SHK
                 if (hurtbox.X + hurtbox.Width > plataforma.rect.X &&
                     hurtbox.X < plataforma.rect.X + plataforma.rect.Width)
                 {
-                    if (mPosition.Y <= plataforma.Position.Y + plataforma.Size.Y / 2 &&
-                        mPosition.Y > plataforma.Position.Y - plataforma.Size.Y / 2)
+                    if (hurtbox.Y <= plataforma.rect.Y + plataforma.rect.Height  &&
+                        hurtbox.Y + hurtbox.Height >= plataforma.rect.Y)
                     {
                         isGrounded = true;
                         valorY = 0;
-                        mPosition.Y = plataforma.Position.Y + plataforma.Size.Y / 2;
+                        mPosition.Y = plataforma.Position.Y + plataforma.Size.Y/2 - 10;
                         break;
                     }
                 }
@@ -523,6 +525,16 @@ namespace SHK
                     isGrounded = false;
                 }
             }
+
+            if (hurtbox.X + 100 < Camera.CameraWindowLowerLeftPosition.X)
+            {
+                //mPosition.X = 2000;
+            }
+            else if (hurtbox.X > Camera.CameraWindowUpperRightPosition.X)
+            {
+                mPosition.X =  0 - mSize.X/2;
+            }
+
         }
 
         public void CollisionAttacks()
@@ -703,7 +715,7 @@ namespace SHK
                 hadouken.Draw();
             }
 
-            Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
+           // Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
             base.Draw();
         }
 
