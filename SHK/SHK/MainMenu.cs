@@ -16,8 +16,7 @@ namespace SHK
         enum GameState { Menu, inGame, Paused }
         GameState gameState;// ainda por verificar se ta direito
         private Game b = new Game();
-        Duel a;
-        //GUIElement element;
+
 
         #region PlayerStuff
         Character c;
@@ -36,7 +35,6 @@ namespace SHK
         #region MenuDisplay
         public Texture2D GUITexture1, GUITexture2, GUITexture3;
         private Rectangle GUIRect1, GUIRect2, GUIRect3;
-        //public string assetName = "start";
 
         public delegate void ElementClicked();
         public event ElementClicked PressEvent; // chamada sempre que o enter é pressionado de forma a saber onde esta a presssionar
@@ -55,7 +53,6 @@ namespace SHK
 
             ChaoPlataforma = new Plataforma(false, platSize, platPosition);
             plataforma.Add(ChaoPlataforma);
-            a = new Duel();
             c = new Character("Ryu-Final2", cPosition, cSize, 18, 29, 0, 2, SpriteEffects.None, false, plataforma, attacks);
             List<Projectil> inimigo = new List<Projectil>();
             c.SetInimigo(attacks, inimigo);
@@ -63,6 +60,7 @@ namespace SHK
             CenterElement(Game1.mGraphics.PreferredBackBufferHeight, Game1.mGraphics.PreferredBackBufferWidth);
             SameDimensions(Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);
             PressEvent += Events;
+
 
             //encontrar o determinado elemento e move-lo individualmente(em pixeis)
 
@@ -79,7 +77,6 @@ namespace SHK
                         c.Update();
                          break;
                 case GameState.inGame:
-                        a.Update();
                         break;
                 case GameState.Paused:
                     break;
@@ -103,7 +100,6 @@ namespace SHK
                         }
                     break;
                 case GameState.inGame:
-                        a.Draw();
                         break;
                 case GameState.Paused:
                         break;

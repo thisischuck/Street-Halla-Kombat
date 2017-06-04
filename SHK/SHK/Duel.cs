@@ -30,18 +30,19 @@ namespace SHK
         //---------------------------------------------------
 
         private Map mapa;
-        private string nomeMapa = "map1";
+        private string nomeMapa;
         //Vector2 mapaSize = new Vector2(2343, 1470);
         Vector2 mapaSize = new Vector2(2650,1480);
         Vector2 mapaPosition = new Vector2(1250,700);
+        public GameTime gameTime;
 
 
         GameTimer timer;
         TimerUI timUI;
             
-        public Duel()
+        public Duel(string mapaEscolhido)
         {
-            mapa = new Map(mapaSize,mapaPosition,nomeMapa);
+            mapa = new Map(mapaSize,mapaPosition,mapaEscolhido);
 
 
             timUI = new TimerUI(new Vector2(Game1.mGraphics.PreferredBackBufferWidth , Game1.mGraphics.PreferredBackBufferHeight / 2), Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);
@@ -72,6 +73,7 @@ namespace SHK
 
         public void Update()
         {
+            timer.Update();
             player1.Update();
             player2.Update();
 
@@ -88,17 +90,13 @@ namespace SHK
                 timUI.player2.Update();
                 player2.gotHit = false;
             }
-
-
-            timer.Update();
-
         }
 
         public void Draw()
         {
             mapa.Draw();
             timUI.Draw();
-            timer.Draw();
+            timer.Draw(Game1.sSpriteBatch);
 
             player1.Draw();
             player2.Draw();

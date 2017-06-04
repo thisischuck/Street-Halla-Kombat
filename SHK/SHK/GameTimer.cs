@@ -19,7 +19,7 @@ namespace SHK
         public Vector2 Position;
         public float deltatime;
         public Texture2D timerTexture;
-        public GameTime gametime;
+        private TimeSpan gametime;
 
 
 
@@ -30,13 +30,12 @@ namespace SHK
             paused = false;
             finished = false;
             Text = "";
-            gametime = new GameTime();
+            gametime = new TimeSpan();
         }
 
         public void Update()
         {
-            deltatime = gametime.ElapsedGameTime.Milliseconds;
-            //Console.WriteLine(gametime.ElapsedGameTime.Milliseconds);
+            deltatime = (float)gametime.TotalMilliseconds;
 
             if (true) //started
             {
@@ -51,9 +50,9 @@ namespace SHK
             Text = ((int)time).ToString();
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
-            Game1.sSpriteBatch.DrawString(Font, Text, Position, Color.Black);
+            spriteBatch.DrawString(Font, Text, Position, Color.Black);
         }
     }
 }
