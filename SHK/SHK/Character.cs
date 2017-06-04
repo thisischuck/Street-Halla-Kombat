@@ -521,8 +521,6 @@ namespace SHK
                     break;
                 }
             }
-
-            Console.WriteLine(isGrounded);
             base.Update();
         }
 

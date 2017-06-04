@@ -42,7 +42,8 @@ namespace SHK
             
         public Duel(string mapaEscolhido)
         {
-            mapa = new Map(mapaSize,mapaPosition,mapaEscolhido);
+            this.nomeMapa = mapaEscolhido;
+            mapa = new Map(mapaSize,mapaPosition,nomeMapa);
 
 
             timUI = new TimerUI(new Vector2(Game1.mGraphics.PreferredBackBufferWidth , Game1.mGraphics.PreferredBackBufferHeight / 2), Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);

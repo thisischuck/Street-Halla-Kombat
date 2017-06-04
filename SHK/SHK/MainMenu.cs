@@ -13,10 +13,10 @@ namespace SHK
     class MainMenu
     {
 
-        enum GameState { Menu, inGame, Paused }
+        enum GameState { Menu, MapSelect ,inGame, Paused }
         GameState gameState;// ainda por verificar se ta direito
         private Game b = new Game();
-
+        Duel a;
 
         #region PlayerStuff
         Character c;
@@ -24,8 +24,8 @@ namespace SHK
         static Vector2 cSize = new Vector2(400, 400);
         private List<Plataforma> plataforma = new List<Plataforma>();
 
-        private Texture2D menu, start_text, exit_text;
-        private Rectangle menuRect, startRect, exitRect;
+        private Texture2D menu, start_text, exit_text, museu;
+        private Rectangle menuRect, startRect, exitRect, museuRect, mountainRect, desertRect;
 
         // plataforma
         public Plataforma ChaoPlataforma;
@@ -35,9 +35,6 @@ namespace SHK
         #endregion
 
         #region MenuDisplay
-        public Texture2D GUITexture1, GUITexture2, GUITexture3;
-        private Rectangle GUIRect1, GUIRect2, GUIRect3;
-
         public delegate void ElementClicked();
         public event ElementClicked PressEvent; // chamada sempre que o enter é pressionado de forma a saber onde esta a presssionar
         #endregion
@@ -47,13 +44,6 @@ namespace SHK
             #region MenuStuff
             menu = Game1.sContent.Load<Texture2D>("Menu");
             menuRect = new Rectangle(menu.Bounds.X,menu.Bounds.Y,menu.Width + 416,menu.Height + 240);
-
-            
-            /*GUITexture1 = Game1.sContent.Load<Texture2D>("menu");
-            GUITexture2 = Game1.sContent.Load<Texture2D>("start");
-            GUITexture3 = Game1.sContent.Load<Texture2D>("exit");
-            GUIRect1 = new Rectangle(0, 0, GUITexture1.Width, GUITexture1.Height);
-            GUIRect2 = new Rectangle(0, 0, GUITexture2.Width, GUITexture2.Height);*/
 
             Vector2 startSize = new Vector2(100,200);
             Vector2 startPosition = new Vector2(300,450);
@@ -65,34 +55,41 @@ namespace SHK
 
             exitRect = new Rectangle((int)exitPosition.X, (int)exitPosition.Y, (int)exitSize.X, (int)exitSize.Y);
 
-            /*exit_text = new Texture2D(Game1.mGraphics.GraphicsDevice, exitRect.Width, exitRect.Height);
-
-            Color[] data_exit = new Color[exitRect.Width * exitRect.Height];
-            for (int i = 0; i < data_exit.Length; ++i) data_exit[i] = Color.Black;
-            exit_text.SetData(data_exit);*/
-
             #endregion
 
             #region PlayerStuff
 
             ChaoPlataforma = new Plataforma(false, platSize, platPosition);
             plataforma.Add(ChaoPlataforma);
-            a = new Duel();
             c = new Character("SpriteRyu", cPosition, cSize, plataforma);
 
             #endregion
 
+            #region MapSelect
 
-            //CenterElement(Game1.mGraphics.PreferredBackBufferHeight, Game1.mGraphics.PreferredBackBufferWidth);
-            //SameDimensions(Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);
+            //museu = Game1.sContent.Load<Texture2D>("Museu");
+            //museuRect = new Rectangle(museu.Bounds.X, museu.Bounds.Y, museu.Width + 416, museu.Height + 240);
+
+            Vector2 desetSize = new Vector2(100, 200);
+            Vector2 desertPosition = new Vector2(300, 450);
+
+            desertRect = new Rectangle((int)desertPosition.X, (int)desertPosition.Y, (int)desetSize.X, (int)desetSize.Y);
+
+            Vector2 mountainSize = new Vector2(75, 200);
+            Vector2 moutainPosition = new Vector2(1200, 475);
+
+            mountainRect = new Rectangle((int)moutainPosition.X, (int)moutainPosition.Y, (int)mountainSize.X, (int)mountainSize.Y);
+
+            exit_text = new Texture2D(Game1.mGraphics.GraphicsDevice, mountainRect.Width, mountainRect.Height);
+
+            Color[] data_desert = new Color[mountainRect.Width * mountainRect.Height];
+            for (int i = 0; i < data_desert.Length; ++i) data_desert[i] = Color.Black;
+            exit_text.SetData(data_desert);
+
+
+            #endregion
 
             PressEvent += Events;
-
-
-            //encontrar o determinado elemento e move-lo individualmente(em pixeis)
-
-            //MoveElement("start", -300, 285);
-            //MoveElement("exit", 300, 285);
         }
 
         public void Update()
@@ -103,7 +100,12 @@ namespace SHK
                         Events();
                         c.Update();
                          break;
+                case GameState.MapSelect:
+                    Events();
+                    c.Update();
+                    break;
                 case GameState.inGame:
+                        a.Update();
                         break;
                 case GameState.Paused:
                     break;
@@ -118,12 +120,20 @@ namespace SHK
                     Game1.sSpriteBatch.Draw(menu,menuRect,Color.White);
 
                     c.Draw();
-                    /*foreach (var plat in plataforma)
-                    {
-                        plat.Draw();
-                    }*/
+                    
+                   break;
+                case GameState.MapSelect:
+                   //Game1.sSpriteBatch.Draw(menu, menuRect, Color.White);
+                   Game1.sSpriteBatch.Draw(exit_text, mountainRect, Color.Pink);
+                   c.Draw();
+                   /*foreach (var plat in plataforma)
+                   {
+                       plat.Draw();
+                   }*/
+                        
                     break;
                 case GameState.inGame:
+                        a.Draw();
                         break;
                 case GameState.Paused:
                     break;
@@ -132,48 +142,38 @@ namespace SHK
 
         public void Events()
         {
-            if( AtivaStart() == true)
-            {
-                // play the game
-                gameState = GameState.inGame;
+            if(gameState == GameState.Menu)
+            { 
+                if( AtivaStart())
+                {
+                 // play the game
+                 Console.WriteLine("Switch");
+                 gameState = GameState.MapSelect;
                 
+                }
+                if( AtivaExit())
+                {   
+                 //Game1.Quit();// nao funciona
+                }
             }
-            if( AtivaExit() == true)
+            else if (gameState == GameState.MapSelect)
             {
-               //Game1.Quit();// nao funciona
+                if (MapaMountain())
+                {
+                     a = new Duel("map1");
+                    gameState = GameState.inGame;
+                }
+                /*else if (MapaDesert())
+                {
+                    a = new Duel("map1");
+                    gameState = GameState.inGame;
+                }*/
             }
         }
 
-        // centrar elementos do menu pelo tamanho da janela
-        public void CenterElement(int height, int width)
-        {
-            GUIRect1 = new Rectangle((width / 2) - (this.GUITexture1.Width / 2), (height / 2) - (this.GUITexture1.Height / 2), this.GUITexture1.Width, this.GUITexture1.Height);
-            GUIRect2 = new Rectangle((width / 2) - (this.GUITexture2.Width / 2), (height / 2) - (this.GUITexture2.Height / 2), this.GUITexture2.Width, this.GUITexture2.Height);
-            GUIRect3 = new Rectangle((width / 2) - (this.GUITexture3.Width / 2), (height / 2) - (this.GUITexture3.Height / 2), this.GUITexture3.Width, this.GUITexture3.Height);
-        }
+        #region Choose
 
-        // mexer com a posiçao dos elementos do menu
-        public void MoveElement(string name, int x, int y)
-        {
-            if (name == "start")
-            {
-                GUIRect2 = new Rectangle(GUIRect2.X += x, GUIRect2.Y += y, GUIRect2.Width, GUIRect2.Height);
-            }
-            else if (name == "exit")
-            {
-                GUIRect3 = new Rectangle(GUIRect3.X += x, GUIRect3.Y += y, GUIRect3.Width, GUIRect3.Height);
-            }
-            else GUIRect1 = new Rectangle(GUIRect1.X += x, GUIRect1.Y += y, GUIRect1.Width = y, GUIRect1.Height = x);
-        }
-
-        // torna a imagem com as mesmas dimensoes que a janela
-        public void SameDimensions(int width, int height)
-        {
-            GUIRect1.X = width;
-            GUIRect1.Y = height;
-        }
-
-       public bool AtivaStart()
+        public bool AtivaStart()
         {
             if (c.attacks.hitbox.X <= startRect.X + startRect.Width && c.attacks.hitbox.X + c.attacks.hitbox.Width >= startRect.X)
             {
@@ -196,6 +196,31 @@ namespace SHK
             }
             return false;
         }
+
+        public bool MapaMountain()
+        {
+            if (c.attacks.hitbox.X <= mountainRect.X + mountainRect.Width && c.attacks.hitbox.X + c.attacks.hitbox.Width >= mountainRect.X)
+            {
+                if (c.attacks.hitbox.Y + c.attacks.hitbox.Height >= mountainRect.Y && c.attacks.hitbox.Y <= mountainRect.Y + mountainRect.Height)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool MapaDesert()
+        {
+            if (c.attacks.hitbox.X <= desertRect.X + desertRect.Width && c.attacks.hitbox.X + c.attacks.hitbox.Width >= desertRect.X)
+            {
+                if (c.attacks.hitbox.Y + c.attacks.hitbox.Height >= desertRect.Y && c.attacks.hitbox.Y <= desertRect.Y + desertRect.Height)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        #endregion
     }
 }
 
