@@ -62,11 +62,16 @@ namespace SHK
 
             startRect = new Rectangle((int) startPosition.X, (int) startPosition.Y, (int) startSize.X,(int) startSize.Y);
 
-            start_text = new Texture2D(Game1.mGraphics.GraphicsDevice, startRect.Width, startRect.Height);
+            Vector2 exitSize = new Vector2(75, 200);
+            Vector2 exitPosition = new Vector2(1200, 475);
 
-            Color[] data_start = new Color[startRect.Width * startRect.Height];
-            for (int i = 0; i < data_start.Length; ++i) data_start[i] = Color.Black;
-            start_text.SetData(data_start);
+            exitRect = new Rectangle((int)exitPosition.X, (int)exitPosition.Y, (int)exitSize.X, (int)exitSize.Y);
+
+            /*exit_text = new Texture2D(Game1.mGraphics.GraphicsDevice, exitRect.Width, exitRect.Height);
+
+            Color[] data_exit = new Color[exitRect.Width * exitRect.Height];
+            for (int i = 0; i < data_exit.Length; ++i) data_exit[i] = Color.Black;
+            exit_text.SetData(data_exit);*/
 
             #endregion
 
@@ -114,8 +119,6 @@ namespace SHK
                 case GameState.Menu:
                     Game1.sSpriteBatch.Draw(menu,menuRect,Color.White);
 
-                    //Game1.sSpriteBatch.Draw(start_text, startRect, Color.White);
-
                     c.Draw();
                     /*foreach (var plat in plataforma)
                     {
@@ -138,10 +141,10 @@ namespace SHK
                 gameState = GameState.inGame;
                 
             }
-            /*if( AtivaExit() == true)
+            if( AtivaExit() == true)
             {
                //Game1.Quit();// nao funciona
-            }*/
+            }
         }
 
         // centrar elementos do menu pelo tamanho da janela
@@ -187,9 +190,9 @@ namespace SHK
 
         public bool AtivaExit()
         {
-            if (c.attacks.hitbox.X <= GUIRect3.X + GUITexture3.Width && c.attacks.hitbox.X + c.attacks.hitbox.Width >= GUIRect3.X)
+            if (c.attacks.hitbox.X <= exitRect.X + exitRect.Width && c.attacks.hitbox.X + c.attacks.hitbox.Width >= exitRect.X)
             {
-                if (c.attacks.hitbox.Y < 600)
+                if (c.attacks.hitbox.Y + c.attacks.hitbox.Height >= exitRect.Y && c.attacks.hitbox.Y <= exitRect.Y + exitRect.Height)
                 {
                     return true;
                 }
