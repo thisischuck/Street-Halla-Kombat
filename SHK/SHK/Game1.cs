@@ -39,7 +39,6 @@ namespace SHK
         SoundEffect PunchHit;
 
         MainMenu main;
-        Duel a;
 
         public Game1()
         {
@@ -133,7 +132,6 @@ namespace SHK
 
             // TODO: Add your update logic here
             main.Update();
-            //a.Update();
             base.Update(gameTime);
         }
 
@@ -147,7 +145,6 @@ namespace SHK
             Game1.sSpriteBatch.Begin();
 
             main.Draw();
-           // a.Draw(sSpriteBatch);
 
             Game1.sSpriteBatch.End();
             base.Draw(gameTime);

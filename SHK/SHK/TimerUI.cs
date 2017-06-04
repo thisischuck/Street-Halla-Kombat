@@ -29,13 +29,8 @@ namespace SHK
             player2 = new HealthBar(hp2Position, hSize, SpriteEffects.FlipHorizontally);
         }
 
-            
-
-
         public void Draw()
         {
-            
-           
             player1.Draw();
             player2.Draw();
             Game1.sSpriteBatch.Draw(TimerTexture, TimerRect, Color.White);

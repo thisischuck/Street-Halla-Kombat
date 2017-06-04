@@ -53,7 +53,6 @@
     <Compile Include="GraphicsSupport\TexturedPrimitivePixelCollide.cs" />
     <Compile Include="HealthBar.cs" />
     <Compile Include="InputWrapper.cs" />
-    <Compile Include="GUIElement.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Plataforma.cs" />
