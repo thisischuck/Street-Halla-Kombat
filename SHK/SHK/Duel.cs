@@ -64,7 +64,7 @@ namespace SHK
             
 
             attacksPlayer2 = new AttackList();
-            player2 = new Character("SpriteRyu", char2P, charS, 18, 32, 0, 2, SpriteEffects.FlipHorizontally, false, mapa.ListaPlataformas, attacksPlayer2);
+            player2 = new Character("SpriteBlackGayRyu", char2P, charS, 18, 32, 0, 2, SpriteEffects.FlipHorizontally, false, mapa.ListaPlataformas, attacksPlayer2);
 
             player1.SetInimigo(attacksPlayer2, player2.listHadouken);
             player2.SetInimigo(attacksPlayer1, player1.listHadouken);

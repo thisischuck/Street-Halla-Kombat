@@ -25,10 +25,13 @@ namespace SHK
         static Vector2 cSize = new Vector2(400, 400);
         private List<Plataforma> plataforma = new List<Plataforma>();
 
+        private Texture2D menu, start_text, exit_text;
+        private Rectangle menuRect, startRect, exitRect;
+
         // plataforma
         public Plataforma ChaoPlataforma;
         static Vector2 platSize = new Vector2(3500, 65);
-        static Vector2 platPosition = new Vector2(1000, 100);
+        static Vector2 platPosition = new Vector2(1000, 50);
 
         #endregion
 
@@ -44,27 +47,48 @@ namespace SHK
         public MainMenu()
         {
             #region MenuStuff
-            GUITexture1 = Game1.sContent.Load<Texture2D>("menu");
+            menu = Game1.sContent.Load<Texture2D>("Menu");
+            menuRect = new Rectangle(menu.Bounds.X,menu.Bounds.Y,menu.Width + 416,menu.Height + 240);
+
+            
+            /*GUITexture1 = Game1.sContent.Load<Texture2D>("menu");
             GUITexture2 = Game1.sContent.Load<Texture2D>("start");
             GUITexture3 = Game1.sContent.Load<Texture2D>("exit");
             GUIRect1 = new Rectangle(0, 0, GUITexture1.Width, GUITexture1.Height);
-            GUIRect2 = new Rectangle(0, 0, GUITexture2.Width, GUITexture2.Height);
-            GUIRect3 = new Rectangle(0, 0, GUITexture3.Width, GUITexture3.Height);
+            GUIRect2 = new Rectangle(0, 0, GUITexture2.Width, GUITexture2.Height);*/
+
+            Vector2 startSize = new Vector2(100,200);
+            Vector2 startPosition = new Vector2(300,450);
+
+            startRect = new Rectangle((int) startPosition.X, (int) startPosition.Y, (int) startSize.X,(int) startSize.Y);
+
+            start_text = new Texture2D(Game1.mGraphics.GraphicsDevice, startRect.Width, startRect.Height);
+
+            Color[] data_start = new Color[startRect.Width * startRect.Height];
+            for (int i = 0; i < data_start.Length; ++i) data_start[i] = Color.Black;
+            start_text.SetData(data_start);
+
             #endregion
+
+            #region PlayerStuff
 
             ChaoPlataforma = new Plataforma(false, platSize, platPosition);
             plataforma.Add(ChaoPlataforma);
             a = new Duel();
             c = new Character("SpriteRyu", cPosition, cSize, plataforma);
 
-            CenterElement(Game1.mGraphics.PreferredBackBufferHeight, Game1.mGraphics.PreferredBackBufferWidth);
-            SameDimensions(Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);
+            #endregion
+
+
+            //CenterElement(Game1.mGraphics.PreferredBackBufferHeight, Game1.mGraphics.PreferredBackBufferWidth);
+            //SameDimensions(Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);
+
             PressEvent += Events;
 
             //encontrar o determinado elemento e move-lo individualmente(em pixeis)
 
-            MoveElement("start", -300, 285);
-            MoveElement("exit", 300, 285);
+            //MoveElement("start", -300, 285);
+            //MoveElement("exit", 300, 285);
         }
 
         public void Update()
@@ -88,16 +112,15 @@ namespace SHK
            switch (gameState)
             {
                 case GameState.Menu:
+                    Game1.sSpriteBatch.Draw(menu,menuRect,Color.White);
 
-                    Game1.sSpriteBatch.Draw(GUITexture1, GUIRect1, Color.White);
-                    Game1.sSpriteBatch.Draw(GUITexture2, GUIRect2, Color.White);
-                    Game1.sSpriteBatch.Draw(GUITexture3, GUIRect3, Color.White);
+                    //Game1.sSpriteBatch.Draw(start_text, startRect, Color.White);
 
                     c.Draw();
-                    foreach (var plat in plataforma)
+                    /*foreach (var plat in plataforma)
                     {
                         plat.Draw();
-                    }
+                    }*/
                     break;
                 case GameState.inGame:
                     a.Draw();
@@ -115,10 +138,10 @@ namespace SHK
                 gameState = GameState.inGame;
                 
             }
-            if( AtivaExit() == true)
+            /*if( AtivaExit() == true)
             {
                //Game1.Quit();// nao funciona
-            }
+            }*/
         }
 
         // centrar elementos do menu pelo tamanho da janela
@@ -152,9 +175,9 @@ namespace SHK
 
        public bool AtivaStart()
         {
-            if (c.attacks.hitbox.X <= GUIRect2.X + GUITexture2.Width && c.attacks.hitbox.X + c.attacks.hitbox.Width >= GUIRect2.X)
+            if (c.attacks.hitbox.X <= startRect.X + startRect.Width && c.attacks.hitbox.X + c.attacks.hitbox.Width >= startRect.X)
             {
-                if (c.attacks.hitbox.Y < 600)
+                if (c.attacks.hitbox.Y + c.attacks.hitbox.Height >= startRect.Y && c.attacks.hitbox.Y <= startRect.Y + startRect.Height)
                 {
                     return true;
                 }
