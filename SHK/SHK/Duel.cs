@@ -62,7 +62,7 @@ namespace SHK
             }
 
             attacksPlayer1 = new AttackList();
-            player1 = new Character("SpriteRyu", charP, charS, 18, 32, 0, 1, SpriteEffects.None, false, mapa.ListaPlataformas, attacksPlayer1);
+            player1 = new Character("SpriteBrazilianRyu", charP, charS, 18, 32, 0, 1, SpriteEffects.None, false, mapa.ListaPlataformas, attacksPlayer1);
             
 
             attacksPlayer2 = new AttackList();

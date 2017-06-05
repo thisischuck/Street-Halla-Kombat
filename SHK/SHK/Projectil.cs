@@ -17,7 +17,7 @@ namespace SHK
         public Rectangle hitbox;
         private Texture2D a_text;
 
-        public Projectil(Vector2 position, Vector2 size, int row, int colum, SpriteEffects effect) : base("ryu", position, size,row, colum, 0, effect)
+        public Projectil(Vector2 position, Vector2 size, int row, int colum, SpriteEffects effect) : base("BrazilianHadouken", position, size,row, colum, 0, effect)
         {
             this.position = position;
             this.size = size;

@@ -61,7 +61,7 @@ namespace SHK
 
             ChaoPlataforma = new Plataforma(false, platSize, platPosition);
             plataforma.Add(ChaoPlataforma);
-            c = new Character("SpriteRyu", cPosition, cSize, plataforma);
+            c = new Character("SpriteBrazilianRyu", cPosition, cSize, plataforma);
 
             #endregion
 

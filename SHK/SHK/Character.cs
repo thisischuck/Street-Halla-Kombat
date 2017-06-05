@@ -564,10 +564,10 @@ namespace SHK
                         SetSpriteAnimation(8, 0, 8, 5, 3);
                         break;
                     case CharState.LKickAir:
-                        SetSpriteAnimation(18, 0, 18, 3, 3);
+                        SetSpriteAnimation(18, 0, 18, 2, 3);
                         break;
                     case CharState.cLPunch:
-                        SetSpriteAnimation(11, 0, 11, 2, 3);
+                        SetSpriteAnimation(11, 0, 11, 2, 4);
                         break;
                     case CharState.cLKick:
                         SetSpriteAnimation(14, 0, 14, 3, 3);
@@ -587,7 +587,7 @@ namespace SHK
                         SetSpriteAnimation(19, 0, 19, 3, 3);
                         break;
                     case CharState.cMPunch:
-                        SetSpriteAnimation(12, 0, 12, 2, 4);
+                        SetSpriteAnimation(12, 0, 12, 2, 6);
                         break;
                     case CharState.cMKick:
                         SetSpriteAnimation(15, 0, 15, 6, 3);
@@ -798,7 +798,7 @@ namespace SHK
                         break;
                     case CharState.MKickAir:
                         if (SpriteCurrentColumn == 2)
-                            attacks.MediumKick(mPosition, SpriteEffects);
+                            attacks.MediumKickAir(mPosition, SpriteEffects);
                         else
                         {
                             attacks.hitbox.Location = new Point(-100, -100);
