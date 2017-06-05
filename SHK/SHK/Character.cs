@@ -256,6 +256,21 @@ namespace SHK
 
                     mPreviousCharState = mCurrentCharState;
 
+                    if (!isGrounded)
+                        isCrouched = false;
+                    if (Keyboard.GetState().IsKeyDown(down))
+                    {
+                        mCurrentCharState = CharState.Crouch;
+                        isCrouched = true;
+                        animationPlay = false;
+                    }
+                    if (Keyboard.GetState().IsKeyUp(down))
+                    {
+                        mCurrentCharState = CharState.Idle;
+                        isCrouched = false;
+                        animationPlay = true;
+                    }
+
                     if (Keyboard.GetState().IsKeyDown(jump) && isGrounded)
                     {
                         Jump();
@@ -283,18 +298,6 @@ namespace SHK
                         {
                             valorX = 0f;
                         }
-
-                        if (Keyboard.GetState().IsKeyDown(down))
-                        {
-                            mCurrentCharState = CharState.Crouch;
-                            isCrouched = true;
-                            animationPlay = false;
-                        }
-                        if (Keyboard.GetState().IsKeyUp(down))
-                        {
-                            mCurrentCharState = CharState.Idle;
-                            isCrouched = false;
-                        }
                     }
                     else
                     {
@@ -320,7 +323,6 @@ namespace SHK
                             animationPlay = false;
                         }
                     }
-
                     #endregion
                 }
 
@@ -397,49 +399,49 @@ namespace SHK
                             isAttacking = true;
                             mCurrentCharState = CharState.HKick;
                         }
-                        else
+                    }
+                    else
+                    {
+                        if (Keyboard.GetState().IsKeyDown(lPunch))
                         {
-                            if (Keyboard.GetState().IsKeyDown(lPunch))
-                            {
-                                valorX = 0;
-                                isAttacking = true;
-                                mCurrentCharState = CharState.cLPunch;
-                            }
+                            valorX = 0;
+                            isAttacking = true;
+                            mCurrentCharState = CharState.cLPunch;
+                        }
 
-                            if (Keyboard.GetState().IsKeyDown(mPunch))
-                            {
-                                valorX = 0;
-                                isAttacking = true;
-                                mCurrentCharState = CharState.cMPunch;
-                            }
+                        if (Keyboard.GetState().IsKeyDown(mPunch))
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            mCurrentCharState = CharState.cMPunch;
+                        }
 
-                            if (Keyboard.GetState().IsKeyDown(hPunch))
-                            {
-                                valorX = 0;
-                                isAttacking = true;
-                                mCurrentCharState = CharState.cHPunch;
-                            }
+                        if (Keyboard.GetState().IsKeyDown(hPunch))
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            mCurrentCharState = CharState.cHPunch;
+                        }
 
-                            if (Keyboard.GetState().IsKeyDown(lKick))
-                            {
-                                valorX = 0;
-                                isAttacking = true;
-                                mCurrentCharState = CharState.cLKick;
-                            }
+                        if (Keyboard.GetState().IsKeyDown(lKick))
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            mCurrentCharState = CharState.cLKick;
+                        }
 
-                            if (Keyboard.GetState().IsKeyDown(mKick))
-                            {
-                                valorX = 0;
-                                isAttacking = true;
-                                mCurrentCharState = CharState.cMKick;
-                            }
+                        if (Keyboard.GetState().IsKeyDown(mKick))
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            mCurrentCharState = CharState.cMKick;
+                        }
 
-                            if (Keyboard.GetState().IsKeyDown(hKick))
-                            {
-                                valorX = 0;
-                                isAttacking = true;
-                                mCurrentCharState = CharState.cHKick;
-                            }
+                        if (Keyboard.GetState().IsKeyDown(hKick))
+                        {
+                            valorX = 0;
+                            isAttacking = true;
+                            mCurrentCharState = CharState.cHKick;
                         }
                     }
                 }
@@ -521,6 +523,8 @@ namespace SHK
                     break;
                 }
             }
+
+            Console.WriteLine(isCrouched);
             base.Update();
         }
 
@@ -583,7 +587,7 @@ namespace SHK
                         SetSpriteAnimation(19, 0, 19, 3, 3);
                         break;
                     case CharState.cMPunch:
-                        SetSpriteAnimation(12, 0, 12, 2, 3);
+                        SetSpriteAnimation(12, 0, 12, 2, 4);
                         break;
                     case CharState.cMKick:
                         SetSpriteAnimation(15, 0, 15, 6, 3);
@@ -603,7 +607,7 @@ namespace SHK
                         SetSpriteAnimation(24, 0, 24, 6, 3);
                         break;
                     case CharState.cHPunch:
-                        SetSpriteAnimation(13, 0, 13, 8, 3);
+                        SetSpriteAnimation(13, 0, 13, 8, 2);
                         break;
                     case CharState.cHKick:
                         SetSpriteAnimation(16, 0, 16, 7, 3);
