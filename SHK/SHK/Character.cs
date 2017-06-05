@@ -266,9 +266,7 @@ namespace SHK
                     }
                     if (Keyboard.GetState().IsKeyUp(down))
                     {
-                        mCurrentCharState = CharState.Idle;
                         isCrouched = false;
-                        animationPlay = true;
                     }
 
                     if (Keyboard.GetState().IsKeyDown(jump) && isGrounded)

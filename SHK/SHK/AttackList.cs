@@ -247,8 +247,8 @@ namespace SHK
             endAttack = false;
             attackDuration = 1000;
 
-            sizeHitbox = new Vector2(45, 65);
-            positionHitbox = new Vector2((position.X + pos), (position.Y + 230f));
+            sizeHitbox = new Vector2(45, 85);
+            positionHitbox = new Vector2((position.X + pos), (position.Y + 225f));
             SetDrawHitbox(positionHitbox, sizeHitbox);
         }
 
