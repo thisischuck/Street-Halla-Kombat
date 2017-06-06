@@ -121,6 +121,30 @@ namespace SHK
                     player1.Update();
                     player2.Update();
                     Check4Damage();
+                    if (player1win)
+                    {
+                        int i = 0;
+                        while (i < 100000)
+                        {
+                            i++;
+                        }
+ 
+                        player1win = false;
+                        RoundReset();
+                    }
+                    else if (player2win)
+                    {
+                        int i = 0;
+                        while (i < 100000)
+                        {
+                            
+                            i++;
+                        }
+
+                        player2win = false;
+                        RoundReset();
+                    }
+
                     break;
                 case GameState.MatchEnded:
                     break;
@@ -150,7 +174,7 @@ namespace SHK
                         Game1.sSpriteBatch.Draw(win2, winPosition, win2Rect, Color.White);
                     }
                     break;
-
+                
                 case GameState.MatchEnded:
                     break;
             }
@@ -208,5 +232,27 @@ namespace SHK
                 matchEnd = true;
             }
         }
+
+        public void RoundReset()
+        {
+            player1.playerHealth = 100; player2.playerHealth = 100;
+            timUI.player1.setPlayerHealth(player1.playerHealth);
+            timUI.player2.setPlayerHealth(player2.playerHealth);
+            if (nomeMapa.Equals("map1"))
+            {
+                player1.mPosition.X = 200;
+                player1.mPosition.Y = 1000;
+                player2.mPosition.X = 2500;
+                player2.mPosition.Y = 1000;
+            }
+            else if (nomeMapa.Equals("map2"))
+            {
+                player1.mPosition.X = 500;
+                player1.mPosition.Y = 750;
+                player2.mPosition.X = 2200;
+                player2.mPosition.Y = 750;
+            }
+        }
+
     }
 }
