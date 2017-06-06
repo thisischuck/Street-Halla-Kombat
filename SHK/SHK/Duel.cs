@@ -73,7 +73,10 @@ namespace SHK
             }
             else if (nomeMapa.Equals("map2"))
             {
-                
+                charP.X = 500;
+                charP.Y = 750;
+                char2P.X = 2200;
+                char2P.Y = 750;
             }
 
             attacksPlayer1 = new AttackList();
@@ -106,15 +109,21 @@ namespace SHK
 
         public void Draw()
         {
-            //timer.Draw(Game1.sSpriteBatch);
             mapa.Draw();
-            timUI.Draw();
+            timer.Draw(Game1.sSpriteBatch);
             player1.Draw();
             player2.Draw();
             attacksPlayer1.Draw();
             attacksPlayer2.Draw();
-            if (gameState == GameState.Waiting)
-                Game1.sSpriteBatch.Draw(fight, fightPosition, fightRect, Color.White);
+            timUI.Draw();
+            switch (gameState)
+            {
+                case GameState.Waiting:
+                    Game1.sSpriteBatch.Draw(fight, fightPosition, fightRect, Color.White);
+                    break;
+                case GameState.Playable:
+                    break;
+            }
         }
 
         public void Check4Damage()
