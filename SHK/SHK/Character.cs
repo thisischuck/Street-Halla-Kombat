@@ -270,7 +270,8 @@ namespace SHK
                     if (!isAttacking)
                     {
                         #region Movement + Animation
-
+                        if (!isGrounded)
+                            isCrouched = false;
                         if (Keyboard.GetState().IsKeyDown(down))
                         {
                             mCurrentCharState = CharState.Crouching;
@@ -281,13 +282,13 @@ namespace SHK
                         {
                             isCrouched = false;
                         }
-
                         if (Keyboard.GetState().IsKeyDown(jump) && isGrounded)
                         {
                             Jump();
                         }
                         else if (Keyboard.GetState().IsKeyDown(jump) && hasAirJump && (airJumpCounter > airJumpDelay))
                         {
+                            Console.WriteLine("jump you fuck");
                             Jump();
                             hasAirJump = false;
                         }
@@ -335,13 +336,18 @@ namespace SHK
                                 animationPlay = false;
                             }
                         }
-                        if (!isGrounded)
-                            isCrouched = false;
+                        
 
                         #endregion
                     }
 
-                    
+                    if (isGrounded)
+                    {
+                        airJumpCounter = 0;
+                        valorY = 0;
+                        hasAirJump = true;
+                    }
+
                 }
 
                 #region Ataques
@@ -528,6 +534,12 @@ namespace SHK
                 if (valorY < fallingSpeedLimiter) valorY = fallingSpeedLimiter;
             }
 
+            if (playerHealth < 0)
+            {
+                mCurrentCharState = CharState.Dead;
+                valorX = 0;
+            }
+
             Velocity = (Vector2.UnitX * valorX) + (Vector2.UnitY * valorY);
 
             if (SpriteCurrentColumn == SpriteEndColumn)
@@ -570,12 +582,8 @@ namespace SHK
             }
 
 
-            if (playerHealth < 0)
-            {
-                mCurrentCharState = CharState.Dead;
-            }
+            
 
-            Console.WriteLine(isCrouched);
             base.Update();
         }
 
