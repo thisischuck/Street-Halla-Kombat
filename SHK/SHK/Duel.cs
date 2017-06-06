@@ -58,9 +58,9 @@ namespace SHK
 
 
             timUI = new TimerUI(new Vector2(Game1.mGraphics.PreferredBackBufferWidth , Game1.mGraphics.PreferredBackBufferHeight / 2), Game1.mGraphics.PreferredBackBufferWidth, Game1.mGraphics.PreferredBackBufferHeight);
-            timer = new GameTimer(180.0f);
+            /*timer = new GameTimer(180.0f);
             timer.Font = Game1.sContent.Load<SpriteFont>("Arial");
-            timer.Position = new Vector2((Game1.mGraphics.PreferredBackBufferWidth / 2) - timer.Font.MeasureString(timer.Text).X / 2, 0);
+            timer.Position = new Vector2((Game1.mGraphics.PreferredBackBufferWidth / 2) - timer.Font.MeasureString(timer.Text).X / 2, 0);*/
 
 
 
@@ -99,7 +99,7 @@ namespace SHK
                     player1.Update();
                     player2.Update();
                     Check4Damage();
-                    timer.Update();
+                    //timer.Update();
 
                     break;
             }
@@ -107,28 +107,15 @@ namespace SHK
 
         public void Draw()
         {
-            switch (gameState)
-            {
-                case GameState.Waiting:
-                    timUI.Draw();
-                    timer.Draw(Game1.sSpriteBatch);
-                    mapa.Draw();
-                    player1.Draw();
-                    player2.Draw();
-                    attacksPlayer1.Draw();
-                    attacksPlayer2.Draw();
-                    Game1.sSpriteBatch.Draw(fight, fightPosition, fightRect, Color.White);
-                    break;
-                case GameState.Playable:
-                    mapa.Draw();
-                    timer.Draw(Game1.sSpriteBatch);
-                    player1.Draw();
-                    player2.Draw();
-                    attacksPlayer1.Draw();
-                    attacksPlayer2.Draw();
-                    timUI.Draw();
-                    break;
-            }
+            //timer.Draw(Game1.sSpriteBatch);
+            mapa.Draw();
+            timUI.Draw();
+            player1.Draw();
+            player2.Draw();
+            attacksPlayer1.Draw();
+            attacksPlayer2.Draw();
+            if (gameState == GameState.Waiting)
+                Game1.sSpriteBatch.Draw(fight, fightPosition, fightRect, Color.White);
         }
 
         public void Check4Damage()
@@ -147,11 +134,11 @@ namespace SHK
                 player2.gotHit = false;
             }
 
-            if (player1.playerHealth < 100)
+            if (player1.playerHealth <= 0)
             {
                 Console.WriteLine("Player2 Wins");
             }
-            else if (player2.playerHealth < 100)
+            else if (player2.playerHealth <= 0)
             {
                 Console.WriteLine("Player1 Wins");
             }
