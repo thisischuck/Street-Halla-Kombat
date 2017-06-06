@@ -95,7 +95,6 @@ namespace SHK
                     Event();
                     break;
                 case GameState.Playable:
-                    timer.Update();
                     player1.Update();
                     player2.Update();
                     Check4Damage();
