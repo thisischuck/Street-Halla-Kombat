@@ -17,7 +17,8 @@ namespace SHK
         GameState gameState;// ainda por verificar se ta direito
         private Game b = new Game();
         Duel a;
-
+        
+        Game game;
         #region PlayerStuff
         Character c;
         static Vector2 cPosition = new Vector2(1200, 100);
@@ -25,7 +26,7 @@ namespace SHK
         private List<Plataforma> plataforma = new List<Plataforma>();
 
         private Texture2D menu, start_text, exit_text, museu;
-        private Rectangle menuRect, startRect, exitRect, museuRect, mountainRect, desertRect;
+        private Rectangle menuRect, startRect, exitRect, museuRect;
 
         // plataforma
         public Plataforma ChaoPlataforma;
@@ -61,31 +62,14 @@ namespace SHK
 
             ChaoPlataforma = new Plataforma(false, platSize, platPosition);
             plataforma.Add(ChaoPlataforma);
-            c = new Character("SpriteBrazilianRyu", cPosition, cSize, plataforma);
+            c = new Character("SpriteRyu", cPosition, cSize, plataforma);
 
             #endregion
 
             #region MapSelect
 
-            //museu = Game1.sContent.Load<Texture2D>("Museu");
-            //museuRect = new Rectangle(museu.Bounds.X, museu.Bounds.Y, museu.Width + 416, museu.Height + 240);
-
-            Vector2 desetSize = new Vector2(100, 200);
-            Vector2 desertPosition = new Vector2(300, 450);
-
-            desertRect = new Rectangle((int)desertPosition.X, (int)desertPosition.Y, (int)desetSize.X, (int)desetSize.Y);
-
-            Vector2 mountainSize = new Vector2(75, 200);
-            Vector2 moutainPosition = new Vector2(1200, 475);
-
-            mountainRect = new Rectangle((int)moutainPosition.X, (int)moutainPosition.Y, (int)mountainSize.X, (int)mountainSize.Y);
-
-            exit_text = new Texture2D(Game1.mGraphics.GraphicsDevice, mountainRect.Width, mountainRect.Height);
-
-            Color[] data_desert = new Color[mountainRect.Width * mountainRect.Height];
-            for (int i = 0; i < data_desert.Length; ++i) data_desert[i] = Color.Black;
-            exit_text.SetData(data_desert);
-
+            museu = Game1.sContent.Load<Texture2D>("MapSelection");
+            museuRect = new Rectangle(museu.Bounds.X, museu.Bounds.Y, museu.Width, museu.Height);
 
             #endregion
 
@@ -123,13 +107,8 @@ namespace SHK
                     
                    break;
                 case GameState.MapSelect:
-                   //Game1.sSpriteBatch.Draw(menu, menuRect, Color.White);
-                   Game1.sSpriteBatch.Draw(exit_text, mountainRect, Color.Pink);
+                   Game1.sSpriteBatch.Draw(museu, museuRect, Color.White);
                    c.Draw();
-                   /*foreach (var plat in plataforma)
-                   {
-                       plat.Draw();
-                   }*/
                         
                     break;
                 case GameState.inGame:
@@ -147,13 +126,14 @@ namespace SHK
                 if( AtivaStart())
                 {
                  // play the game
-                 Console.WriteLine("Switch");
-                 gameState = GameState.MapSelect;
-                
+                Console.WriteLine("Switch");
+                gameState = GameState.MapSelect;
+                c.mSize = new Vector2(600, 600);
+                platPosition = new Vector2(700, 50);
                 }
                 if( AtivaExit())
                 {   
-                 //Game1.Quit();// nao funciona
+                 //game.Exit(); nao funciona
                 }
             }
             else if (gameState == GameState.MapSelect)
@@ -163,11 +143,11 @@ namespace SHK
                      a = new Duel("map1");
                     gameState = GameState.inGame;
                 }
-                /*else if (MapaDesert())
+                else if (MapaDesert())
                 {
-                    a = new Duel("map1");
+                    a = new Duel("map2");
                     gameState = GameState.inGame;
-                }*/
+                }
             }
         }
 
@@ -199,9 +179,9 @@ namespace SHK
 
         public bool MapaMountain()
         {
-            if (c.attacks.hitbox.X <= mountainRect.X + mountainRect.Width && c.attacks.hitbox.X + c.attacks.hitbox.Width >= mountainRect.X)
+            if (c.attacks.hitbox.X <= 647 && c.attacks.hitbox.X + c.attacks.hitbox.Width >= 104)
             {
-                if (c.attacks.hitbox.Y + c.attacks.hitbox.Height >= mountainRect.Y && c.attacks.hitbox.Y <= mountainRect.Y + mountainRect.Height)
+                if (c.attacks.hitbox.Y <= 508)
                 {
                     return true;
                 }
@@ -211,9 +191,9 @@ namespace SHK
 
         public bool MapaDesert()
         {
-            if (c.attacks.hitbox.X <= desertRect.X + desertRect.Width && c.attacks.hitbox.X + c.attacks.hitbox.Width >= desertRect.X)
+            if (c.attacks.hitbox.X <= 1254 && c.attacks.hitbox.X + c.attacks.hitbox.Width >= 713)
             {
-                if (c.attacks.hitbox.Y + c.attacks.hitbox.Height >= desertRect.Y && c.attacks.hitbox.Y <= desertRect.Y + desertRect.Height)
+                if (c.attacks.hitbox.Y <= 508)
                 {
                     return true;
                 }
