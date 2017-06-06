@@ -60,6 +60,10 @@ namespace SHK
                 char2P.X = 2500;
                 char2P.Y = 1000;
             }
+            else if (nomeMapa.Equals("map2"))
+            {
+                
+            }
 
             attacksPlayer1 = new AttackList();
             player1 = new Character("SpriteBrazilianRyu", charP, charS, 18, 32, 0, 1, SpriteEffects.None, false, mapa.ListaPlataformas, attacksPlayer1);

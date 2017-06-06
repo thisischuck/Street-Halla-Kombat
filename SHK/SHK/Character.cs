@@ -682,6 +682,8 @@ namespace SHK
                         gotHit = true;
                         invulFrames = 0;
                         playerHealth -= hadouken.damage;
+                        hInimigo.Remove(hadouken);
+                        break;
                     }
                 }
             }
@@ -710,8 +712,19 @@ namespace SHK
         public void Hadouken()
         {
             hasFired = true;
-            Vector2 position = new Vector2(mPosition.X, mPosition.Y);
-            Projectil aux = new Projectil(position, size, 1, 1, this.SpriteEffects);
+            Vector2 positionH = new Vector2(mPosition.X, mPosition.Y);
+            Vector2 sizeH = new Vector2(100,100);//\\
+            string hadouken = "";
+            if (playerNumber == 2)
+            {
+                hadouken = "PinkHadouken";
+            }
+            else if (playerNumber == 1)
+            {
+                hadouken = "BrazilianHadouken";
+            }
+
+            Projectil aux = new Projectil(hadouken, positionH, sizeH, 1, 1, this.SpriteEffects);
             listHadouken.Add(aux);
             hadoukenPlay = true;
             

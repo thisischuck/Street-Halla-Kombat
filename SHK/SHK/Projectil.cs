@@ -17,7 +17,7 @@ namespace SHK
         public Rectangle hitbox;
         private Texture2D a_text;
 
-        public Projectil(Vector2 position, Vector2 size, int row, int colum, SpriteEffects effect) : base("BrazilianHadouken", position, size,row, colum, 0, effect)
+        public Projectil(string imageName,Vector2 position, Vector2 size, int row, int colum, SpriteEffects effect) : base(imageName, position, size,row, colum, 0, effect)
         {
             this.position = position;
             this.size = size;
@@ -25,8 +25,8 @@ namespace SHK
             this.speed = 20;
             this.damage = 20;
 
-            Vector2 a = new Vector2(mPosition.X - mSize.X / 2, mPosition.Y + mSize.Y / 2 - 40);
-            Vector2 b = new Vector2(mSize.X / 2 - 65, mSize.Y - mSize.Y / 3);
+            Vector2 a = new Vector2(mPosition.X, mPosition.Y);
+            Vector2 b = new Vector2(mSize.X, mSize.Y);
 
             hitbox = Camera.ComputePixelRectangle(a, b);
             a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hitbox.Width, hitbox.Height);

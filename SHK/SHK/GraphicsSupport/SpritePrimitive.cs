@@ -21,6 +21,7 @@ namespace SHK
         // number of images: mPaddings between images
         private int mSpriteImageWidth, mSpriteImageHeight;
 
+        public bool play = true;
 
         // dimension of each image
         public SpriteEffects SpriteEffects;
@@ -100,6 +101,8 @@ namespace SHK
             base.Update();
 
             // now update the sprite state
+            if(play)
+            {
             mCurrentTick++;
             if (mCurrentTick > mUserSpecifedTicks)
             {
@@ -117,6 +120,7 @@ namespace SHK
                     //    mCurrentRow = mBeginRow;
                 }
             }
+        }
         }
 
         public override void Draw()
@@ -153,6 +157,16 @@ namespace SHK
             if (null != mLabelString)
                 FontSupport.PrintStatusAt(mPosition, mLabelString, mLabelColor);
 
+        }
+
+        public void Start()
+        {
+            play = true;
+        }
+
+        public void Stop()
+        {
+            play = false;
         }
 
         #region override to support per-pixel collision
