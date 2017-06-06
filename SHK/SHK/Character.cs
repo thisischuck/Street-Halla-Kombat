@@ -149,7 +149,8 @@ namespace SHK
             cHPunch,
             cLKick,
             cMKick,
-            cHKick
+            cHKick,
+            StunnedCrouched
         }
 
         private CharState mCurrentCharState;
@@ -260,7 +261,7 @@ namespace SHK
             }
 
             #endregion
-
+            mPreviousCharState = mCurrentCharState;
             if (!stunned)
             {
                 if (!isAI)
@@ -270,11 +271,6 @@ namespace SHK
                     {
                         #region Movement + Animation
 
-
-                        mPreviousCharState = mCurrentCharState;
-
-                        if (!isGrounded)
-                            isCrouched = false;
                         if (Keyboard.GetState().IsKeyDown(down))
                         {
                             mCurrentCharState = CharState.Crouching;
@@ -313,6 +309,7 @@ namespace SHK
                             {
                                 valorX = 0f;
                             }
+
                         }
                         else
                         {
@@ -338,16 +335,13 @@ namespace SHK
                                 animationPlay = false;
                             }
                         }
+                        if (!isGrounded)
+                            isCrouched = false;
 
                         #endregion
                     }
 
-                    if (isGrounded)
-                    {
-                        airJumpCounter = 0;
-                        valorY = 0;
-                        hasAirJump = true;
-                    }
+                    
                 }
 
                 #region Ataques
@@ -514,7 +508,12 @@ namespace SHK
             else
             {
                 valorX = 0;
-                mCurrentCharState = CharState.Stunned;
+                if(isCrouched)
+                    mCurrentCharState = CharState.StunnedCrouched;
+                else
+                {
+                    mCurrentCharState = CharState.Stunned;
+                }
                 stunnedFrames++;
             }
 

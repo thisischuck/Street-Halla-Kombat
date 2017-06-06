@@ -42,7 +42,7 @@ namespace SHK
         Rectangle fightRect;
         Vector2 fightPosition;
 
-
+        public bool end = false;
 
         GameTimer timer;
         TimerUI timUI;
@@ -136,10 +136,12 @@ namespace SHK
             if (player1.playerHealth <= 0)
             {
                 Console.WriteLine("Player2 Wins");
+                end = true;
             }
             else if (player2.playerHealth <= 0)
             {
                 Console.WriteLine("Player1 Wins");
+                end = true;
             }
         }
 

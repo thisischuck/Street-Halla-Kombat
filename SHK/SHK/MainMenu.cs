@@ -16,7 +16,7 @@ namespace SHK
         enum GameState { Menu, MapSelect ,inGame, Paused }
         GameState gameState;// ainda por verificar se ta direito
         Duel a;
-        
+        private bool loaded;
         Game game;
         #region PlayerStuff
         Character c;
@@ -93,6 +93,13 @@ namespace SHK
                 case GameState.Paused:
                     break;
             }
+            if (loaded)
+            {
+                if (a.end)
+                {
+                    gameState = GameState.Menu;
+                }
+            }
         }
 
         public void Draw()
@@ -139,11 +146,13 @@ namespace SHK
             {
                 if (MapaMountain())
                 {
+                    loaded = true;
                      a = new Duel("map1");
                     gameState = GameState.inGame;
                 }
                 else if (MapaDesert())
                 {
+                    loaded = true;
                     a = new Duel("map2");
                     gameState = GameState.inGame;
                 }
