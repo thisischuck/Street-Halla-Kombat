@@ -150,7 +150,8 @@ namespace SHK
             cLKick,
             cMKick,
             cHKick,
-            StunnedCrouched
+            StunnedCrouched,
+            DeadFinal
         }
 
         private CharState mCurrentCharState;
@@ -570,6 +571,10 @@ namespace SHK
 
             movementKeyHistory.TrimExcess();
 
+            if (mCurrentCharState == CharState.Dead && SpriteCurrentColumn == SpriteEndColumn)
+            {
+                mCurrentCharState = CharState.DeadFinal;
+            }
             
             foreach (var hadouken in listHadouken)
             {
@@ -678,6 +683,9 @@ namespace SHK
                         break;
                     case CharState.Dead:
                         SetSpriteAnimation(31, 0, 31, 9, 3);
+                        break;
+                    case CharState.DeadFinal:
+                        SetSpriteAnimation(31, 9, 31, 9, 3);
                         break;
                     case CharState.Stunned:
                         SetSpriteAnimation(29, 0, 29, 3, 3);
