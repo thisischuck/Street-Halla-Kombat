@@ -156,7 +156,7 @@ namespace SHK
 
         private CharState mCurrentCharState;
         private CharState mPreviousCharState;
-
+        
 
         private void SetKeys()
         {
@@ -586,8 +586,11 @@ namespace SHK
                 }
             }
 
-
-            
+            if (hurtbox.Y > 1000)
+            {
+                gotHit = true;
+                playerHealth -= 2;
+            }
 
             base.Update();
         }
@@ -728,13 +731,13 @@ namespace SHK
                 }
             }
 
-            if (hurtbox.X + 100 < Camera.CameraWindowLowerLeftPosition.X)
+            if (hurtbox.X < Camera.CameraWindowLowerLeftPosition.X)
             {
-                //mPosition.X = 2000;
+                mPosition.X = mSize.X;
             }
-            else if (hurtbox.X > Camera.CameraWindowUpperRightPosition.X)
+            else if (hurtbox.X + hurtbox.Width > Camera.CameraWindowUpperRightPosition.X)
             {
-                mPosition.X =  0 - mSize.X/2;
+                mPosition.X = 2650;
             }
 
         }
