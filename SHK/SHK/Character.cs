@@ -727,6 +727,7 @@ namespace SHK
             {
                 if (inimigoAttackList.hitbox.Y + inimigoAttackList.hitbox.Height >= hurtbox.Y && inimigoAttackList.hitbox.Y <= hurtbox.Y + hurtbox.Height)
                 {
+                    Game1.sAudio.PlaySoundEffectRandomPitch(Game1.PunchHit, 0.5f);
                     gotHit = true;
                     stunned = true;
                     invulFrames = 0;

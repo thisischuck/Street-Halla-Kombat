@@ -35,8 +35,8 @@ namespace SHK
         #endregion
 
 
-        SoundEffect PunchMiss;
-        SoundEffect PunchHit;
+        static public SoundEffect PunchMiss;
+        static public SoundEffect PunchHit;
 
         MainMenu main;
 
