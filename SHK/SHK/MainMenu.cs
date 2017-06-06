@@ -93,11 +93,11 @@ namespace SHK
                 case GameState.Paused:
                     break;
             }
-            if (loaded)
+            if(loaded)
             {
-                if (a.end)
+                if(a.matchEnd == true)
                 {
-                    gameState = GameState.Menu;
+
                 }
             }
         }

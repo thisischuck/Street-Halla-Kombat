@@ -12,7 +12,7 @@ namespace SHK
 {
     class Duel 
     {
-        enum GameState { Waiting, Playable }
+        enum GameState { Waiting, Playable, MatchEnded }
         GameState gameState;
 
         static Vector2 charS = new Vector2(300, 300);
@@ -20,13 +20,15 @@ namespace SHK
         public Character player1;
         public AttackList attacksPlayer1;
         static Vector2 charP = new Vector2(0, 0);
+        int scoreP1 = 0;
 
         //---------------------------------------------------
 
         public Character player2;
         public AttackList attacksPlayer2;
         static Vector2 char2P = new Vector2(0, 0);
-        
+        int scoreP2 = 0;
+
         //---------------------------------------------------
 
         private Map mapa;
@@ -43,8 +45,8 @@ namespace SHK
         Vector2 fightPosition;
 
         public bool end = false;
+        public bool matchEnd = false;
 
-        GameTimer timer;
         TimerUI timUI;
             
         public Duel(string mapaEscolhido)
@@ -61,8 +63,6 @@ namespace SHK
             /*timer = new GameTimer(180.0f);
             timer.Font = Game1.sContent.Load<SpriteFont>("Arial");
             timer.Position = new Vector2((Game1.mGraphics.PreferredBackBufferWidth / 2) - timer.Font.MeasureString(timer.Text).X / 2, 0);*/
-
-
 
             if (nomeMapa.Equals("map1"))
             {
@@ -101,7 +101,8 @@ namespace SHK
                     player1.Update();
                     player2.Update();
                     Check4Damage();
-
+                    break;
+                case GameState.MatchEnded:
                     break;
             }
         }
@@ -120,6 +121,8 @@ namespace SHK
                     Game1.sSpriteBatch.Draw(fight, fightPosition, fightRect, Color.White);
                     break;
                 case GameState.Playable:
+                    break;
+                case GameState.MatchEnded:
                     break;
             }
         }
@@ -143,13 +146,16 @@ namespace SHK
             if (player1.playerHealth <= 0)
             {
                 Console.WriteLine("Player2 Wins");
+                scoreP2++;
                 end = true;
             }
             else if (player2.playerHealth <= 0)
             {
                 Console.WriteLine("Player1 Wins");
+                scoreP1++;
                 end = true;
             }
+            ScoreCheck();
         }
 
         public void Event()
@@ -157,6 +163,20 @@ namespace SHK
             if(Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 gameState = GameState.Playable;
+            }
+        }
+
+        public void ScoreCheck()
+        {
+            if (scoreP1 == 2)
+            {
+                //
+                matchEnd = true;
+            }
+            else if (scoreP2 == 2)
+            {
+                //
+                matchEnd = true;
             }
         }
     }
