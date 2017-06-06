@@ -693,9 +693,14 @@ namespace SHK
         {
             if (movementKeyHistory.Dequeue() == down)
             {
-                if (movementKeyHistory.Dequeue() == left || movementKeyHistory.Dequeue() == right)
+                if (movementKeyHistory.Dequeue() == down)
                 {
-                    return true;
+                    Keys a = movementKeyHistory.Dequeue();
+                    if (a == left || a == right)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
                 return false;
             }
