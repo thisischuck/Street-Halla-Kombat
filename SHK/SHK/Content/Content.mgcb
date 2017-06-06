@@ -37,3 +37,27 @@
 /processorParam:Quality=Best
 /build:PunchMiss.mp3
 
+#begin Hadouken.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Hadouken.mp3
+
+#begin Linkin Park - Given Up.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Linkin Park - Given Up.mp3
+
+#begin The Offspring - You're Gonna Go Far, Kid.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:The Offspring - You're Gonna Go Far, Kid.mp3
+
+#begin Mötley Crüe - Kickstart My Heart.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Mötley Crüe - Kickstart My Heart.mp3
+

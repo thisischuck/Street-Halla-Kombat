@@ -17,7 +17,7 @@ namespace SHK
         GameState gameState;// ainda por verificar se ta direito
         Duel a;
         private bool loaded;
-        Game game;
+      public  Game1 game;
         #region PlayerStuff
         Character c;
         static Vector2 cPosition = new Vector2(1200, 100);
@@ -137,10 +137,10 @@ namespace SHK
                 c.mSize = new Vector2(600, 600);
                 platPosition = new Vector2(700, 50);
                 }
-                if( AtivaExit())
-                {   
-                 //game.Exit(); nao funciona
-                }
+               // if( AtivaExit())
+               // {   
+                 //game.Exit(); //nao funciona
+                //}
             }
             else if (gameState == GameState.MapSelect)
             {

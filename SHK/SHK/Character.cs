@@ -784,12 +784,13 @@ namespace SHK
 
         public void Hadouken()
         {
+            Game1.sAudio.PlaySoundEffect(Game1.Hadouken, 0.5f);
             int pos = 0;
             if (effect.Equals(SpriteEffects.FlipHorizontally))
                 pos = -250;
             Console.WriteLine(effect);
             hasFired = true;
-            Vector2 positionH = new Vector2(mPosition.X + pos, mPosition.Y+145);
+            Vector2 positionH = new Vector2(mPosition.X + pos, mPosition.Y + 95);
             Vector2 sizeH = new Vector2(100,100);//\\
             string hadouken = "";
             if (playerNumber == 2)

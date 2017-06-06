@@ -17,7 +17,7 @@ namespace SHK
 
         public void PlayRandomSong(List<Song> lista)
         {
-            int randomSong = rnd.Next(0, 2); //min <= rnd < max
+            int randomSong = rnd.Next(0, lista.Count - 1); //min <= rnd < max
             MediaPlayer.Volume = songVolume;
             song = lista[randomSong];
             MediaPlayer.Play(song);

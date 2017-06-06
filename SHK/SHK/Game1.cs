@@ -37,6 +37,7 @@ namespace SHK
 
         static public SoundEffect PunchMiss;
         static public SoundEffect PunchHit;
+        static public SoundEffect Hadouken;
 
         MainMenu main;
 
@@ -89,6 +90,10 @@ namespace SHK
             */
             listaMusicas.Add(sContent.Load<Song>("Metallica - Master Of Puppets"));
             listaMusicas.Add(sContent.Load<Song>("Motörhead - King of Kings (Triple H)"));
+            listaMusicas.Add(sContent.Load<Song>("Linkin Park - Given Up"));
+            listaMusicas.Add(sContent.Load<Song>("Mötley Crüe - Kickstart My Heart"));
+            listaMusicas.Add(sContent.Load<Song>("The Offspring - You're Gonna Go Far, Kid"));
+            sAudio.PlayRandomSong(listaMusicas);
 
 
 
@@ -97,6 +102,7 @@ namespace SHK
             */
             PunchHit = sContent.Load<SoundEffect>("PunchHit");
             PunchMiss = sContent.Load<SoundEffect>("PunchMiss");
+            Hadouken = sContent.Load<SoundEffect>("Hadouken");
             #endregion
 
             //a = new Duel();
@@ -130,6 +136,12 @@ namespace SHK
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (MediaPlayer.State != MediaState.Playing && MediaPlayer.PlayPosition.TotalSeconds == 0.0f)
+            {
+                sAudio.PlayRandomSong(listaMusicas);
+            }
+            if (main.AtivaExit())
+                this.Exit();
             // TODO: Add your update logic here
             main.Update();
             base.Update(gameTime);

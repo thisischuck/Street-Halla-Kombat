@@ -23,7 +23,7 @@ namespace SHK
             this.size = size;
             this.effects = effect;
             this.speed = 20;
-            this.damage = 20;
+            this.damage = 12;
 
             Vector2 a = new Vector2(mPosition.X, mPosition.Y);
             Vector2 b = new Vector2(mSize.X, mSize.Y);
@@ -42,18 +42,18 @@ namespace SHK
 
         public override void Update()
         {
-            Vector2 a = new Vector2(mPosition.X - mSize.X / 2, mPosition.Y + mSize.Y / 2 - 40);
+            Vector2 a = new Vector2(mPosition.X - mSize.X / 3, mPosition.Y + 45);
             //Vector2 a = new Vector2(mPosition.X, mPosition.Y);
-            Vector2 b = new Vector2(mSize.X / 2 - 65, mSize.Y - mSize.Y / 3);
+            Vector2 b = new Vector2(100, 100);
             hitbox = Camera.ComputePixelRectangle(a, b);
             base.Update();
         }
 
 
-        public override void Draw()
+        /*public override void Draw()
         {
             base.Draw();
             Game1.sSpriteBatch.Draw(a_text, hitbox, Color.White);
-        }
+        }*/
     }
 }
