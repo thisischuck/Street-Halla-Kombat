@@ -10,12 +10,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SHK
 {
-    class MainMenu
+    class MainMenu : Game
     {
 
         enum GameState { Menu, MapSelect ,inGame, Paused }
         GameState gameState;// ainda por verificar se ta direito
-        private Game b = new Game();
         Duel a;
 
         #region PlayerStuff
@@ -149,11 +148,10 @@ namespace SHK
                  // play the game
                  Console.WriteLine("Switch");
                  gameState = GameState.MapSelect;
-                
                 }
                 if( AtivaExit())
                 {   
-                 //Game1.Quit();// nao funciona
+                    //this.Exit();
                 }
             }
             else if (gameState == GameState.MapSelect)

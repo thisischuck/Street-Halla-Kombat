@@ -35,6 +35,7 @@ namespace SHK
 
         private bool hadoukenPlay;
         public bool gotHit;
+        public SpriteEffects effect;
 
         public Character(string imageName, Vector2 cposition, Vector2 csize, int row, int col, int padding, int player,
             SpriteEffects effect, bool ai, List<Plataforma> mapa, AttackList attacks) : base(imageName, cposition,
@@ -72,6 +73,7 @@ namespace SHK
             comboDelay = 50;
             invulFrames = 60;
             listHadouken = new List<Projectil>();
+            this.effect = effect;
         }
 
         public Character(string imageName, Vector2 cposition, Vector2 csize, List<Plataforma> mapa) : base(imageName, cposition,
@@ -109,6 +111,7 @@ namespace SHK
             listHadouken = new List<Projectil>();
             inimigoAttackList = new AttackList();
             hInimigo = new List<Projectil>();
+            this.effect = SpriteEffects.None;
         }
 
         public void SetInimigo(AttackList inimigo, List<Projectil> hInimigo)
@@ -139,6 +142,8 @@ namespace SHK
             HKickAir,
             Hadouken,
             Crouch,
+            Crouching,
+            Falling,
             cLPunch,
             cMPunch,
             cHPunch,
@@ -192,18 +197,27 @@ namespace SHK
 
         public override void Update()
         {
-            
+            effect = SpriteEffects;   
             gotHit = false;
-            Vector2 a = new Vector2(mPosition.X - mSize.X / 2 , mPosition.Y + mSize.Y / 2 - 40);
-            //Vector2 a = new Vector2(mPosition.X, mPosition.Y);
-            Vector2 b = new Vector2(mSize.X / 2 - 65, mSize.Y - mSize.Y / 3);
-            hurtbox = Camera.ComputePixelRectangle(a, b);
-            
-            a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hurtbox.Width, hurtbox.Height);
+
+            if(isCrouched)
+            {
+                Vector2 a = new Vector2(mPosition.X - mSize.X / 2, mPosition.Y + mSize.Y / 2 - 100);
+                Vector2 b = new Vector2(mSize.X / 2 - 65, mSize.Y / 2);
+                hurtbox = Camera.ComputePixelRectangle(a, b);
+            }
+            else
+            {
+                Vector2 a = new Vector2(mPosition.X - mSize.X / 2, mPosition.Y + mSize.Y / 2 - 40);
+                Vector2 b = new Vector2(mSize.X / 2 - 65, mSize.Y - mSize.Y / 3);
+                hurtbox = Camera.ComputePixelRectangle(a, b);
+            }
+
+            /*a_text = new Texture2D(Game1.mGraphics.GraphicsDevice, hurtbox.Width, hurtbox.Height);
 
             Color[] data = new Color[hurtbox.Width * hurtbox.Height];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Chocolate;
-            a_text.SetData(data);
+            a_text.SetData(data);*/
 
             airJumpCounter++;
             if (hasHadouken)
@@ -260,7 +274,7 @@ namespace SHK
                         isCrouched = false;
                     if (Keyboard.GetState().IsKeyDown(down))
                     {
-                        mCurrentCharState = CharState.Crouch;
+                        mCurrentCharState = CharState.Crouching;
                         isCrouched = true;
                         animationPlay = false;
                     }
@@ -501,6 +515,11 @@ namespace SHK
                 hasFired = false;
                 isAttacking = false;
                 attacks.endAttack = true;
+
+                if(isCrouched)
+                    mCurrentCharState = CharState.Crouch;
+                if (!isGrounded)
+                    mCurrentCharState = CharState.Falling;
             }
 
             CollisionMovement();
@@ -548,7 +567,7 @@ namespace SHK
                         SetSpriteAnimation(3, 0, 3, 5, 4);
                         break;
                     case CharState.Crouch:
-                        SetSpriteAnimation(2, 0, 2, 2, 3);
+                        SetSpriteAnimation(2, 2, 2, 2, 3);
                         break;
 
                     //LIGHTS---------------------------------------------------------
@@ -620,6 +639,12 @@ namespace SHK
                         break;
                     case CharState.Stunned:
                         SetSpriteAnimation(0, 0, 0, 0, 3);
+                        break;
+                    case CharState.Crouching:
+                        SetSpriteAnimation(2, 0, 2, 2, 3);
+                        break;
+                    case CharState.Falling:
+                        SetSpriteAnimation(1, 9, 1, 9, 2);
                         break;
 
                 }
@@ -711,8 +736,12 @@ namespace SHK
 
         public void Hadouken()
         {
+            int pos = 0;
+            if (effect.Equals(SpriteEffects.FlipHorizontally))
+                pos = -250;
+            Console.WriteLine(effect);
             hasFired = true;
-            Vector2 positionH = new Vector2(mPosition.X, mPosition.Y);
+            Vector2 positionH = new Vector2(mPosition.X + pos, mPosition.Y+145);
             Vector2 sizeH = new Vector2(100,100);//\\
             string hadouken = "";
             if (playerNumber == 2)
@@ -727,22 +756,6 @@ namespace SHK
             Projectil aux = new Projectil(hadouken, positionH, sizeH, 1, 1, this.SpriteEffects);
             listHadouken.Add(aux);
             hadoukenPlay = true;
-            
-
-            /*public void Hadouken(Vector2 position, SpriteEffects spriteffects)
-            {
-                delay = Game1.gameTime.TotalGameTime;
-                int pos = -95;
-                if (spriteffects.Equals(SpriteEffects.FlipHorizontally))
-                    pos = -205;
-                damage = 5;
-                endAttack = false;
-                attackDuration = 1000;
-
-                sizeHitbox = new Vector2(500, 500);
-                positionHitbox = new Vector2((position.X + pos), (position.Y + 100f));
-                SetDrawHitbox(positionHitbox, sizeHitbox, true);
-            }*/
 
         }
 
@@ -905,9 +918,10 @@ namespace SHK
 
                     //HARD---------------------------------------------------------
                     case CharState.Hadouken:
-                        if (SpriteCurrentColumn == 6)
-                            if(!hasFired)
-                            { Hadouken(); }
+                       if (SpriteCurrentColumn == 6)
+                            Hadouken();
+                            /*if(!hasFired)
+                            { Hadouken(); }*/
    
                         break;
                 }
@@ -923,7 +937,7 @@ namespace SHK
                 hadouken.Draw();
             }
 
-           // Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
+            //Game1.sSpriteBatch.Draw(a_text, hurtbox, Color.White);
             base.Draw();
         }
 
