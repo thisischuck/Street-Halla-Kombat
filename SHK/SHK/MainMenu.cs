@@ -10,12 +10,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace SHK
 {
-    class MainMenu
+    class MainMenu : Game
     {
 
         enum GameState { Menu, MapSelect ,inGame, Paused }
         GameState gameState;// ainda por verificar se ta direito
-        private Game b = new Game();
         Duel a;
         
         Game game;

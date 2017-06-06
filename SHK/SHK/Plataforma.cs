@@ -33,7 +33,7 @@ namespace SHK
 
         public void Draw()
         {
-            Game1.sSpriteBatch.Draw(a_text,rect,Color.White);
+           Game1.sSpriteBatch.Draw(a_text,rect,Color.White);
         }
     }
 }
