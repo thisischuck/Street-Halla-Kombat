@@ -677,10 +677,13 @@ namespace SHK
                         SetSpriteAnimation(26, 0, 26, 13, 3);
                         break;
                     case CharState.Dead:
-                        SetSpriteAnimation(0, 0, 0, 0, 3);
+                        SetSpriteAnimation(31, 0, 31, 9, 3);
                         break;
                     case CharState.Stunned:
-                        SetSpriteAnimation(0, 0, 0, 0, 3);
+                        SetSpriteAnimation(29, 0, 29, 3, 3);
+                        break;
+                    case CharState.StunnedCrouched:
+                        SetSpriteAnimation(30, 0, 30, 3, 3);
                         break;
                     case CharState.Crouching:
                         SetSpriteAnimation(2, 0, 2, 2, 3);
