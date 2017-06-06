@@ -101,7 +101,6 @@ namespace SHK
                     player1.Update();
                     player2.Update();
                     Check4Damage();
-                    //timer.Update();
 
                     break;
             }
@@ -110,7 +109,6 @@ namespace SHK
         public void Draw()
         {
             mapa.Draw();
-            timer.Draw(Game1.sSpriteBatch);
             player1.Draw();
             player2.Draw();
             attacksPlayer1.Draw();

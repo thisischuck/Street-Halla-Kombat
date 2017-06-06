@@ -967,9 +967,8 @@ namespace SHK
                     //HARD---------------------------------------------------------
                     case CharState.Hadouken:
                        if (SpriteCurrentColumn == 6)
-                            Hadouken();
-                            /*if(!hasFired)
-                            { Hadouken(); }*/
+                            if(!hasFired)
+                            { Hadouken(); }
    
                         break;
                 }
