@@ -17,19 +17,22 @@ namespace SHK
 
         static Vector2 charS = new Vector2(300, 300);
 
+        //--------------------------------------------------PLAYER1
+
         public Character player1;
         public AttackList attacksPlayer1;
         static Vector2 charP = new Vector2(0, 0);
         int scoreP1 = 0;
 
-        //---------------------------------------------------
+        //---------------------------------------------------PLAYER2
 
         public Character player2;
         public AttackList attacksPlayer2;
         static Vector2 char2P = new Vector2(0, 0);
         int scoreP2 = 0;
+        bool player1win= false, player2win = false;
 
-        //---------------------------------------------------
+        //---------------------------------------------------MAP STUFF
 
         private Map mapa;
         private string nomeMapa;
@@ -44,6 +47,14 @@ namespace SHK
         Rectangle fightRect;
         Vector2 fightPosition;
 
+
+        //--------------------------------------------------WIN DISPLAYER
+
+        Texture2D win1;
+        Texture2D win2;
+        Vector2 winPosition;
+        Rectangle win1Rect, win2Rect;
+        
         public bool end = false;
         public bool matchEnd = false;
 
@@ -55,6 +66,15 @@ namespace SHK
             fightRect = new Rectangle(fight.Bounds.X, fight.Bounds.Y, fight.Width + 416, fight.Height);
             fightPosition = new Vector2(Game1.mGraphics.PreferredBackBufferWidth / 2 - fight.Width / 2, Game1.mGraphics.PreferredBackBufferHeight / 2 - fight.Height / 2);
 
+            ///////////////////////////////////////////////////
+
+            win1 = Game1.sContent.Load<Texture2D>("P1WIN");
+            win1Rect = new Rectangle(win1.Bounds.X, win1.Bounds.Y, win1.Width, win1.Height);
+            win2 = Game1.sContent.Load<Texture2D>("P2WIN");
+            win2Rect = new Rectangle(win2.Bounds.X, win2.Bounds.Y, win2.Width, win2.Height);
+            winPosition = new Vector2(Game1.mGraphics.PreferredBackBufferWidth / 2 - win2.Width / 2, Game1.mGraphics.PreferredBackBufferHeight / 2 - win2.Height / 2);
+
+            //////////////////////////////////////////////////
             this.nomeMapa = mapaEscolhido;
             mapa = new Map(mapaSize,mapaPosition,nomeMapa);
 
@@ -121,7 +141,16 @@ namespace SHK
                     Game1.sSpriteBatch.Draw(fight, fightPosition, fightRect, Color.White);
                     break;
                 case GameState.Playable:
+                    if(player1win)
+                    {
+                        Game1.sSpriteBatch.Draw(win1, winPosition, win1Rect, Color.White);
+                    }
+                    else if(player2win)
+                    {
+                        Game1.sSpriteBatch.Draw(win2, winPosition, win2Rect, Color.White);
+                    }
                     break;
+
                 case GameState.MatchEnded:
                     break;
             }
@@ -145,13 +174,13 @@ namespace SHK
 
             if (player1.playerHealth <= 0)
             {
-                Console.WriteLine("Player2 Wins");
+                player2win = true;
                 scoreP2++;
                 end = true;
             }
             else if (player2.playerHealth <= 0)
             {
-                Console.WriteLine("Player1 Wins");
+                player1win = true;
                 scoreP1++;
                 end = true;
             }
