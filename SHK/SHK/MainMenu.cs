@@ -17,7 +17,7 @@ namespace SHK
         GameState gameState;// ainda por verificar se ta direito
         Duel a;
         private bool loaded;
-      public  Game1 game;
+
         #region PlayerStuff
         Character c;
         static Vector2 cPosition = new Vector2(1200, 100);
